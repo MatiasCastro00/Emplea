@@ -42,8 +42,6 @@ La UI ahora soporta:
 - registro con email y contraseña
 - login con email y contraseña
 - login social con Google
-- login social con Facebook
-- login social con LinkedIn
 
 ### 4.1 URL Configuration
 
@@ -67,22 +65,6 @@ En `Authentication > Providers > Google`:
 - habilita `Google`
 - crea las credenciales OAuth en Google Cloud
 - copia en Google el callback que te muestra Supabase en esa misma pantalla
-- pega en Supabase el `Client ID` y `Client Secret`
-
-### 4.4 Facebook
-
-En `Authentication > Providers > Facebook`:
-- habilita `Facebook`
-- crea una app en Meta for Developers
-- copia en Meta el callback que te muestra Supabase
-- pega en Supabase el `App ID` y `App Secret`
-
-### 4.5 LinkedIn
-
-En `Authentication > Providers > LinkedIn (OIDC)`:
-- habilita `LinkedIn`
-- crea una app en LinkedIn Developer
-- usa el callback que te muestra Supabase
 - pega en Supabase el `Client ID` y `Client Secret`
 
 ## 5. Probar el flujo

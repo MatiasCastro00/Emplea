@@ -82,6 +82,10 @@ body {
   min-height: 100vh;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 body.modal-open {
   overflow: hidden;
 }
@@ -327,8 +331,8 @@ html.dark-theme .desktop-sidebar__reveal {
 
 .auth-open-button,
 .auth-signout-button {
-  min-height: 42px;
-  padding-inline: 16px;
+  min-height: 38px;
+  padding-inline: 14px;
   white-space: nowrap;
 }
 
@@ -1735,7 +1739,7 @@ html.dark-theme .auth-mode-switch {
 }
 
 .auth-mode-switch__button {
-  min-height: 46px;
+  min-height: 42px;
   border: 0;
   border-radius: 16px;
   background: transparent;
@@ -1762,9 +1766,10 @@ html.dark-theme .auth-mode-switch__button.is-active {
 .auth-social-button {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-height: 54px;
-  padding: 0 18px;
+  justify-content: flex-start;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 14px;
   border: 1px solid rgba(195, 198, 214, 0.5);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.86);
@@ -1788,6 +1793,36 @@ html.dark-theme .auth-mode-switch__button.is-active {
   background: linear-gradient(180deg, rgba(232, 245, 255, 0.96), rgba(240, 249, 255, 0.96));
 }
 
+.auth-social-button__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.16);
+}
+
+.auth-social-button__icon svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.auth-social-button__icon--facebook {
+  color: #1877f2;
+}
+
+.auth-social-button__icon--linkedin {
+  color: #0a66c2;
+}
+
+.auth-social-button__label {
+  flex: 1 1 auto;
+  text-align: left;
+}
+
 html.dark-theme .auth-social-button {
   background: rgba(16, 24, 40, 0.88);
   border-color: rgba(96, 165, 250, 0.12);
@@ -1802,6 +1837,11 @@ html.dark-theme .auth-social-button:hover {
 html.dark-theme .auth-social-button--facebook,
 html.dark-theme .auth-social-button--linkedin {
   background: rgba(13, 27, 47, 0.92);
+}
+
+html.dark-theme .auth-social-button__icon {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.12);
 }
 
 .auth-divider {

@@ -51,17 +51,17 @@
             <span class="material-symbols-outlined">description</span>
             <span>Solicitudes</span>
           </a>
-          <a class="nav-item" href="#chat">
+          <a class="nav-item" href="#chat" data-auth-required="true">
             <span class="material-symbols-outlined">chat</span>
             <span>Mensajes</span>
           </a>
-          <a class="nav-item" href="#perfil">
+          <a class="nav-item" href="#perfil" data-auth-required="true">
             <span class="material-symbols-outlined">person</span>
             <span>Perfil</span>
           </a>
         </nav>
 
-        <a class="desktop-sidebar__cta" href="#crear">
+        <a class="desktop-sidebar__cta" href="#crear" data-auth-required="true">
           <span class="material-symbols-outlined">add_circle</span>
           <span>Publicar solicitud</span>
         </a>
@@ -162,7 +162,7 @@
             </header>
 
             <section class="home-actions-grid" aria-label="Acciones rápidas">
-              <a class="home-action-card home-action-primary" href="#crear">
+              <a class="home-action-card home-action-primary" href="#crear" data-auth-required="true">
                 <div class="home-action-icon">
                   <span class="material-symbols-outlined">assignment_add</span>
                 </div>
@@ -268,7 +268,7 @@
               </p>
               <div class="hero-actions">
                 <a class="button button-primary" href="#explorar">Explorar oficios</a>
-                <a class="button button-secondary" href="#crear">Crear solicitud</a>
+                <a class="button button-secondary" href="#crear" data-auth-required="true">Crear solicitud</a>
               </div>
               <div class="hero-metrics">
                 <div class="metric-card">
@@ -311,7 +311,7 @@
               <p class="section-kicker">Explorar</p>
               <h3>Oficios destacados y perfiles curados</h3>
             </div>
-            <a href="#perfil" class="text-link">Ver perfil destacado</a>
+            <a href="#perfil" class="text-link" data-auth-required="true">Ver perfil destacado</a>
           </div>
 
           <div class="search-strip">
@@ -668,7 +668,7 @@
                 Publica tu solicitud y recibe presupuestos de profesionales verificados en minutos.
               </p>
             </div>
-            <a href="#crear" class="button button-secondary requests-cta">Crear mi solicitud</a>
+            <a href="#crear" class="button button-secondary requests-cta" data-auth-required="true">Crear mi solicitud</a>
           </div>
 
           <div class="section-heading">
@@ -1530,7 +1530,7 @@
               <p class="section-kicker">Cuenta ConectaPro</p>
               <h4 id="auth-modal-heading">Accede para publicar, chatear y gestionar tus trabajos.</h4>
               <p id="auth-modal-copy">
-                Puedes entrar con email o continuar con Google, Facebook o LinkedIn.
+                Puedes entrar con email o continuar con Google.
               </p>
             </div>
 
@@ -1545,13 +1545,15 @@
 
             <div class="auth-social-grid">
               <button class="auth-social-button" type="button" data-auth-provider="google">
+                <span class="auth-social-button__icon auth-social-button__icon--google" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path fill="#EA4335" d="M12 10.2v3.9h5.5c-.2 1.3-1.5 3.9-5.5 3.9-3.3 0-6-2.8-6-6.1s2.7-6.1 6-6.1c1.9 0 3.1.8 3.9 1.5l2.7-2.6C16.9 3.1 14.7 2 12 2 6.5 2 2 6.5 2 12s4.5 10 10 10c5.8 0 9.7-4.1 9.7-9.9 0-.7-.1-1.2-.2-1.9H12z"/>
+                    <path fill="#34A853" d="M2 12c0 1.6.4 3.1 1.2 4.4l3.6-2.8c-.2-.5-.3-1-.3-1.6s.1-1.1.3-1.6L3.2 7.6C2.4 8.9 2 10.4 2 12z"/>
+                    <path fill="#4A90E2" d="M12 22c2.7 0 4.9-.9 6.5-2.5l-3.2-2.6c-.9.6-2 .9-3.3.9-2.5 0-4.7-1.7-5.4-4l-3.6 2.8C4.7 19.9 8.1 22 12 22z"/>
+                    <path fill="#FBBC05" d="M6.6 13.8c-.2-.5-.3-1.2-.3-1.8s.1-1.2.3-1.8L3 7.6C2.4 8.9 2 10.4 2 12s.4 3.1 1 4.4l3.6-2.6z"/>
+                  </svg>
+                </span>
                 <span class="auth-social-button__label">Continuar con Google</span>
-              </button>
-              <button class="auth-social-button auth-social-button--facebook" type="button" data-auth-provider="facebook">
-                <span class="auth-social-button__label">Continuar con Facebook</span>
-              </button>
-              <button class="auth-social-button auth-social-button--linkedin" type="button" data-auth-provider="linkedin_oidc">
-                <span class="auth-social-button__label">Continuar con LinkedIn</span>
               </button>
             </div>
 
@@ -1598,11 +1600,11 @@
           <span class="material-symbols-outlined">description</span>
           <span>Solicitudes</span>
         </a>
-        <a class="nav-item" href="#chat">
+        <a class="nav-item" href="#chat" data-auth-required="true">
           <span class="material-symbols-outlined">chat</span>
           <span>Chat</span>
         </a>
-        <a class="nav-item" href="#perfil">
+        <a class="nav-item" href="#perfil" data-auth-required="true">
           <span class="material-symbols-outlined">person</span>
           <span>Perfil</span>
         </a>
@@ -1643,11 +1645,10 @@
         pintura: 'Pintura',
         carpinteria: 'Carpintería',
       };
+      const authRestrictedScreenIds = new Set(['chat', 'perfil', 'crear']);
       const authProviderLabels = {
         email: 'Email',
         google: 'Google',
-        facebook: 'Facebook',
-        linkedin_oidc: 'LinkedIn',
       };
       const defaultUserAvatar = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDCLvKIfWDWrDiu5zCx40vXT8MhSvoJPG0XLzL19otSyHw05-t-6I-8S-zG_AAJMrVRFdXmZWaeucU9I2SYGU9V8-AuA9tDcQV0b9IskyYHxHz73PoVkWhIrmg3vU06Qovw6o4DgF19QxFXnaF2FYSyypVm9XWV-rkbkvYSkVo3SIA7JDN_zop5pOlEcO0HBmw_9oxa4yzE_nNefClMFH6_LOvtaZcX34RoLDc3L5O-Wnb-KiDO4AtXHnjUaFTTDfcs9DploQZNY4g';
       const requestCardFallbackImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuBA86igS3vaH05Ge8bVgcagc_dtitQXQ5muN1Rq8-tzJSJnK4Os5uTTrNkkUZfX_rq34YcK7QMNh-T28ooQdkmMNOXWNwh-Ny_LCnkmohL1_J90hMYFUIv2ZvM5nnLS15AQ6kZl0CiWb2ADcXX5qmsk4k8A_lr-LkAzi-wH54UIfA1Hbm9j9faghXiWhepT9ltL0cUvA5rCMuFlXGjEOC0mOByltZBDGvEfIa4AB2gJveZ_7Izo4XygNtxeZnDn7X7590sBOEs7pCo';
@@ -1655,6 +1656,7 @@
       let currentAuthSession = null;
       let currentAuthProfile = null;
       let currentDisplayName = 'Invitado';
+      let openAuthModalGlobal = null;
       let lastNonCreateScreen = fallbackScreen;
 
       function normalizeText(value) {
@@ -1821,6 +1823,34 @@
         setStatusMessage(document.getElementById('requests-sync-status'), message, tone);
       }
 
+      function isAuthenticatedUser() {
+        return Boolean(currentAuthSession?.user);
+      }
+
+      function requiresAuthentication(screenId) {
+        return authRestrictedScreenIds.has(screenId);
+      }
+
+      function requestAuthentication(mode = 'login') {
+        if (typeof openAuthModalGlobal === 'function') {
+          openAuthModalGlobal(mode);
+        }
+      }
+
+      function getSafeScreenId(screenId) {
+        if (!requiresAuthentication(screenId) || isAuthenticatedUser()) {
+          return screenId;
+        }
+
+        return fallbackScreen;
+      }
+
+      function syncAuthRequiredVisibility(isAuthenticated) {
+        document.querySelectorAll('[data-auth-required="true"]').forEach((element) => {
+          element.hidden = !isAuthenticated;
+        });
+      }
+
       function getCurrentAuthRedirectUrl() {
         return `${window.location.origin}${window.location.pathname}`;
       }
@@ -1896,6 +1926,7 @@
         const providerLabel = isAuthenticated ? getProviderLabel(user) : '';
 
         currentDisplayName = displayName;
+        syncAuthRequiredVisibility(isAuthenticated);
 
         if (desktopUserChip) {
           desktopUserChip.hidden = !isAuthenticated;
@@ -2833,8 +2864,8 @@
             ? 'Crea tu cuenta para publicar trabajos y hablar con profesionales.'
             : 'Accede para publicar, chatear y gestionar tus trabajos.';
           authCopy.textContent = isRegister
-            ? 'Puedes registrarte con email o continuar con Google, Facebook o LinkedIn.'
-            : 'Ingresa con email o continúa con Google, Facebook o LinkedIn.';
+            ? 'Puedes registrarte con email o continuar con Google.'
+            : 'Ingresa con email o continúa con Google.';
           authSubmit.textContent = isRegister ? 'Crear cuenta con email' : 'Ingresar con email';
           authFullNameGroup.hidden = !isRegister;
           authConfirmPasswordGroup.hidden = !isRegister;
@@ -2859,6 +2890,8 @@
             openAuthModal('login');
           });
         });
+
+        openAuthModalGlobal = openAuthModal;
 
         authModeButtons.forEach((button) => {
           button.addEventListener('click', () => {
@@ -3444,7 +3477,8 @@
 
       function setActiveScreen(screenId) {
         const screenExists = screens.some((screen) => screen.id === screenId);
-        const targetId = screenExists ? screenId : fallbackScreen;
+        const rawTargetId = screenExists ? screenId : fallbackScreen;
+        const targetId = getSafeScreenId(rawTargetId);
 
         if (targetId !== 'crear') {
           lastNonCreateScreen = targetId;
@@ -3481,6 +3515,20 @@
       function syncFromHash() {
         const currentHash = window.location.hash.replace('#', '') || fallbackScreen;
 
+        if (requiresAuthentication(currentHash) && !isAuthenticatedUser()) {
+          if (createRequestModal && !createRequestModal.hidden) {
+            closeCreateRequestModal({ restoreHash: false });
+          }
+
+          if (window.location.hash) {
+            history.replaceState(null, '', `${window.location.pathname}${window.location.search}#${fallbackScreen}`);
+          }
+
+          setActiveScreen(fallbackScreen);
+          requestAuthentication('login');
+          return;
+        }
+
         if (currentHash === 'crear') {
           setActiveScreen(lastNonCreateScreen);
           openCreateRequestModal();
@@ -3495,6 +3543,15 @@
       }
 
       window.addEventListener('hashchange', syncFromHash);
+      document.addEventListener('click', (event) => {
+        const authTarget = event.target.closest('[data-auth-required="true"]');
+        if (!authTarget || isAuthenticatedUser()) {
+          return;
+        }
+
+        event.preventDefault();
+        requestAuthentication('login');
+      });
       themeToggleButtons.forEach((themeToggleButton) => {
         themeToggleButton.addEventListener('click', () => {
           const nextTheme = document.documentElement.classList.contains('dark-theme') ? 'light' : 'dark';
