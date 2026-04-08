@@ -2353,7 +2353,9 @@
             description: currentViewModel.description || 'Este usuario todavía no completó una presentación pública.',
             location: currentViewModel.location || request?.location || '',
             specialties: Array.isArray(currentViewModel.specialties) ? currentViewModel.specialties.slice(0, 4) : [],
-            gallery: Array.isArray(request?.gallery_urls) ? request.gallery_urls.filter(Boolean).slice(0, 3) : [],
+            gallery: Array.isArray(currentViewModel.portfolioImages)
+              ? currentViewModel.portfolioImages.map((item) => item?.src).filter(Boolean).slice(0, 3)
+              : [],
             rating: normalizeProfileRating(currentViewModel.rating, '5.0'),
             activityVisible: Boolean(currentViewModel.activityVisible),
             jobActivity: currentViewModel.jobActivity,
@@ -2370,7 +2372,7 @@
           description: profile?.bio || 'Este usuario todavía no completó una presentación pública.',
           location: profile?.city || request?.location || '',
           specialties: [],
-          gallery: Array.isArray(request?.gallery_urls) ? request.gallery_urls.filter(Boolean).slice(0, 3) : [],
+          gallery: [],
           rating: '5.0',
           activityVisible: false,
           jobActivity: normalizeJobActivity(null, String(profile?.full_name || request?.requester_name || 'Usuario')),

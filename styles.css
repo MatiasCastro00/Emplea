@@ -3010,13 +3010,16 @@ html.dark-theme .requests-hero p {
 
 .request-detail-modal__panel {
   gap: 24px;
-  padding-bottom: 160px;
+  padding: 0 20px 0;
 }
 
 .request-detail-header {
   display: flex;
   align-items: center;
   gap: 12px;
+  top: 0;
+  margin: 0 -20px;
+  padding: 20px 20px 10px;
 }
 
 .request-detail-header h3 {
@@ -3313,13 +3316,14 @@ html.dark-theme .requests-hero p {
 }
 
 .request-detail-bottom-bar {
-  position: fixed;
-  left: 0;
-  right: 0;
+  position: sticky;
+  left: auto;
+  right: auto;
   bottom: 0;
   z-index: 3;
   display: grid;
   gap: 12px;
+  margin: auto -20px 0;
   padding: 14px 20px calc(18px + env(safe-area-inset-bottom));
   background: var(--panel-bottom-bar);
   backdrop-filter: blur(20px);
