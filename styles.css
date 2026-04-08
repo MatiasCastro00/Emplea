@@ -3731,10 +3731,13 @@ html.dark-theme .requests-hero p {
 
 .chat-thread-list {
   display: grid;
+  grid-auto-rows: max-content;
   gap: 12px;
   min-width: 0;
   padding: 16px 18px 26px 18px;
   scrollbar-gutter: stable;
+  align-items: start;
+  align-content: start;
 }
 
 .chat-thread-card {
@@ -3744,6 +3747,9 @@ html.dark-theme .requests-hero p {
   gap: 14px;
   width: 100%;
   min-width: 0;
+  min-height: 96px;
+  height: auto;
+  align-self: start;
   padding: 16px;
   border: 0;
   border-radius: 28px;
