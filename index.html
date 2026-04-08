@@ -1000,13 +1000,13 @@
                 <input id="chat-search-input" type="text" placeholder="Buscar conversaciones..." />
               </label>
 
-              <p id="chat-sync-status" class="requests-sync-status" hidden aria-live="polite"></p>
-
               <div class="chat-filter-row" role="tablist" aria-label="Filtrar conversaciones">
                 <button class="chat-filter-chip is-selected" type="button" data-chat-filter="all">Todos</button>
                 <button class="chat-filter-chip" type="button" data-chat-filter="trabajos">Trabajos</button>
                 <button class="chat-filter-chip" type="button" data-chat-filter="directo">Directo</button>
               </div>
+
+              <p id="chat-sync-status" class="requests-sync-status" hidden aria-live="polite"></p>
 
               <div id="chat-thread-list" class="chat-thread-list">
                 <button
@@ -1618,21 +1618,49 @@
               </label>
               <label>
                 Categoría
-                <select id="profile-edit-category">
-                  <option value="plomeria">Plomería</option>
-                  <option value="electricidad">Electricidad</option>
-                  <option value="limpieza">Limpieza</option>
-                  <option value="albanileria">Albañilería</option>
-                  <option value="aire">Aire acondicionado</option>
-                  <option value="jardineria">Jardinería</option>
-                  <option value="pintura">Pintura</option>
-                  <option value="carpinteria">Carpintería</option>
-                  <option value="general">Otro</option>
-                </select>
+                <input id="profile-edit-category" type="hidden" value="general" />
+                <div class="profile-custom-select" data-profile-select-root="main-category">
+                  <button
+                    id="profile-edit-category-trigger"
+                    class="profile-custom-select__trigger"
+                    type="button"
+                    data-profile-select-trigger="main-category"
+                    aria-haspopup="listbox"
+                    aria-expanded="false"
+                  >
+                    <span id="profile-edit-category-label">Otro</span>
+                    <span class="material-symbols-outlined">expand_more</span>
+                  </button>
+                  <div
+                    id="profile-edit-category-menu"
+                    class="profile-custom-select__menu"
+                    data-profile-select-menu="main-category"
+                    role="listbox"
+                    hidden
+                  >
+                    <button type="button" class="profile-custom-select__option" data-profile-category-option="plomeria">Plomería</button>
+                    <button type="button" class="profile-custom-select__option" data-profile-category-option="electricidad">Electricidad</button>
+                    <button type="button" class="profile-custom-select__option" data-profile-category-option="limpieza">Limpieza</button>
+                    <button type="button" class="profile-custom-select__option" data-profile-category-option="albanileria">Albañilería</button>
+                    <button type="button" class="profile-custom-select__option" data-profile-category-option="aire">Aire acondicionado</button>
+                    <button type="button" class="profile-custom-select__option" data-profile-category-option="jardineria">Jardinería</button>
+                    <button type="button" class="profile-custom-select__option" data-profile-category-option="pintura">Pintura</button>
+                    <button type="button" class="profile-custom-select__option" data-profile-category-option="carpinteria">Carpintería</button>
+                    <button type="button" class="profile-custom-select__option" data-profile-category-option="general">Otro</button>
+                  </div>
+                </div>
               </label>
               <label>
                 Especialidades
-                <input id="profile-edit-specialties" type="text" placeholder="Separadas por coma" />
+                <div class="profile-specialty-editor">
+                  <div class="profile-specialty-editor__composer">
+                    <input id="profile-edit-specialties" type="text" placeholder="Ej. Instalaciones domiciliarias" />
+                    <button id="profile-edit-specialties-add" class="button button-secondary" type="button">
+                      Agregar
+                    </button>
+                  </div>
+                  <div id="profile-edit-specialties-list" class="profile-specialty-editor__list"></div>
+                </div>
               </label>
               <div class="profile-edit-upload-block">
                 <span class="profile-edit-upload-label">Imagen principal</span>
@@ -1661,6 +1689,7 @@
                     <span>0/5</span>
                   </div>
                 </div>
+                <div id="profile-edit-gallery-fields" class="profile-edit-gallery-fields"></div>
               </div>
               <input id="profile-edit-avatar" type="hidden" />
               <label>
@@ -1738,10 +1767,21 @@
         google: 'Google',
       };
       const defaultUserAvatar = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDCLvKIfWDWrDiu5zCx40vXT8MhSvoJPG0XLzL19otSyHw05-t-6I-8S-zG_AAJMrVRFdXmZWaeucU9I2SYGU9V8-AuA9tDcQV0b9IskyYHxHz73PoVkWhIrmg3vU06Qovw6o4DgF19QxFXnaF2FYSyypVm9XWV-rkbkvYSkVo3SIA7JDN_zop5pOlEcO0HBmw_9oxa4yzE_nNefClMFH6_LOvtaZcX34RoLDc3L5O-Wnb-KiDO4AtXHnjUaFTTDfcs9DploQZNY4g';
-      const requestCardFallbackImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuBA86igS3vaH05Ge8bVgcagc_dtitQXQ5muN1Rq8-tzJSJnK4Os5uTTrNkkUZfX_rq34YcK7QMNh-T28ooQdkmMNOXWNwh-Ny_LCnkmohL1_J90hMYFUIv2ZvM5nnLS15AQ6kZl0CiWb2ADcXX5qmsk4k8A_lr-LkAzi-wH54UIfA1Hbm9j9faghXiWhepT9ltL0cUvA5rCMuFlXGjEOC0mOByltZBDGvEfIa4AB2gJveZ_7Izo4XygNtxeZnDn7X7590sBOEs7pCo';
+        const requestCardFallbackImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuBA86igS3vaH05Ge8bVgcagc_dtitQXQ5muN1Rq8-tzJSJnK4Os5uTTrNkkUZfX_rq34YcK7QMNh-T28ooQdkmMNOXWNwh-Ny_LCnkmohL1_J90hMYFUIv2ZvM5nnLS15AQ6kZl0CiWb2ADcXX5qmsk4k8A_lr-LkAzi-wH54UIfA1Hbm9j9faghXiWhepT9ltL0cUvA5rCMuFlXGjEOC0mOByltZBDGvEfIa4AB2gJveZ_7Izo4XygNtxeZnDn7X7590sBOEs7pCo';
       const defaultPortfolioImages = [
         'https://lh3.googleusercontent.com/aida-public/AB6AXuBOgnH7nP0E7o9tDgxdME75pDh5_XaSHuSWPdef9uRJI6FSe1j-ElmGf5kg1Ubb0iRon83NfLrtHgRRcWJpVDOLGhY6TDRGddCzZ3BdtQtYfKoN_HkBPfoqJQG1epnAz6tAxkWvm2wCMIT_xruEYWm0vv5s-tIc5hZmVgl2zq8qe3wEl3pm7RTX4zVNm5i9z4Eb68wuArgDHSMHJH69V9_As0CI_v6awu6mpPjni0PSbgkgzX1fziBxuDlZKglp8oGowG8Y-VqFlGQ',
         'https://lh3.googleusercontent.com/aida-public/AB6AXuDJu99KUslL47G5xuCyKli5wyOLeKiYIrktvkF7HkZdM2-wLWtLCVdYkiY43RX46F3u_gu6SQ6LghTvL-VaL4bs-TyJPjk69XGOFpVF9DktK6bp3WVioIHng7zzsdgJLg064fiuFVHzpQgIFHD9c7xOSktG8Wle51t7lXIJzXY9PnhMCJdPLdp6mrOyZAOdBfdCitiRr3fqmwTiPg_EoyEIezYCYMskqSoEhrvmTQ68YVjHgXWz1zS8_k-vN2DvC2bnF-UZAQwqp0w',
+      ];
+      const profileCategoryOptions = [
+        { value: 'plomeria', label: 'Plomería' },
+        { value: 'electricidad', label: 'Electricidad' },
+        { value: 'limpieza', label: 'Limpieza' },
+        { value: 'albanileria', label: 'Albañilería' },
+        { value: 'aire', label: 'Aire acondicionado' },
+        { value: 'jardineria', label: 'Jardinería' },
+        { value: 'pintura', label: 'Pintura' },
+        { value: 'carpinteria', label: 'Carpintería' },
+        { value: 'general', label: 'Otro' },
       ];
       let refreshRequestCards = null;
       let refreshChatInbox = null;
@@ -1935,6 +1975,38 @@
         return `conectapro-profile-extras:${userId}`;
       }
 
+      function createPortfolioItem(src, index = 0) {
+        return {
+          src,
+          title: index === 0 ? 'Trabajo destacado' : `Trabajo ${index + 1}`,
+          category: 'general',
+        };
+      }
+
+      function normalizePortfolioItems(items) {
+        if (!Array.isArray(items)) {
+          return [];
+        }
+
+        return items
+          .map((item, index) => {
+            if (typeof item === 'string') {
+              return createPortfolioItem(item, index);
+            }
+
+            if (!item || typeof item !== 'object' || !String(item.src || '').trim()) {
+              return null;
+            }
+
+            return {
+              src: String(item.src).trim(),
+              title: String(item.title || (index === 0 ? 'Trabajo destacado' : `Trabajo ${index + 1}`)).trim(),
+              category: String(item.category || 'general').trim() || 'general',
+            };
+          })
+          .filter(Boolean);
+      }
+
       function getDefaultProfileExtras(displayName = 'Profesional', avatarUrl = defaultUserAvatar) {
         return {
           title: 'Profesional verificado',
@@ -1942,7 +2014,7 @@
           specialties: ['Atención profesional', 'Seguimiento', 'Presupuesto claro'],
           description: 'Completa tu perfil para mostrar experiencia, estilo de trabajo y tipo de proyectos que mejor resuelves.',
           avatarUrl,
-          portfolioImages: [...defaultPortfolioImages],
+          portfolioImages: defaultPortfolioImages.map((src, index) => createPortfolioItem(src, index)),
           years: 'Nuevo',
           projects: '0',
           responseTime: '< 24h',
@@ -1971,7 +2043,7 @@
               ? parsed.specialties
               : defaults.specialties,
             portfolioImages: Array.isArray(parsed.portfolioImages) && parsed.portfolioImages.length > 0
-              ? parsed.portfolioImages
+              ? normalizePortfolioItems(parsed.portfolioImages)
               : defaults.portfolioImages,
           };
         } catch (error) {
@@ -2058,16 +2130,16 @@
           .join('');
         profileGallery.innerHTML = viewModel.portfolioImages
           .slice(0, 6)
-          .map((imageUrl, index) => {
+          .map((imageItem, index) => {
             const featuredClass = index === 0 ? ' profile-work-card-featured' : '';
-            const title = index === 0 ? 'Trabajo destacado' : `Trabajo ${index + 1}`;
-            const copy = index === 0 ? 'Proyecto principal de tu portafolio' : 'Imagen destacada de tu trabajo';
+            const title = imageItem.title || (index === 0 ? 'Trabajo destacado' : `Trabajo ${index + 1}`);
+            const categoryLabel = formatRequestCategory(imageItem.category || 'general');
             return `
               <article class="profile-work-card${featuredClass}">
-                <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(title)}" />
+                <img src="${escapeHtml(imageItem.src)}" alt="${escapeHtml(title)}" />
                 <div class="profile-work-copy">
                   <strong>${escapeHtml(title)}</strong>
-                  <span>${escapeHtml(copy)}</span>
+                  <span>${escapeHtml(categoryLabel)}</span>
                 </div>
               </article>
             `;
@@ -3631,7 +3703,12 @@
         const nameInput = document.getElementById('profile-edit-name');
         const titleInput = document.getElementById('profile-edit-title');
         const categoryInput = document.getElementById('profile-edit-category');
+        const categoryLabel = document.getElementById('profile-edit-category-label');
+        const categoryTrigger = document.getElementById('profile-edit-category-trigger');
+        const categoryMenu = document.getElementById('profile-edit-category-menu');
         const specialtiesInput = document.getElementById('profile-edit-specialties');
+        const specialtiesAddButton = document.getElementById('profile-edit-specialties-add');
+        const specialtiesList = document.getElementById('profile-edit-specialties-list');
         const avatarInput = document.getElementById('profile-edit-avatar');
         const avatarFileInput = document.getElementById('profile-edit-avatar-file');
         const avatarTrigger = document.getElementById('profile-edit-avatar-trigger');
@@ -3640,6 +3717,7 @@
         const imagesTrigger = document.getElementById('profile-edit-images-trigger');
         const imagesCounter = document.getElementById('profile-edit-images-counter');
         const galleryGrid = document.getElementById('profile-edit-gallery-grid');
+        const galleryFields = document.getElementById('profile-edit-gallery-fields');
         const descriptionInput = document.getElementById('profile-edit-description');
         const feedback = document.getElementById('profile-edit-feedback');
         const submitButton = document.getElementById('profile-edit-submit');
@@ -3651,7 +3729,12 @@
           !nameInput ||
           !titleInput ||
           !categoryInput ||
+          !categoryLabel ||
+          !categoryTrigger ||
+          !categoryMenu ||
           !specialtiesInput ||
+          !specialtiesAddButton ||
+          !specialtiesList ||
           !avatarInput ||
           !avatarFileInput ||
           !avatarTrigger ||
@@ -3660,6 +3743,7 @@
           !imagesTrigger ||
           !imagesCounter ||
           !galleryGrid ||
+          !galleryFields ||
           !descriptionInput ||
           !feedback ||
           !submitButton
@@ -3669,6 +3753,71 @@
 
         let selectedAvatarImage = '';
         let selectedPortfolioImages = [];
+        let selectedSpecialties = [];
+
+        function getCategoryLabel(value) {
+          return profileCategoryOptions.find((option) => option.value === value)?.label || 'Otro';
+        }
+
+        function syncMainCategoryOptions() {
+          categoryMenu.querySelectorAll('[data-profile-category-option]').forEach((option) => {
+            option.classList.toggle('is-selected', option.dataset.profileCategoryOption === categoryInput.value);
+          });
+        }
+
+        function renderSpecialties() {
+          specialtiesList.innerHTML = selectedSpecialties
+            .map((specialty, index) => {
+              return `
+                <div class="profile-specialty-editor__chip">
+                  <span>${escapeHtml(specialty)}</span>
+                  <button
+                    type="button"
+                    class="profile-specialty-editor__remove"
+                    data-profile-specialty-remove="${index}"
+                    aria-label="Eliminar especialidad ${escapeHtml(specialty)}"
+                  >
+                    <span class="material-symbols-outlined">close</span>
+                  </button>
+                </div>
+              `;
+            })
+            .join('');
+        }
+
+        function addSpecialty() {
+          const specialty = specialtiesInput.value.trim();
+          if (!specialty) {
+            return;
+          }
+
+          if (!selectedSpecialties.some((item) => item.toLowerCase() === specialty.toLowerCase())) {
+            selectedSpecialties = [...selectedSpecialties, specialty];
+            renderSpecialties();
+          }
+
+          specialtiesInput.value = '';
+          specialtiesInput.focus();
+        }
+
+        function closeAllProfileSelectMenus() {
+          editModal.querySelectorAll('[data-profile-select-menu]').forEach((menu) => {
+            menu.hidden = true;
+          });
+
+          editModal.querySelectorAll('[data-profile-select-trigger]').forEach((trigger) => {
+            trigger.setAttribute('aria-expanded', 'false');
+            trigger.closest('.profile-custom-select')?.classList.remove('is-open');
+          });
+        }
+
+        function toggleProfileSelectMenu(trigger, menu) {
+          const shouldOpen = menu.hidden;
+          closeAllProfileSelectMenus();
+          menu.hidden = !shouldOpen;
+          trigger.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+          trigger.closest('.profile-custom-select')?.classList.toggle('is-open', shouldOpen);
+        }
 
         function fileToDataUrl(file) {
           return new Promise((resolve, reject) => {
@@ -3702,18 +3851,74 @@
             element.remove();
           });
 
-          selectedPortfolioImages.forEach((imageSrc, index) => {
+          selectedPortfolioImages.forEach((imageItem, index) => {
             imagesTrigger.insertAdjacentHTML(
               'beforebegin',
               `
                 <div class="photo-card filled" data-profile-upload-preview="true">
-                  <img src="${escapeHtml(imageSrc)}" alt="Imagen de portafolio ${index + 1}" />
+                  <img src="${escapeHtml(imageItem.src)}" alt="Imagen de portafolio ${index + 1}" />
                 </div>
               `
             );
           });
 
           syncPortfolioCounter();
+        }
+
+        function renderPortfolioFields() {
+          galleryFields.innerHTML = selectedPortfolioImages
+            .map((imageItem, index) => {
+              return `
+                <div class="profile-edit-gallery-item">
+                  <strong>Imagen ${index + 1}</strong>
+                  <label>
+                    Texto de la imagen
+                    <input
+                      type="text"
+                      value="${escapeHtml(imageItem.title || '')}"
+                      data-profile-gallery-title="${index}"
+                      placeholder="Ej. Instalación de tablero en cocina"
+                    />
+                  </label>
+                  <label>
+                    Categoría
+                    <div class="profile-custom-select" data-profile-select-root="gallery-${index}">
+                      <button
+                        type="button"
+                        class="profile-custom-select__trigger"
+                        data-profile-select-trigger="gallery-${index}"
+                        data-profile-gallery-trigger="${index}"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                      >
+                        <span>${escapeHtml(getCategoryLabel(imageItem.category || 'general'))}</span>
+                        <span class="material-symbols-outlined">expand_more</span>
+                      </button>
+                      <div
+                        class="profile-custom-select__menu"
+                        data-profile-select-menu="gallery-${index}"
+                        role="listbox"
+                        hidden
+                      >
+                        ${profileCategoryOptions
+                          .map((option) => `
+                            <button
+                              type="button"
+                              class="profile-custom-select__option${option.value === (imageItem.category || 'general') ? ' is-selected' : ''}"
+                              data-profile-gallery-category-option="${index}"
+                              data-category-value="${escapeHtml(option.value)}"
+                            >
+                              ${escapeHtml(option.label)}
+                            </button>
+                          `)
+                          .join('')}
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              `;
+            })
+            .join('');
         }
 
         function openProfileEditModal() {
@@ -3726,16 +3931,21 @@
           nameInput.value = viewModel.displayName;
           titleInput.value = viewModel.title;
           categoryInput.value = viewModel.category || 'general';
-          specialtiesInput.value = viewModel.specialties.join(', ');
+          categoryLabel.textContent = getCategoryLabel(categoryInput.value);
+          syncMainCategoryOptions();
+          specialtiesInput.value = '';
+          selectedSpecialties = Array.isArray(viewModel.specialties) ? [...viewModel.specialties] : [];
+          renderSpecialties();
           selectedAvatarImage = viewModel.avatarUrl || '';
           avatarInput.value = selectedAvatarImage;
           selectedPortfolioImages = Array.isArray(viewModel.portfolioImages)
-            ? viewModel.portfolioImages.filter(Boolean).slice(0, 5)
+            ? normalizePortfolioItems(viewModel.portfolioImages).slice(0, 5)
             : [];
           avatarFileInput.value = '';
           imagesFileInput.value = '';
           renderAvatarPreview();
           renderPortfolioPreviews();
+          renderPortfolioFields();
           descriptionInput.value = viewModel.description;
           setStatusMessage(feedback, '', 'neutral');
           editModal.hidden = false;
@@ -3751,6 +3961,19 @@
 
         avatarTrigger.addEventListener('click', () => {
           avatarFileInput.click();
+        });
+
+        specialtiesAddButton.addEventListener('click', addSpecialty);
+
+        specialtiesInput.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            addSpecialty();
+          }
+        });
+
+        categoryTrigger.addEventListener('click', () => {
+          toggleProfileSelectMenu(categoryTrigger, categoryMenu);
         });
 
         imagesTrigger.addEventListener('click', () => {
@@ -3780,7 +4003,13 @@
           }
 
           try {
-            const uploadedImages = await Promise.all(files.slice(0, 5).map((file) => fileToDataUrl(file)));
+            const uploadedImages = await Promise.all(
+              files.slice(0, 5).map(async (file, index) => ({
+                src: await fileToDataUrl(file),
+                title: file.name.replace(/\.[^.]+$/, '') || `Trabajo ${index + 1}`,
+                category: 'general',
+              }))
+            );
             selectedPortfolioImages = uploadedImages.slice(0, 5);
 
             if (files.length > 5) {
@@ -3790,17 +4019,137 @@
             }
 
             renderPortfolioPreviews();
+            renderPortfolioFields();
           } catch (error) {
             setStatusMessage(feedback, `No pudimos cargar las imágenes: ${error.message}`, 'error');
           }
+        });
+
+        galleryFields.addEventListener('input', (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLInputElement)) {
+            return;
+          }
+
+          const index = Number(target.dataset.profileGalleryTitle);
+          if (!Number.isFinite(index) || !selectedPortfolioImages[index]) {
+            return;
+          }
+
+          selectedPortfolioImages[index].title = target.value.trim();
+          renderPortfolioPreviews();
+        });
+
+        specialtiesList.addEventListener('click', (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLElement)) {
+            return;
+          }
+
+          const removeButton = target.closest('[data-profile-specialty-remove]');
+          if (!(removeButton instanceof HTMLButtonElement)) {
+            return;
+          }
+
+          const index = Number(removeButton.dataset.profileSpecialtyRemove);
+          if (!Number.isFinite(index)) {
+            return;
+          }
+
+          selectedSpecialties = selectedSpecialties.filter((_, specialtyIndex) => specialtyIndex !== index);
+          renderSpecialties();
+        });
+
+        galleryFields.addEventListener('change', (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLElement)) {
+            return;
+          }
+
+          const optionButton = target.closest('[data-profile-gallery-category-option]');
+          if (!(optionButton instanceof HTMLButtonElement)) {
+            return;
+          }
+
+          const index = Number(optionButton.dataset.profileGalleryCategoryOption);
+          if (!Number.isFinite(index) || !selectedPortfolioImages[index]) {
+            return;
+          }
+
+          selectedPortfolioImages[index].category = optionButton.dataset.categoryValue || 'general';
+          renderPortfolioFields();
+        });
+
+        galleryFields.addEventListener('click', (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLElement)) {
+            return;
+          }
+
+          const triggerButton = target.closest('[data-profile-gallery-trigger]');
+          if (triggerButton instanceof HTMLButtonElement) {
+            const index = triggerButton.dataset.profileGalleryTrigger;
+            const menu = galleryFields.querySelector(`[data-profile-select-menu="gallery-${index}"]`);
+            if (menu instanceof HTMLElement) {
+              toggleProfileSelectMenu(triggerButton, menu);
+            }
+            return;
+          }
+
+          const galleryOption = target.closest('[data-profile-gallery-category-option]');
+          if (galleryOption instanceof HTMLButtonElement) {
+            const index = Number(galleryOption.dataset.profileGalleryCategoryOption);
+            if (Number.isFinite(index) && selectedPortfolioImages[index]) {
+              selectedPortfolioImages[index].category = galleryOption.dataset.categoryValue || 'general';
+              renderPortfolioFields();
+            }
+          }
+        });
+
+        categoryMenu.addEventListener('click', (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLElement)) {
+            return;
+          }
+
+          const option = target.closest('[data-profile-category-option]');
+          if (!(option instanceof HTMLButtonElement)) {
+            return;
+          }
+
+          categoryInput.value = option.dataset.profileCategoryOption || 'general';
+          categoryLabel.textContent = getCategoryLabel(categoryInput.value);
+          syncMainCategoryOptions();
+          closeAllProfileSelectMenus();
         });
 
         document.querySelectorAll('[data-close-profile-edit="true"]').forEach((element) => {
           element.addEventListener('click', closeProfileEditModal);
         });
 
+        document.addEventListener('click', (event) => {
+          if (editModal.hidden) {
+            return;
+          }
+
+          const target = event.target;
+          if (!(target instanceof Node) || editModal.contains(target) && target.closest('.profile-custom-select')) {
+            return;
+          }
+
+          if (!editModal.contains(target)) {
+            closeAllProfileSelectMenus();
+            return;
+          }
+
+          if (!(target instanceof HTMLElement) || !target.closest('.profile-custom-select')) {
+            closeAllProfileSelectMenus();
+          }
+        });
+
         document.addEventListener('keydown', (event) => {
           if (event.key === 'Escape' && !editModal.hidden) {
+            closeAllProfileSelectMenus();
             closeProfileEditModal();
           }
         });
@@ -3820,11 +4169,14 @@
           const category = categoryInput.value || 'general';
           const avatarUrl = selectedAvatarImage || avatarInput.value.trim() || getUserAvatar(currentAuthSession?.user, currentAuthProfile);
           const description = descriptionInput.value.trim();
-          const specialties = specialtiesInput.value
-            .split(',')
-            .map((item) => item.trim())
-            .filter(Boolean);
-          const portfolioImages = selectedPortfolioImages.filter(Boolean);
+          const specialties = selectedSpecialties.filter(Boolean);
+          const portfolioImages = selectedPortfolioImages
+            .filter((item) => item && item.src)
+            .map((item, index) => ({
+              src: item.src,
+              title: item.title || (index === 0 ? 'Trabajo destacado' : `Trabajo ${index + 1}`),
+              category: item.category || 'general',
+            }));
 
           submitButton.disabled = true;
           setStatusMessage(feedback, 'Guardando perfil...', 'neutral');
@@ -3880,6 +4232,7 @@
 
         renderAvatarPreview();
         renderPortfolioPreviews();
+        renderPortfolioFields();
       }
 
       function setupChatUI() {
