@@ -586,47 +586,54 @@
           <div class="profile-layout">
             <div class="profile-summary card">
               <img
+                id="profile-page-photo"
                 class="profile-photo"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpQGs28I5QA92-t-vHjCl9PSeBnXmxSAsNSJnxi4vglHWw62K-E4eU6EhRybLZApfYuiWI2sjdobIKsnQMG9EwE3mepYxJ8oFdLW8MD5z3_-BPGxBXqHsyB9Ehd8G_lSyc2Rm5sALpiXjhF6jykgJatZ0BsAxf8AFw6nmk9nxylGrInSqj_TqJnENq8gIV1-QNAxYm_t0T5Oh9ylx51RCEft9sbxJ9d1_HwD1ZKJM6KcgeGpF2buSR2U3CIXlqugTyYr6mKAN-Gco"
                 alt="Especialista destacado"
               />
               <div>
                 <div class="profile-title-row">
-                  <h4>Alejandro Herrera</h4>
-                  <span class="pill pill-amber">Verificado</span>
+                  <h4 id="profile-page-name">Alejandro Herrera</h4>
+                  <span id="profile-page-badge" class="pill pill-amber">Verificado</span>
                 </div>
-                <p class="role">Dise&ntilde;o de interiores y carpinter&iacute;a fina</p>
-                <p class="description">
+                <p id="profile-page-title" class="role">Dise&ntilde;o de interiores y carpinter&iacute;a fina</p>
+                <p id="profile-page-description" class="description">
                   Perfil pensado para mostrar autoridad: trabajos publicados,
                   velocidad de respuesta, certificaciones y rese&ntilde;as con tono premium.
                 </p>
               </div>
               <div class="profile-specialties">
                 <h4>Especialidades</h4>
-                <div class="professional-specialty-list">
+                <div id="profile-page-specialties" class="professional-specialty-list">
                   <span class="professional-specialty-chip">Dise&ntilde;o integral</span>
                   <span class="professional-specialty-chip">Muebles a medida</span>
                   <span class="professional-specialty-chip">Carpinter&iacute;a fina</span>
                   <span class="professional-specialty-chip">Render y planos</span>
                 </div>
               </div>
-              <div class="stats-row">
-                <div><strong>12</strong><span>A&ntilde;os</span></div>
-                <div><strong>350+</strong><span>Proyectos</span></div>
-                <div><strong>&lt; 2h</strong><span>Respuesta</span></div>
+              <div id="profile-page-stats" class="stats-row">
+                <div><strong id="profile-page-years">12</strong><span>A&ntilde;os</span></div>
+                <div><strong id="profile-page-projects">350+</strong><span>Proyectos</span></div>
+                <div><strong id="profile-page-response">&lt; 2h</strong><span>Respuesta</span></div>
                 <div>
-                  <strong><span class="material-symbols-outlined">star</span>4.9</strong>
+                  <strong><span class="material-symbols-outlined">star</span><span id="profile-page-rating">4.9</span></strong>
                   <span>Rating</span>
                 </div>
+              </div>
+              <div class="profile-summary-actions">
+                <button id="profile-edit-button" class="button button-secondary" type="button">
+                  Editar perfil
+                </button>
               </div>
             </div>
 
             <div class="profile-work-section">
               <div class="profile-work-header">
                 <h4>Tus trabajos</h4>
-                <span>Portafolio destacado</span>
+                <span id="profile-page-portfolio-copy">Portafolio destacado</span>
               </div>
-              <div class="gallery-grid profile-work-grid">
+              <p id="profile-page-feedback" class="form-feedback" hidden role="status" aria-live="polite"></p>
+              <div id="profile-page-gallery" class="gallery-grid profile-work-grid">
                 <article class="profile-work-card profile-work-card-featured">
                   <img
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOgnH7nP0E7o9tDgxdME75pDh5_XaSHuSWPdef9uRJI6FSe1j-ElmGf5kg1Ubb0iRon83NfLrtHgRRcWJpVDOLGhY6TDRGddCzZ3BdtQtYfKoN_HkBPfoqJQG1epnAz6tAxkWvm2wCMIT_xruEYWm0vv5s-tIc5hZmVgl2zq8qe3wEl3pm7RTX4zVNm5i9z4Eb68wuArgDHSMHJH69V9_As0CI_v6awu6mpPjni0PSbgkgzX1fziBxuDlZKglp8oGowG8Y-VqFlGQ"
@@ -1003,6 +1010,8 @@
                 <span class="material-symbols-outlined">search</span>
                 <input id="chat-search-input" type="text" placeholder="Buscar conversaciones..." />
               </label>
+
+              <p id="chat-sync-status" class="requests-sync-status" hidden aria-live="polite"></p>
 
               <div class="chat-filter-row" role="tablist" aria-label="Filtrar conversaciones">
                 <button class="chat-filter-chip is-selected" type="button" data-chat-filter="all">Todos</button>
@@ -1585,6 +1594,52 @@
             </form>
           </section>
         </div>
+
+        <div id="profile-edit-modal" class="filter-modal profile-edit-modal" hidden>
+          <div class="filter-modal__backdrop" data-close-profile-edit="true"></div>
+          <section class="filter-modal__panel profile-edit-modal__panel" aria-label="Editar perfil">
+            <div class="filter-modal__header">
+              <button
+                class="filter-modal__icon-button"
+                type="button"
+                data-close-profile-edit="true"
+                aria-label="Cerrar edición de perfil"
+              >
+                <span class="material-symbols-outlined">close</span>
+              </button>
+              <h3>Editar perfil</h3>
+            </div>
+
+            <form id="profile-edit-form" class="auth-form">
+              <label>
+                Nombre visible
+                <input id="profile-edit-name" type="text" placeholder="Tu nombre profesional" />
+              </label>
+              <label>
+                Título profesional
+                <input id="profile-edit-title" type="text" placeholder="Ej. Electricista matriculado" />
+              </label>
+              <label>
+                Especialidades
+                <input id="profile-edit-specialties" type="text" placeholder="Separadas por coma" />
+              </label>
+              <label>
+                Imagen principal
+                <input id="profile-edit-avatar" type="url" placeholder="https://..." />
+              </label>
+              <label>
+                Imágenes del portafolio
+                <textarea id="profile-edit-images" rows="4" placeholder="Una URL por línea"></textarea>
+              </label>
+              <label>
+                Descripción
+                <textarea id="profile-edit-description" rows="5" placeholder="Cuéntale a tus clientes qué haces y cómo trabajas."></textarea>
+              </label>
+              <p id="profile-edit-feedback" class="form-feedback" hidden role="status" aria-live="polite"></p>
+              <button id="profile-edit-submit" type="submit" class="button button-primary">Guardar perfil</button>
+            </form>
+          </section>
+        </div>
       </main>
 
       <nav class="bottom-nav" aria-label="Navegación principal">
@@ -1652,7 +1707,12 @@
       };
       const defaultUserAvatar = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDCLvKIfWDWrDiu5zCx40vXT8MhSvoJPG0XLzL19otSyHw05-t-6I-8S-zG_AAJMrVRFdXmZWaeucU9I2SYGU9V8-AuA9tDcQV0b9IskyYHxHz73PoVkWhIrmg3vU06Qovw6o4DgF19QxFXnaF2FYSyypVm9XWV-rkbkvYSkVo3SIA7JDN_zop5pOlEcO0HBmw_9oxa4yzE_nNefClMFH6_LOvtaZcX34RoLDc3L5O-Wnb-KiDO4AtXHnjUaFTTDfcs9DploQZNY4g';
       const requestCardFallbackImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuBA86igS3vaH05Ge8bVgcagc_dtitQXQ5muN1Rq8-tzJSJnK4Os5uTTrNkkUZfX_rq34YcK7QMNh-T28ooQdkmMNOXWNwh-Ny_LCnkmohL1_J90hMYFUIv2ZvM5nnLS15AQ6kZl0CiWb2ADcXX5qmsk4k8A_lr-LkAzi-wH54UIfA1Hbm9j9faghXiWhepT9ltL0cUvA5rCMuFlXGjEOC0mOByltZBDGvEfIa4AB2gJveZ_7Izo4XygNtxeZnDn7X7590sBOEs7pCo';
+      const defaultPortfolioImages = [
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBOgnH7nP0E7o9tDgxdME75pDh5_XaSHuSWPdef9uRJI6FSe1j-ElmGf5kg1Ubb0iRon83NfLrtHgRRcWJpVDOLGhY6TDRGddCzZ3BdtQtYfKoN_HkBPfoqJQG1epnAz6tAxkWvm2wCMIT_xruEYWm0vv5s-tIc5hZmVgl2zq8qe3wEl3pm7RTX4zVNm5i9z4Eb68wuArgDHSMHJH69V9_As0CI_v6awu6mpPjni0PSbgkgzX1fziBxuDlZKglp8oGowG8Y-VqFlGQ',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuDJu99KUslL47G5xuCyKli5wyOLeKiYIrktvkF7HkZdM2-wLWtLCVdYkiY43RX46F3u_gu6SQ6LghTvL-VaL4bs-TyJPjk69XGOFpVF9DktK6bp3WVioIHng7zzsdgJLg064fiuFVHzpQgIFHD9c7xOSktG8Wle51t7lXIJzXY9PnhMCJdPLdp6mrOyZAOdBfdCitiRr3fqmwTiPg_EoyEIezYCYMskqSoEhrvmTQ68YVjHgXWz1zS8_k-vN2DvC2bnF-UZAQwqp0w',
+      ];
       let refreshRequestCards = null;
+      let refreshChatInbox = null;
       let currentAuthSession = null;
       let currentAuthProfile = null;
       let currentDisplayName = 'Invitado';
@@ -1798,6 +1858,22 @@
         return `Hace ${Math.floor(diffHours / 24)} días`;
       }
 
+      function formatChatTimestamp(value) {
+        if (!value) {
+          return '';
+        }
+
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) {
+          return '';
+        }
+
+        return new Intl.DateTimeFormat('es-AR', {
+          hour: '2-digit',
+          minute: '2-digit',
+        }).format(date);
+      }
+
       function hydrateRequestCardSearchData(card) {
         if (!card) {
           return;
@@ -1821,6 +1897,147 @@
 
       function setRequestsSyncStatus(message, tone = 'neutral') {
         setStatusMessage(document.getElementById('requests-sync-status'), message, tone);
+      }
+
+      function getProfileExtrasStorageKey(userId) {
+        return `conectapro-profile-extras:${userId}`;
+      }
+
+      function getDefaultProfileExtras(displayName = 'Profesional', avatarUrl = defaultUserAvatar) {
+        return {
+          title: 'Profesional verificado',
+          specialties: ['Atención profesional', 'Seguimiento', 'Presupuesto claro'],
+          description: 'Completa tu perfil para mostrar experiencia, estilo de trabajo y tipo de proyectos que mejor resuelves.',
+          avatarUrl,
+          portfolioImages: [...defaultPortfolioImages],
+          years: 'Nuevo',
+          projects: '0',
+          responseTime: '< 24h',
+          rating: '5.0',
+          portfolioCopy: `Portafolio de ${displayName}`,
+        };
+      }
+
+      function loadProfileExtras(userId, displayName, avatarUrl) {
+        const defaults = getDefaultProfileExtras(displayName, avatarUrl);
+        if (!userId) {
+          return defaults;
+        }
+
+        try {
+          const raw = window.localStorage.getItem(getProfileExtrasStorageKey(userId));
+          if (!raw) {
+            return defaults;
+          }
+
+          const parsed = JSON.parse(raw);
+          return {
+            ...defaults,
+            ...parsed,
+            specialties: Array.isArray(parsed.specialties) && parsed.specialties.length > 0
+              ? parsed.specialties
+              : defaults.specialties,
+            portfolioImages: Array.isArray(parsed.portfolioImages) && parsed.portfolioImages.length > 0
+              ? parsed.portfolioImages
+              : defaults.portfolioImages,
+          };
+        } catch (error) {
+          return defaults;
+        }
+      }
+
+      function saveProfileExtras(userId, extras) {
+        if (!userId) {
+          return;
+        }
+
+        window.localStorage.setItem(getProfileExtrasStorageKey(userId), JSON.stringify(extras));
+      }
+
+      function getCurrentProfileViewModel(user = currentAuthSession?.user, profile = currentAuthProfile) {
+        const displayName = getDisplayName(user, profile);
+        const avatarUrl = getUserAvatar(user, profile);
+        const extras = loadProfileExtras(user?.id, displayName, avatarUrl);
+
+        return {
+          displayName,
+          avatarUrl: extras.avatarUrl || avatarUrl,
+          badge: profile?.verified ? 'Verificado' : 'Activo',
+          title: extras.title,
+          description: extras.description || profile?.bio || '',
+          specialties: extras.specialties,
+          portfolioImages: extras.portfolioImages,
+          years: extras.years,
+          projects: extras.projects,
+          responseTime: extras.responseTime,
+          rating: extras.rating,
+          portfolioCopy: extras.portfolioCopy,
+        };
+      }
+
+      function renderProfilePage() {
+        const profilePhoto = document.getElementById('profile-page-photo');
+        const profileName = document.getElementById('profile-page-name');
+        const profileBadge = document.getElementById('profile-page-badge');
+        const profileTitle = document.getElementById('profile-page-title');
+        const profileDescription = document.getElementById('profile-page-description');
+        const profileSpecialties = document.getElementById('profile-page-specialties');
+        const profileYears = document.getElementById('profile-page-years');
+        const profileProjects = document.getElementById('profile-page-projects');
+        const profileResponse = document.getElementById('profile-page-response');
+        const profileRating = document.getElementById('profile-page-rating');
+        const profilePortfolioCopy = document.getElementById('profile-page-portfolio-copy');
+        const profileGallery = document.getElementById('profile-page-gallery');
+
+        if (
+          !profilePhoto ||
+          !profileName ||
+          !profileBadge ||
+          !profileTitle ||
+          !profileDescription ||
+          !profileSpecialties ||
+          !profileYears ||
+          !profileProjects ||
+          !profileResponse ||
+          !profileRating ||
+          !profilePortfolioCopy ||
+          !profileGallery
+        ) {
+          return;
+        }
+
+        const viewModel = getCurrentProfileViewModel();
+        profilePhoto.src = viewModel.avatarUrl;
+        profilePhoto.alt = viewModel.displayName;
+        profileName.textContent = viewModel.displayName;
+        profileBadge.textContent = viewModel.badge;
+        profileTitle.textContent = viewModel.title;
+        profileDescription.textContent = viewModel.description;
+        profileYears.textContent = viewModel.years;
+        profileProjects.textContent = viewModel.projects;
+        profileResponse.textContent = viewModel.responseTime;
+        profileRating.textContent = viewModel.rating;
+        profilePortfolioCopy.textContent = viewModel.portfolioCopy;
+        profileSpecialties.innerHTML = viewModel.specialties
+          .map((specialty) => `<span class="professional-specialty-chip">${escapeHtml(specialty)}</span>`)
+          .join('');
+        profileGallery.innerHTML = viewModel.portfolioImages
+          .slice(0, 6)
+          .map((imageUrl, index) => {
+            const featuredClass = index === 0 ? ' profile-work-card-featured' : '';
+            const title = index === 0 ? 'Trabajo destacado' : `Trabajo ${index + 1}`;
+            const copy = index === 0 ? 'Proyecto principal de tu portafolio' : 'Imagen destacada de tu trabajo';
+            return `
+              <article class="profile-work-card${featuredClass}">
+                <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(title)}" />
+                <div class="profile-work-copy">
+                  <strong>${escapeHtml(title)}</strong>
+                  <span>${escapeHtml(copy)}</span>
+                </div>
+              </article>
+            `;
+          })
+          .join('');
       }
 
       function isAuthenticatedUser() {
@@ -1974,6 +2191,11 @@
         if (requesterNameInput && (!requesterNameInput.value.trim() || requesterNameInput.dataset.autofilled === 'true')) {
           requesterNameInput.value = isAuthenticated ? displayName : '';
           requesterNameInput.dataset.autofilled = isAuthenticated ? 'true' : 'false';
+        }
+
+        renderProfilePage();
+        if (typeof refreshChatInbox === 'function') {
+          refreshChatInbox();
         }
       }
 
@@ -3143,12 +3365,153 @@
         });
       }
 
+      function setupProfileEditing() {
+        const editButton = document.getElementById('profile-edit-button');
+        const editModal = document.getElementById('profile-edit-modal');
+        const editForm = document.getElementById('profile-edit-form');
+        const nameInput = document.getElementById('profile-edit-name');
+        const titleInput = document.getElementById('profile-edit-title');
+        const specialtiesInput = document.getElementById('profile-edit-specialties');
+        const avatarInput = document.getElementById('profile-edit-avatar');
+        const imagesInput = document.getElementById('profile-edit-images');
+        const descriptionInput = document.getElementById('profile-edit-description');
+        const feedback = document.getElementById('profile-edit-feedback');
+        const submitButton = document.getElementById('profile-edit-submit');
+
+        if (
+          !editButton ||
+          !editModal ||
+          !editForm ||
+          !nameInput ||
+          !titleInput ||
+          !specialtiesInput ||
+          !avatarInput ||
+          !imagesInput ||
+          !descriptionInput ||
+          !feedback ||
+          !submitButton
+        ) {
+          return;
+        }
+
+        function openProfileEditModal() {
+          if (!isAuthenticatedUser()) {
+            requestAuthentication('login');
+            return;
+          }
+
+          const viewModel = getCurrentProfileViewModel();
+          nameInput.value = viewModel.displayName;
+          titleInput.value = viewModel.title;
+          specialtiesInput.value = viewModel.specialties.join(', ');
+          avatarInput.value = viewModel.avatarUrl;
+          imagesInput.value = viewModel.portfolioImages.join('\n');
+          descriptionInput.value = viewModel.description;
+          setStatusMessage(feedback, '', 'neutral');
+          editModal.hidden = false;
+          syncBodyModalState();
+        }
+
+        function closeProfileEditModal() {
+          editModal.hidden = true;
+          syncBodyModalState();
+        }
+
+        editButton.addEventListener('click', openProfileEditModal);
+
+        document.querySelectorAll('[data-close-profile-edit="true"]').forEach((element) => {
+          element.addEventListener('click', closeProfileEditModal);
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && !editModal.hidden) {
+            closeProfileEditModal();
+          }
+        });
+
+        editForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+
+          if (!isAuthenticatedUser()) {
+            closeProfileEditModal();
+            requestAuthentication('login');
+            return;
+          }
+
+          const userId = currentAuthSession?.user?.id;
+          const fullName = nameInput.value.trim() || currentDisplayName;
+          const title = titleInput.value.trim() || 'Profesional verificado';
+          const avatarUrl = avatarInput.value.trim() || getUserAvatar(currentAuthSession?.user, currentAuthProfile);
+          const description = descriptionInput.value.trim();
+          const specialties = specialtiesInput.value
+            .split(',')
+            .map((item) => item.trim())
+            .filter(Boolean);
+          const portfolioImages = imagesInput.value
+            .split('\n')
+            .map((item) => item.trim())
+            .filter(Boolean);
+
+          submitButton.disabled = true;
+          setStatusMessage(feedback, 'Guardando perfil...', 'neutral');
+
+          try {
+            if (supabaseClient && userId) {
+              const { data, error } = await supabaseClient
+                .from('profiles')
+                .upsert(
+                  {
+                    id: userId,
+                    full_name: fullName,
+                    avatar_url: avatarUrl,
+                    bio: description,
+                  },
+                  {
+                    onConflict: 'id',
+                  }
+                )
+                .select('id, full_name, avatar_url, role, verified, bio')
+                .single();
+
+              if (error) {
+                throw error;
+              }
+
+              currentAuthProfile = data;
+            }
+
+            const previous = loadProfileExtras(userId, fullName, avatarUrl);
+            saveProfileExtras(userId, {
+              ...previous,
+              title,
+              description,
+              avatarUrl,
+              specialties: specialties.length > 0 ? specialties : previous.specialties,
+              portfolioImages: portfolioImages.length > 0 ? portfolioImages : previous.portfolioImages,
+              portfolioCopy: `Portafolio de ${fullName}`,
+            });
+
+            updateAuthenticatedUI(currentAuthSession?.user, currentAuthProfile);
+            renderProfilePage();
+            setStatusMessage(feedback, 'Perfil actualizado.', 'success');
+            setStatusMessage(document.getElementById('profile-page-feedback'), 'Perfil guardado correctamente.', 'success');
+            closeProfileEditModal();
+          } catch (error) {
+            setStatusMessage(feedback, `No pudimos guardar el perfil: ${error.message}`, 'error');
+          } finally {
+            submitButton.disabled = false;
+          }
+        });
+      }
+
       function setupChatUI() {
         const chatSection = document.getElementById('chat');
         const inboxView = document.getElementById('chat-inbox-view');
         const detailView = document.getElementById('chat-detail-view');
         const searchInput = document.getElementById('chat-search-input');
         const emptyState = document.getElementById('chat-empty-state');
+        const syncStatus = document.getElementById('chat-sync-status');
+        const threadList = document.getElementById('chat-thread-list');
         const detailBackButton = document.getElementById('chat-detail-back');
         const detailAvatar = document.getElementById('chat-detail-avatar');
         const detailName = document.getElementById('chat-detail-name');
@@ -3160,10 +3523,9 @@
         const desktopDetailStatus = document.getElementById('chat-desktop-status');
         const desktopMessageList = document.getElementById('chat-desktop-message-list');
         const filterButtons = Array.from(chatSection?.querySelectorAll('[data-chat-filter]') || []);
-        const threadButtons = Array.from(chatSection?.querySelectorAll('[data-chat-thread]') || []);
         const desktopMediaQuery = window.matchMedia('(min-width: 1100px)');
 
-        if (!chatSection || !inboxView || !detailView || !searchInput || !emptyState || !detailBackButton || !detailAvatar || !detailName || !detailStatus || !messageList || !desktopDetailPanel || !desktopDetailAvatar || !desktopDetailName || !desktopDetailStatus || !desktopMessageList || threadButtons.length === 0) {
+        if (!chatSection || !inboxView || !detailView || !searchInput || !emptyState || !syncStatus || !threadList || !detailBackButton || !detailAvatar || !detailName || !detailStatus || !messageList || !desktopDetailPanel || !desktopDetailAvatar || !desktopDetailName || !desktopDetailStatus || !desktopMessageList) {
           return;
         }
 
@@ -3176,11 +3538,16 @@
         };
 
         let selectedFilter = 'all';
-        let selectedThreadId = threadButtons[0].dataset.chatThread || '';
+        let selectedThreadId = '';
         let isDetailOpen = false;
+        const initialMarkup = threadList.innerHTML;
 
         function isDesktopLayout() {
           return desktopMediaQuery.matches;
+        }
+
+        function getThreadButtons() {
+          return Array.from(threadList.querySelectorAll('[data-chat-thread]'));
         }
 
         function getThreadMessages(button) {
@@ -3192,11 +3559,11 @@
         }
 
         function getVisibleThreadButtons() {
-          return threadButtons.filter((button) => !button.hidden);
+          return getThreadButtons().filter((button) => !button.hidden);
         }
 
         function updateActiveThreadStyles() {
-          threadButtons.forEach((button) => {
+          getThreadButtons().forEach((button) => {
             button.classList.toggle('is-active', button.dataset.chatThread === selectedThreadId);
           });
         }
@@ -3294,7 +3661,7 @@
         }
 
         function syncSelectedThread() {
-          const button = threadButtons.find((item) => item.dataset.chatThread === selectedThreadId);
+          const button = getThreadButtons().find((item) => item.dataset.chatThread === selectedThreadId);
 
           if (!button) {
             desktopDetailPanel.hidden = true;
@@ -3321,7 +3688,7 @@
         }
 
         function openDetail(threadId) {
-          const button = threadButtons.find((item) => item.dataset.chatThread === threadId);
+          const button = getThreadButtons().find((item) => item.dataset.chatThread === threadId);
           if (!button) {
             return;
           }
@@ -3352,6 +3719,7 @@
         function renderInbox() {
           const query = normalizeText(searchInput.value);
           let visibleCount = 0;
+          const threadButtons = getThreadButtons();
 
           threadButtons.forEach((button) => {
             const haystack = normalizeText([
@@ -3394,11 +3762,191 @@
           });
         });
 
-        threadButtons.forEach((button) => {
-          button.addEventListener('click', () => {
-            openDetail(button.dataset.chatThread || '');
-          });
+        threadList.addEventListener('click', (event) => {
+          const button = event.target.closest('[data-chat-thread]');
+          if (!button) {
+            return;
+          }
+
+          openDetail(button.dataset.chatThread || '');
         });
+
+        function buildRemoteThreadMarkup(thread) {
+          const preview = thread.preview || 'Nuevo mensaje';
+          const job = thread.job || 'Conversación';
+          const time = thread.time || '';
+          const avatar = getUserInitials(thread.name || 'CP');
+          const messagesJson = escapeHtml(JSON.stringify(thread.messages));
+          return `
+            <button
+              class="chat-thread-card"
+              type="button"
+              data-chat-thread="${escapeHtml(thread.id)}"
+              data-chat-filter-type="${escapeHtml(thread.filterType || 'trabajos')}"
+              data-chat-name="${escapeHtml(thread.name || 'Conversación')}"
+              data-chat-role="${escapeHtml(thread.role || 'Profesional')}"
+              data-chat-status="${escapeHtml(thread.status || 'offline')}"
+              data-chat-status-label="${escapeHtml(thread.statusLabel || 'Disponible')}"
+              data-chat-time="${escapeHtml(time)}"
+              data-chat-job="${escapeHtml(job)}"
+              data-chat-preview="${escapeHtml(preview)}"
+              data-chat-avatar="${escapeHtml(avatar)}"
+              data-chat-messages="${messagesJson}"
+            >
+              <div class="chat-thread-avatar-wrap">
+                <div class="chat-avatar">${escapeHtml(avatar)}</div>
+                <span class="chat-thread-presence ${thread.status === 'online' ? '' : 'is-hidden'}"></span>
+              </div>
+              <div class="chat-thread-body">
+                <div class="chat-thread-top plain-time">
+                  <h4>${escapeHtml(thread.name || 'Conversación')} - ${escapeHtml(thread.role || 'Profesional')}</h4>
+                  <span>${escapeHtml(time)}</span>
+                </div>
+                <p class="chat-thread-job">${escapeHtml(job)}</p>
+                <div class="chat-thread-bottom">
+                  <p>${escapeHtml(preview)}</p>
+                </div>
+              </div>
+            </button>
+          `;
+        }
+
+        function mapRemoteMessage(message) {
+          const isSelf = message.sender_id === currentAuthSession?.user?.id;
+          if (message.message_type === 'quote') {
+            return {
+              type: 'proposal',
+              time: formatChatTimestamp(message.created_at),
+            };
+          }
+
+          if (message.message_type === 'image') {
+            return {
+              type: 'image',
+              text: message.body || 'Imagen compartida',
+              time: formatChatTimestamp(message.created_at),
+              seen: !isSelf,
+              image: message.metadata?.image_url || message.metadata?.url || '',
+            };
+          }
+
+          return {
+            type: isSelf ? 'outgoing' : 'incoming',
+            text: message.body || '',
+            time: formatChatTimestamp(message.created_at),
+            seen: isSelf,
+          };
+        }
+
+        async function loadRemoteThreads() {
+          if (!isAuthenticatedUser()) {
+            threadList.innerHTML = '';
+            selectedThreadId = '';
+            setStatusMessage(syncStatus, 'Inicia sesión para ver tus mensajes recibidos.', 'neutral');
+            renderInbox();
+            syncSelectedThread();
+            return;
+          }
+
+          if (!supabaseClient) {
+            setStatusMessage(syncStatus, 'Falta configurar Supabase para cargar mensajes reales.', 'warning');
+            return;
+          }
+
+          setStatusMessage(syncStatus, 'Cargando mensajes recibidos...', 'neutral');
+
+          try {
+            const { data: requests, error: requestsError } = await supabaseClient
+              .from('service_requests')
+              .select('id, title')
+              .eq('created_by', currentAuthSession.user.id)
+              .order('created_at', { ascending: false })
+              .limit(30);
+
+            if (requestsError) {
+              throw requestsError;
+            }
+
+            if (!requests || requests.length === 0) {
+              threadList.innerHTML = '';
+              selectedThreadId = '';
+              setStatusMessage(syncStatus, 'Todavía no recibiste mensajes para tus solicitudes.', 'neutral');
+              renderInbox();
+              syncSelectedThread();
+              return;
+            }
+
+            const requestById = new Map(requests.map((request) => [request.id, request]));
+            const requestIds = requests.map((request) => request.id);
+            const { data: messages, error: messagesError } = await supabaseClient
+              .from('request_messages')
+              .select('id, request_id, sender_id, sender_name, message_type, body, metadata, created_at')
+              .in('request_id', requestIds)
+              .order('created_at', { ascending: true });
+
+            if (messagesError) {
+              throw messagesError;
+            }
+
+            const groupedThreads = new Map();
+            (messages || []).forEach((message) => {
+              const request = requestById.get(message.request_id);
+              const counterpartId = message.sender_id === currentAuthSession.user.id
+                ? (message.metadata?.recipient_id || `request-${message.request_id}`)
+                : (message.sender_id || `guest-${message.sender_name}`);
+              const threadKey = `${message.request_id}:${counterpartId}`;
+
+              if (!groupedThreads.has(threadKey)) {
+                groupedThreads.set(threadKey, {
+                  id: threadKey,
+                  name: message.sender_id === currentAuthSession.user.id
+                    ? (message.metadata?.recipient_name || 'Cliente')
+                    : (message.sender_name || 'Profesional'),
+                  role: message.metadata?.sender_role || 'Profesional',
+                  status: 'offline',
+                  statusLabel: formatRelativeDate(message.created_at),
+                  time: formatChatTimestamp(message.created_at),
+                  job: request?.title || 'Solicitud',
+                  filterType: 'trabajos',
+                  messages: [],
+                  lastCreatedAt: message.created_at,
+                });
+              }
+
+              const thread = groupedThreads.get(threadKey);
+              thread.messages.push(mapRemoteMessage(message));
+              thread.preview = message.body || thread.preview || 'Nuevo mensaje';
+              thread.time = formatChatTimestamp(message.created_at);
+              thread.statusLabel = formatRelativeDate(message.created_at);
+              thread.lastCreatedAt = message.created_at;
+            });
+
+            const threads = Array.from(groupedThreads.values()).sort((a, b) => {
+              return new Date(b.lastCreatedAt).getTime() - new Date(a.lastCreatedAt).getTime();
+            });
+
+            if (threads.length === 0) {
+              threadList.innerHTML = '';
+              selectedThreadId = '';
+              setStatusMessage(syncStatus, 'Todavía no recibiste mensajes para tus solicitudes.', 'neutral');
+              renderInbox();
+              syncSelectedThread();
+              return;
+            }
+
+            threadList.innerHTML = threads.map(buildRemoteThreadMarkup).join('');
+            selectedThreadId = threads[0].id;
+            setStatusMessage(syncStatus, 'Mostrando mensajes reales de tu cuenta.', 'success');
+            renderInbox();
+            syncSelectedThread();
+          } catch (error) {
+            threadList.innerHTML = initialMarkup;
+            selectedThreadId = getThreadButtons()[0]?.dataset.chatThread || '';
+            setStatusMessage(syncStatus, `No pudimos leer tus mensajes reales: ${error.message}`, 'error');
+            renderInbox();
+            syncSelectedThread();
+          }
+        }
 
         searchInput.addEventListener('input', renderInbox);
         detailBackButton.addEventListener('click', closeDetail);
@@ -3426,8 +3974,10 @@
           }
         });
 
+        refreshChatInbox = loadRemoteThreads;
         renderInbox();
         syncSelectedThread();
+        loadRemoteThreads();
       }
       function applyTheme(theme) {
         const nextTheme = theme === 'dark' ? 'dark' : 'light';
@@ -3580,6 +4130,7 @@
       setupRequestFilters();
       setupAuthUI();
       setupCreateRequestForm();
+      setupProfileEditing();
       setupChatUI();
       document.querySelectorAll('[data-close-create-request="true"]').forEach((element) => {
         element.addEventListener('click', () => closeCreateRequestModal());
