@@ -957,26 +957,15 @@
             </form>
 
             <div class="upload-panel">
-              <div class="photo-grid">
-                <div class="photo-card filled">
-                  <img
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl-XBTzRVTMhTq74qPFu1hWQUvhTuC2BscoxnLniAG2SFQM_GVHJzCM_0ZE28FwNFk0qTcnUtlqvPaP-Z2sFMEBOFG-a0shiFC9VNAYvb48tzVEzUPmwo1uRcSXbTBNB1I2Il2gZ6_xr1s8kaHisQpHNyrw5DFhyXoF6sflFzox6OSWj5aA6u06w8wEC80tZsssdjl2fppZYJAnSMO19m2xRkAJD_aFL-LL0fcr4MawN_6uI6M55c1JOyOZAcBaFgvMVqwVAra5sA"
-                    alt="Foto del problema"
-                  />
-                </div>
-                <div class="photo-card filled">
-                  <img
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDye1Ph2kKcMODdjRAjdAPFkgS-PjcvtBL9L5FDOI-TzTQEGgGs0JYIjVdZEnNgU5RdLLBXsMZ-HwrA-gErwBJSTBjC3OTfW10ShRB9xdaBST4yz99zputWNVigBsWtqiF_9Xb907CLxjLfXcENmmY0ijAwAR3tF6MkJCDLCOppVrLwFvfLoc7CD1T-3q5XYh9NyQHsJCEuuiD_4saaeqGflTgjcHDQn6B1Bt8JNWa_Pa_92R78xOjwN2CtGY1tYsjWBsp3WBS_YAY"
-                    alt="Foto del ambiente"
-                  />
-                </div>
-                <div class="photo-card placeholder">
+              <input id="request-photo-input" type="file" accept="image/*" multiple hidden />
+              <div id="request-photo-grid" class="photo-grid">
+                <button id="request-photo-trigger" class="photo-card placeholder photo-card-button" type="button">
                   <span class="material-symbols-outlined">add_a_photo</span>
                   <span>Agregar foto</span>
-                </div>
-                <div class="photo-card placeholder">
+                </button>
+                <div id="request-photo-counter" class="photo-card placeholder photo-card-counter">
                   <span class="material-symbols-outlined">image</span>
-                  <span>3/5</span>
+                  <span>0/5</span>
                 </div>
               </div>
               <div class="card helper-card">
@@ -1406,6 +1395,14 @@
               <p id="professional-modal-summary"></p>
             </div>
 
+            <div class="professional-modal__section">
+              <div class="professional-modal__section-head">
+                <h4>Reseñas de clientes</h4>
+                <span id="professional-modal-reviews-count" class="professional-modal__section-meta">0 reseñas</span>
+              </div>
+              <div id="professional-modal-reviews" class="professional-reviews-list"></div>
+            </div>
+
             <button class="filter-apply-button professional-modal__cta" type="button">
               <span class="material-symbols-outlined">chat</span>
               Contactar profesional
@@ -1620,17 +1617,52 @@
                 <input id="profile-edit-title" type="text" placeholder="Ej. Electricista matriculado" />
               </label>
               <label>
+                Categoría
+                <select id="profile-edit-category">
+                  <option value="plomeria">Plomería</option>
+                  <option value="electricidad">Electricidad</option>
+                  <option value="limpieza">Limpieza</option>
+                  <option value="albanileria">Albañilería</option>
+                  <option value="aire">Aire acondicionado</option>
+                  <option value="jardineria">Jardinería</option>
+                  <option value="pintura">Pintura</option>
+                  <option value="carpinteria">Carpintería</option>
+                  <option value="general">Otro</option>
+                </select>
+              </label>
+              <label>
                 Especialidades
                 <input id="profile-edit-specialties" type="text" placeholder="Separadas por coma" />
               </label>
-              <label>
-                Imagen principal
-                <input id="profile-edit-avatar" type="url" placeholder="https://..." />
-              </label>
-              <label>
-                Imágenes del portafolio
-                <textarea id="profile-edit-images" rows="4" placeholder="Una URL por línea"></textarea>
-              </label>
+              <div class="profile-edit-upload-block">
+                <span class="profile-edit-upload-label">Imagen principal</span>
+                <input id="profile-edit-avatar-file" type="file" accept="image/*" hidden />
+                <div class="photo-grid profile-edit-avatar-grid">
+                  <button id="profile-edit-avatar-trigger" class="photo-card placeholder photo-card-button" type="button">
+                    <span class="material-symbols-outlined">add_a_photo</span>
+                    <span>Subir imagen</span>
+                  </button>
+                  <div id="profile-edit-avatar-preview" class="photo-card placeholder profile-edit-avatar-preview">
+                    <span class="material-symbols-outlined">person</span>
+                    <span>Sin imagen</span>
+                  </div>
+                </div>
+              </div>
+              <div class="profile-edit-upload-block">
+                <span class="profile-edit-upload-label">Imágenes del portafolio</span>
+                <input id="profile-edit-images-files" type="file" accept="image/*" multiple hidden />
+                <div id="profile-edit-gallery-grid" class="photo-grid">
+                  <button id="profile-edit-images-trigger" class="photo-card placeholder photo-card-button" type="button">
+                    <span class="material-symbols-outlined">add_photo_alternate</span>
+                    <span>Agregar imágenes</span>
+                  </button>
+                  <div id="profile-edit-images-counter" class="photo-card placeholder photo-card-counter">
+                    <span class="material-symbols-outlined">collections</span>
+                    <span>0/5</span>
+                  </div>
+                </div>
+              </div>
+              <input id="profile-edit-avatar" type="hidden" />
               <label>
                 Descripción
                 <textarea id="profile-edit-description" rows="5" placeholder="Cuéntale a tus clientes qué haces y cómo trabajas."></textarea>
@@ -1906,6 +1938,7 @@
       function getDefaultProfileExtras(displayName = 'Profesional', avatarUrl = defaultUserAvatar) {
         return {
           title: 'Profesional verificado',
+          category: 'general',
           specialties: ['Atención profesional', 'Seguimiento', 'Presupuesto claro'],
           description: 'Completa tu perfil para mostrar experiencia, estilo de trabajo y tipo de proyectos que mejor resuelves.',
           avatarUrl,
@@ -1964,6 +1997,8 @@
           avatarUrl: extras.avatarUrl || avatarUrl,
           badge: profile?.verified ? 'Verificado' : 'Activo',
           title: extras.title,
+          category: extras.category || 'general',
+          categoryLabel: formatRequestCategory(extras.category || 'general'),
           description: extras.description || profile?.bio || '',
           specialties: extras.specialties,
           portfolioImages: extras.portfolioImages,
@@ -2011,7 +2046,7 @@
         profilePhoto.alt = viewModel.displayName;
         profileName.textContent = viewModel.displayName;
         profileBadge.textContent = viewModel.badge;
-        profileTitle.textContent = viewModel.title;
+        profileTitle.textContent = `${viewModel.title} · ${viewModel.categoryLabel}`;
         profileDescription.textContent = viewModel.description;
         profileYears.textContent = viewModel.years;
         profileProjects.textContent = viewModel.projects;
@@ -2385,6 +2420,8 @@
         const professionalModalSpecialties = document.getElementById('professional-modal-specialties');
         const professionalModalGallery = document.getElementById('professional-modal-gallery');
         const professionalModalSummary = document.getElementById('professional-modal-summary');
+        const professionalModalReviews = document.getElementById('professional-modal-reviews');
+        const professionalModalReviewsCount = document.getElementById('professional-modal-reviews-count');
 
         if (!searchInput || quickCategoryButtons.length === 0 || cards.length === 0) {
           return;
@@ -2467,6 +2504,131 @@
             response: '< 30m',
             specialties: ['Muebles a medida', 'Restauración', 'Instalación', 'Melamina'],
           },
+        };
+
+        const defaultProfessionalReviewsByCategory = {
+          plomeria: [
+            {
+              author: 'Sofía Gómez',
+              account: '@sofigomez',
+              rating: '5.0',
+              date: 'Hace 3 días',
+              text: 'Llegó rápido, detectó la pérdida en minutos y dejó todo documentado con fotos en el chat.',
+            },
+            {
+              author: 'Martín Paredes',
+              account: '@martinparedes',
+              rating: '4.9',
+              date: 'Hace 2 semanas',
+              text: 'Muy claro con el presupuesto y prolijo con el cambio del termotanque. Volvería a contratarlo.',
+            },
+          ],
+          electricidad: [
+            {
+              author: 'Camila Ruiz',
+              account: '@camiruiz',
+              rating: '5.0',
+              date: 'Hace 5 días',
+              text: 'Explicó cada paso antes de tocar el tablero y resolvió el problema sin vueltas.',
+            },
+            {
+              author: 'Joaquín Ferrer',
+              account: '@joacoferrer',
+              rating: '4.8',
+              date: 'Hace 10 días',
+              text: 'Puntual, ordenada y súper clara con las recomendaciones para que no vuelva a pasar.',
+            },
+          ],
+          limpieza: [
+            {
+              author: 'Valentina Costa',
+              account: '@valencosta',
+              rating: '5.0',
+              date: 'Ayer',
+              text: 'La contraté para una limpieza de final de obra y la diferencia fue enorme. Excelente seguimiento.',
+            },
+            {
+              author: 'Pablo Nievas',
+              account: '@pablon',
+              rating: '4.9',
+              date: 'Hace 1 semana',
+              text: 'Llegó con todo lo necesario, cumplió el checklist y fue avisando avances desde la app.',
+            },
+          ],
+          albanileria: [
+            {
+              author: 'Florencia Luna',
+              account: '@florluna',
+              rating: '4.8',
+              date: 'Hace 6 días',
+              text: 'Ordenó el trabajo por etapas y siempre supimos qué material se necesitaba en cada momento.',
+            },
+            {
+              author: 'Diego Salvat',
+              account: '@diegosalvat',
+              rating: '4.7',
+              date: 'Hace 3 semanas',
+              text: 'Muy cumplidor con los tiempos y prolijo con una reparación complicada de humedad.',
+            },
+          ],
+          jardineria: [
+            {
+              author: 'Luciana Pérez',
+              account: '@luperez',
+              rating: '4.9',
+              date: 'Hace 4 días',
+              text: 'Dejó el jardín impecable y además me compartió recomendaciones simples para mantenerlo.',
+            },
+            {
+              author: 'Nicolás Ibarra',
+              account: '@nicoibarra',
+              rating: '4.8',
+              date: 'Hace 12 días',
+              text: 'Muy buen trato, trabajó rápido y se notó experiencia con poda y mantenimiento.',
+            },
+          ],
+          pintura: [
+            {
+              author: 'Ana Belén Sosa',
+              account: '@anabelen',
+              rating: '4.8',
+              date: 'Hace 1 semana',
+              text: 'Respetó los tiempos prometidos y dejó cada ambiente limpio al terminar.',
+            },
+            {
+              author: 'Federico Lamas',
+              account: '@fedelamas',
+              rating: '4.7',
+              date: 'Hace 2 semanas',
+              text: 'Muy prolijo con las terminaciones y ordenado con la protección de muebles y pisos.',
+            },
+          ],
+          carpinteria: [
+            {
+              author: 'María Noel Díaz',
+              account: '@noeldiaz',
+              rating: '5.0',
+              date: 'Hace 2 días',
+              text: 'Me fue mostrando avances del mueble por la app y el resultado final quedó excelente.',
+            },
+            {
+              author: 'Santiago López',
+              account: '@santilopez',
+              rating: '4.8',
+              date: 'Hace 9 días',
+              text: 'Muy buen nivel de detalle y excelente comunicación para ajustar medidas antes de instalar.',
+            },
+          ],
+        };
+
+        const professionalReviewsByName = {
+          'Roberto Méndez': defaultProfessionalReviewsByCategory.plomeria,
+          'Carlos Silva': defaultProfessionalReviewsByCategory.carpinteria,
+          'Lucía Herrera': defaultProfessionalReviewsByCategory.electricidad,
+          'Elena Soros': defaultProfessionalReviewsByCategory.limpieza,
+          'Mariano Quiroga': defaultProfessionalReviewsByCategory.albanileria,
+          'Tomás Verde': defaultProfessionalReviewsByCategory.jardineria,
+          'Agustín Rojas': defaultProfessionalReviewsByCategory.pintura,
         };
 
         const defaultFilterState = {
@@ -2614,7 +2776,9 @@
             !professionalModalResponse ||
             !professionalModalSpecialties ||
             !professionalModalGallery ||
-            !professionalModalSummary
+            !professionalModalSummary ||
+            !professionalModalReviews ||
+            !professionalModalReviewsCount
           ) {
             return;
           }
@@ -2632,6 +2796,7 @@
             response: '< 1h',
             specialties: ['Atención profesional', 'Seguimiento', 'Presupuesto claro'],
           };
+          const reviews = professionalReviewsByName[name] || defaultProfessionalReviewsByCategory[categoryKey] || [];
 
           professionalModalPhoto.src = image?.getAttribute('src') || '';
           professionalModalPhoto.alt = image?.getAttribute('alt') || `Foto de ${name}`;
@@ -2651,6 +2816,30 @@
             .filter(Boolean)
             .slice(0, 3)
             .map((src, index) => `<img src="${src}" alt="Trabajo ${index + 1} de ${name}" />`)
+            .join('');
+          professionalModalReviewsCount.textContent = `${reviews.length} reseñas`;
+          professionalModalReviews.innerHTML = reviews
+            .map((review) => {
+              const initials = getUserInitials(review.author);
+              return `
+                <article class="professional-review-card">
+                  <div class="professional-review-card__header">
+                    <div class="professional-review-card__identity">
+                      <div class="professional-review-card__avatar">${escapeHtml(initials)}</div>
+                      <div>
+                        <strong>${escapeHtml(review.author)}</strong>
+                        <span>${escapeHtml(review.account)} · ${escapeHtml(review.date)}</span>
+                      </div>
+                    </div>
+                    <div class="professional-review-card__rating">
+                      <span class="material-symbols-outlined">star</span>
+                      <strong>${escapeHtml(review.rating)}</strong>
+                    </div>
+                  </div>
+                  <p>${escapeHtml(review.text)}</p>
+                </article>
+              `;
+            })
             .join('');
 
           professionalProfileModal.hidden = false;
@@ -3274,6 +3463,10 @@
         const descriptionInput = document.getElementById('request-description');
         const locationInput = document.getElementById('request-location');
         const budgetInput = document.getElementById('request-budget');
+        const photoInput = document.getElementById('request-photo-input');
+        const photoGrid = document.getElementById('request-photo-grid');
+        const photoTrigger = document.getElementById('request-photo-trigger');
+        const photoCounter = document.getElementById('request-photo-counter');
 
         if (
           !form ||
@@ -3285,13 +3478,76 @@
           !priorityInput ||
           !descriptionInput ||
           !locationInput ||
-          !budgetInput
+          !budgetInput ||
+          !photoInput ||
+          !photoGrid ||
+          !photoTrigger ||
+          !photoCounter
         ) {
           return;
         }
 
+        let selectedPhotos = [];
+
+        function syncPhotoCounter() {
+          photoCounter.querySelector('span:last-child').textContent = `${selectedPhotos.length}/5`;
+        }
+
+        function revokePhotoUrls() {
+          selectedPhotos.forEach((photo) => {
+            if (photo.previewUrl) {
+              URL.revokeObjectURL(photo.previewUrl);
+            }
+          });
+        }
+
+        function renderPhotoPreviews() {
+          photoGrid.querySelectorAll('.photo-card.filled[data-upload-preview="true"]').forEach((element) => {
+            element.remove();
+          });
+
+          selectedPhotos.forEach((photo, index) => {
+            photoTrigger.insertAdjacentHTML(
+              'beforebegin',
+              `
+                <div class="photo-card filled" data-upload-preview="true">
+                  <img src="${escapeHtml(photo.previewUrl)}" alt="Foto cargada ${index + 1}" />
+                </div>
+              `
+            );
+          });
+
+          syncPhotoCounter();
+        }
+
+        function resetPhotoPicker() {
+          revokePhotoUrls();
+          selectedPhotos = [];
+          photoInput.value = '';
+          renderPhotoPreviews();
+        }
+
         requesterNameInput.addEventListener('input', () => {
           requesterNameInput.dataset.autofilled = 'false';
+        });
+
+        photoTrigger.addEventListener('click', () => {
+          photoInput.click();
+        });
+
+        photoInput.addEventListener('change', () => {
+          const files = Array.from(photoInput.files || []);
+          revokePhotoUrls();
+          selectedPhotos = files.slice(0, 5).map((file) => ({
+            file,
+            previewUrl: URL.createObjectURL(file),
+          }));
+
+          if (files.length > 5) {
+            setStatusMessage(feedback, 'Solo puedes cargar hasta 5 fotos por solicitud.', 'warning');
+          }
+
+          renderPhotoPreviews();
         });
 
         form.addEventListener('submit', async (event) => {
@@ -3348,6 +3604,7 @@
             requesterNameInput.dataset.autofilled = currentAuthSession?.user ? 'true' : 'false';
             categoryInput.value = 'plomeria';
             priorityInput.value = 'programable';
+            resetPhotoPicker();
             setStatusMessage(feedback, 'Solicitud enviada. Ya la estamos refrescando en la grilla.', 'success');
 
             if (typeof refreshRequestCards === 'function') {
@@ -3363,6 +3620,8 @@
             submitButton.textContent = 'Enviar solicitud';
           }
         });
+
+        renderPhotoPreviews();
       }
 
       function setupProfileEditing() {
@@ -3371,9 +3630,16 @@
         const editForm = document.getElementById('profile-edit-form');
         const nameInput = document.getElementById('profile-edit-name');
         const titleInput = document.getElementById('profile-edit-title');
+        const categoryInput = document.getElementById('profile-edit-category');
         const specialtiesInput = document.getElementById('profile-edit-specialties');
         const avatarInput = document.getElementById('profile-edit-avatar');
-        const imagesInput = document.getElementById('profile-edit-images');
+        const avatarFileInput = document.getElementById('profile-edit-avatar-file');
+        const avatarTrigger = document.getElementById('profile-edit-avatar-trigger');
+        const avatarPreview = document.getElementById('profile-edit-avatar-preview');
+        const imagesFileInput = document.getElementById('profile-edit-images-files');
+        const imagesTrigger = document.getElementById('profile-edit-images-trigger');
+        const imagesCounter = document.getElementById('profile-edit-images-counter');
+        const galleryGrid = document.getElementById('profile-edit-gallery-grid');
         const descriptionInput = document.getElementById('profile-edit-description');
         const feedback = document.getElementById('profile-edit-feedback');
         const submitButton = document.getElementById('profile-edit-submit');
@@ -3384,14 +3650,70 @@
           !editForm ||
           !nameInput ||
           !titleInput ||
+          !categoryInput ||
           !specialtiesInput ||
           !avatarInput ||
-          !imagesInput ||
+          !avatarFileInput ||
+          !avatarTrigger ||
+          !avatarPreview ||
+          !imagesFileInput ||
+          !imagesTrigger ||
+          !imagesCounter ||
+          !galleryGrid ||
           !descriptionInput ||
           !feedback ||
           !submitButton
         ) {
           return;
+        }
+
+        let selectedAvatarImage = '';
+        let selectedPortfolioImages = [];
+
+        function fileToDataUrl(file) {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(typeof reader.result === 'string' ? reader.result : '');
+            reader.onerror = () => reject(reader.error || new Error('No pudimos leer la imagen.'));
+            reader.readAsDataURL(file);
+          });
+        }
+
+        function syncPortfolioCounter() {
+          imagesCounter.querySelector('span:last-child').textContent = `${selectedPortfolioImages.length}/5`;
+        }
+
+        function renderAvatarPreview() {
+          if (!selectedAvatarImage) {
+            avatarPreview.classList.add('placeholder');
+            avatarPreview.innerHTML = `
+              <span class="material-symbols-outlined">person</span>
+              <span>Sin imagen</span>
+            `;
+            return;
+          }
+
+          avatarPreview.classList.remove('placeholder');
+          avatarPreview.innerHTML = `<img src="${escapeHtml(selectedAvatarImage)}" alt="Vista previa del avatar" />`;
+        }
+
+        function renderPortfolioPreviews() {
+          galleryGrid.querySelectorAll('.photo-card.filled[data-profile-upload-preview="true"]').forEach((element) => {
+            element.remove();
+          });
+
+          selectedPortfolioImages.forEach((imageSrc, index) => {
+            imagesTrigger.insertAdjacentHTML(
+              'beforebegin',
+              `
+                <div class="photo-card filled" data-profile-upload-preview="true">
+                  <img src="${escapeHtml(imageSrc)}" alt="Imagen de portafolio ${index + 1}" />
+                </div>
+              `
+            );
+          });
+
+          syncPortfolioCounter();
         }
 
         function openProfileEditModal() {
@@ -3403,9 +3725,17 @@
           const viewModel = getCurrentProfileViewModel();
           nameInput.value = viewModel.displayName;
           titleInput.value = viewModel.title;
+          categoryInput.value = viewModel.category || 'general';
           specialtiesInput.value = viewModel.specialties.join(', ');
-          avatarInput.value = viewModel.avatarUrl;
-          imagesInput.value = viewModel.portfolioImages.join('\n');
+          selectedAvatarImage = viewModel.avatarUrl || '';
+          avatarInput.value = selectedAvatarImage;
+          selectedPortfolioImages = Array.isArray(viewModel.portfolioImages)
+            ? viewModel.portfolioImages.filter(Boolean).slice(0, 5)
+            : [];
+          avatarFileInput.value = '';
+          imagesFileInput.value = '';
+          renderAvatarPreview();
+          renderPortfolioPreviews();
           descriptionInput.value = viewModel.description;
           setStatusMessage(feedback, '', 'neutral');
           editModal.hidden = false;
@@ -3418,6 +3748,52 @@
         }
 
         editButton.addEventListener('click', openProfileEditModal);
+
+        avatarTrigger.addEventListener('click', () => {
+          avatarFileInput.click();
+        });
+
+        imagesTrigger.addEventListener('click', () => {
+          imagesFileInput.click();
+        });
+
+        avatarFileInput.addEventListener('change', async () => {
+          const file = avatarFileInput.files?.[0];
+          if (!file) {
+            return;
+          }
+
+          try {
+            selectedAvatarImage = await fileToDataUrl(file);
+            avatarInput.value = selectedAvatarImage;
+            renderAvatarPreview();
+            setStatusMessage(feedback, '', 'neutral');
+          } catch (error) {
+            setStatusMessage(feedback, `No pudimos cargar la imagen principal: ${error.message}`, 'error');
+          }
+        });
+
+        imagesFileInput.addEventListener('change', async () => {
+          const files = Array.from(imagesFileInput.files || []);
+          if (files.length === 0) {
+            return;
+          }
+
+          try {
+            const uploadedImages = await Promise.all(files.slice(0, 5).map((file) => fileToDataUrl(file)));
+            selectedPortfolioImages = uploadedImages.slice(0, 5);
+
+            if (files.length > 5) {
+              setStatusMessage(feedback, 'Solo puedes cargar hasta 5 imágenes para el portafolio.', 'warning');
+            } else {
+              setStatusMessage(feedback, '', 'neutral');
+            }
+
+            renderPortfolioPreviews();
+          } catch (error) {
+            setStatusMessage(feedback, `No pudimos cargar las imágenes: ${error.message}`, 'error');
+          }
+        });
 
         document.querySelectorAll('[data-close-profile-edit="true"]').forEach((element) => {
           element.addEventListener('click', closeProfileEditModal);
@@ -3441,16 +3817,14 @@
           const userId = currentAuthSession?.user?.id;
           const fullName = nameInput.value.trim() || currentDisplayName;
           const title = titleInput.value.trim() || 'Profesional verificado';
-          const avatarUrl = avatarInput.value.trim() || getUserAvatar(currentAuthSession?.user, currentAuthProfile);
+          const category = categoryInput.value || 'general';
+          const avatarUrl = selectedAvatarImage || avatarInput.value.trim() || getUserAvatar(currentAuthSession?.user, currentAuthProfile);
           const description = descriptionInput.value.trim();
           const specialties = specialtiesInput.value
             .split(',')
             .map((item) => item.trim())
             .filter(Boolean);
-          const portfolioImages = imagesInput.value
-            .split('\n')
-            .map((item) => item.trim())
-            .filter(Boolean);
+          const portfolioImages = selectedPortfolioImages.filter(Boolean);
 
           submitButton.disabled = true;
           setStatusMessage(feedback, 'Guardando perfil...', 'neutral');
@@ -3484,6 +3858,7 @@
             saveProfileExtras(userId, {
               ...previous,
               title,
+              category,
               description,
               avatarUrl,
               specialties: specialties.length > 0 ? specialties : previous.specialties,
@@ -3502,6 +3877,9 @@
             submitButton.disabled = false;
           }
         });
+
+        renderAvatarPreview();
+        renderPortfolioPreviews();
       }
 
       function setupChatUI() {
