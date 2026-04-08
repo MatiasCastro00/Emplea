@@ -652,7 +652,7 @@
               <span id="profile-page-portfolio-copy">Portafolio destacado</span>
             </div>
             <p id="profile-page-feedback" class="form-feedback" hidden role="status" aria-live="polite"></p>
-              <div id="profile-page-gallery" class="gallery-grid profile-work-grid">
+              <div id="profile-page-gallery" class="gallery-grid profile-work-grid" data-lightbox-gallery="profile-page">
                 <article class="profile-work-card profile-work-card-featured">
                   <img
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOgnH7nP0E7o9tDgxdME75pDh5_XaSHuSWPdef9uRJI6FSe1j-ElmGf5kg1Ubb0iRon83NfLrtHgRRcWJpVDOLGhY6TDRGddCzZ3BdtQtYfKoN_HkBPfoqJQG1epnAz6tAxkWvm2wCMIT_xruEYWm0vv5s-tIc5hZmVgl2zq8qe3wEl3pm7RTX4zVNm5i9z4Eb68wuArgDHSMHJH69V9_As0CI_v6awu6mpPjni0PSbgkgzX1fziBxuDlZKglp8oGowG8Y-VqFlGQ"
@@ -992,6 +992,9 @@
                 <p>
                   Agrega una foto general y una en detalle. Eso ayuda a que el
                   profesional estime materiales y urgencia con mucha más precisión.
+                </p>
+                <p>
+                  Puedes marcar una foto como principal. Esa será la portada de tu solicitud.
                 </p>
               </div>
             </div>
@@ -1406,7 +1409,7 @@
 
             <div id="professional-modal-gallery-section" class="professional-modal__section">
               <h4 id="professional-modal-gallery-heading">Fotos de trabajos</h4>
-              <div id="professional-modal-gallery" class="professional-gallery-grid"></div>
+              <div id="professional-modal-gallery" class="professional-gallery-grid" data-lightbox-gallery="professional-modal"></div>
             </div>
 
             <div class="professional-modal__section">
@@ -1470,7 +1473,7 @@
               </button>
             </div>
 
-            <section class="request-detail-gallery">
+            <section class="request-detail-gallery" data-lightbox-gallery="request-detail">
               <div id="request-detail-gallery-main" class="request-detail-gallery__main"></div>
               <div id="request-detail-gallery-side" class="request-detail-gallery__side"></div>
             </section>
@@ -1556,6 +1559,41 @@
               </div>
               <div class="request-detail-handle" aria-hidden="true"></div>
             </div>
+          </section>
+        </div>
+
+        <div id="image-lightbox" class="image-lightbox" hidden>
+          <div class="image-lightbox__backdrop" data-close-image-lightbox="true"></div>
+          <section class="image-lightbox__panel" aria-label="Visor de imágenes">
+            <button
+              id="image-lightbox-close"
+              class="image-lightbox__close"
+              type="button"
+              aria-label="Cerrar visor"
+            >
+              <span class="material-symbols-outlined">close</span>
+            </button>
+            <button
+              id="image-lightbox-prev"
+              class="image-lightbox__nav image-lightbox__nav--prev"
+              type="button"
+              aria-label="Imagen anterior"
+            >
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <figure class="image-lightbox__figure">
+              <img id="image-lightbox-image" src="" alt="Imagen ampliada" />
+              <figcaption id="image-lightbox-caption" class="image-lightbox__caption"></figcaption>
+            </figure>
+            <button
+              id="image-lightbox-next"
+              class="image-lightbox__nav image-lightbox__nav--next"
+              type="button"
+              aria-label="Imagen siguiente"
+            >
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+            <div id="image-lightbox-counter" class="image-lightbox__counter">1 / 1</div>
           </section>
         </div>
 
@@ -1845,6 +1883,10 @@
       let currentDisplayName = 'Invitado';
       let openAuthModalGlobal = null;
       let openPublicProfileGlobal = null;
+      let openChatThreadGlobal = null;
+      let openDirectChatGlobal = null;
+      let openRequestChatGlobal = null;
+      let openRequestProposalChatGlobal = null;
       let lastNonCreateScreen = fallbackScreen;
       const requestProfilesById = new Map();
 
@@ -2077,6 +2119,13 @@
           hour: '2-digit',
           minute: '2-digit',
         }).format(date);
+      }
+
+      function slugifyValue(value) {
+        return normalizeText(value)
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '')
+          || 'chat';
       }
 
       function hydrateRequestCardSearchData(card) {
@@ -2744,7 +2793,7 @@
       function syncBodyModalState() {
         document.body.classList.toggle(
           'modal-open',
-          Boolean(document.querySelector('.filter-modal:not([hidden])'))
+          Boolean(document.querySelector('.filter-modal:not([hidden]), .image-lightbox:not([hidden])'))
         );
       }
 
@@ -2831,6 +2880,7 @@
         const professionalModalCta = document.getElementById('professional-modal-cta');
         const professionalModalCtaLabel = document.getElementById('professional-modal-cta-label');
         const ownedProfileCardId = 'explore-owned-profile-card';
+        let activeProfessionalContact = null;
 
         if (!searchInput || quickCategoryButtons.length === 0 || !resultsGrid) {
           return;
@@ -3308,6 +3358,15 @@
             specialties: ['Atención profesional', 'Seguimiento', 'Presupuesto claro'],
           };
           const reviews = professionalReviewsByName[name] || defaultProfessionalReviewsByCategory[categoryKey] || [];
+          activeProfessionalContact = {
+            id: `direct-${slugifyValue(name)}`,
+            name,
+            role: role || 'Profesional',
+            avatar: getUserInitials(name),
+            job: `Contacto directo · ${categoryLabel}`,
+            preview: `Abriste una conversación con ${name}.`,
+            category: categoryLabel,
+          };
 
           professionalModalPhoto.src = image?.getAttribute('src') || '';
           professionalModalPhoto.alt = image?.getAttribute('alt') || `Foto de ${name}`;
@@ -3481,6 +3540,19 @@
         document.querySelectorAll('[data-close-professional-profile="true"]').forEach((element) => {
           element.addEventListener('click', closeProfessionalProfile);
         });
+        professionalModalCta?.addEventListener('click', async () => {
+          if (!isAuthenticatedUser()) {
+            requestAuthentication('login');
+            return;
+          }
+
+          if (!activeProfessionalContact || typeof openDirectChatGlobal !== 'function') {
+            return;
+          }
+
+          closeProfessionalProfile();
+          await openDirectChatGlobal(activeProfessionalContact);
+        });
 
         budgetMinInput?.addEventListener('input', syncBudgetUI);
         budgetMaxInput?.addEventListener('input', syncBudgetUI);
@@ -3577,7 +3649,10 @@
         const requestDetailClientName = document.getElementById('request-detail-client-name');
         const requestDetailClientMeta = document.getElementById('request-detail-client-meta');
         const requestDetailProfileButton = document.querySelector('.request-detail-profile-link');
+        const requestDetailContactButton = requestDetailModal?.querySelector('.request-detail-secondary-action');
+        const requestDetailProposalButton = requestDetailModal?.querySelector('.request-detail-primary-action');
         let activeRequestProfileViewModel = null;
+        let activeRequestChatContext = null;
 
         if (!searchInput || quickCategoryButtons.length === 0 || !requestsGrid) {
           return;
@@ -3715,6 +3790,18 @@
             role: requesterRole,
             badge: clientBadge,
           };
+          activeRequestChatContext = {
+            requestId: card.dataset.requestId || '',
+            requestTitle: title,
+            budget,
+            requesterId: createdBy,
+            requesterName,
+            requesterRole,
+            requesterAvatar,
+            requesterLocation,
+            clientBadge,
+            description,
+          };
           requestDetailTags.innerHTML = tags
             .map((tag, index) => `<span class="request-detail-tag ${index === tags.length - 1 && priority === 'urgente' ? 'is-alert' : ''}">${tag}</span>`)
             .join('');
@@ -3848,6 +3935,32 @@
           element.addEventListener('click', closeRequestDetail);
         });
         requestDetailProfileButton?.addEventListener('click', openRequestOwnerProfile);
+        requestDetailContactButton?.addEventListener('click', async () => {
+          if (!isAuthenticatedUser()) {
+            requestAuthentication('login');
+            return;
+          }
+
+          if (!activeRequestChatContext || typeof openRequestChatGlobal !== 'function') {
+            return;
+          }
+
+          closeRequestDetail();
+          await openRequestChatGlobal(activeRequestChatContext);
+        });
+        requestDetailProposalButton?.addEventListener('click', async () => {
+          if (!isAuthenticatedUser()) {
+            requestAuthentication('login');
+            return;
+          }
+
+          if (!activeRequestChatContext || typeof openRequestProposalChatGlobal !== 'function') {
+            return;
+          }
+
+          closeRequestDetail();
+          await openRequestProposalChatGlobal(activeRequestChatContext);
+        });
 
         searchInput.addEventListener('input', renderRequestFilters);
         if (desktopSearchInput) {
@@ -4144,9 +4257,22 @@
         }
 
         let selectedPhotos = [];
+        let selectedCoverPhotoIndex = 0;
 
         function syncPhotoCounter() {
           photoCounter.querySelector('span:last-child').textContent = `${selectedPhotos.length}/5`;
+        }
+
+        function getOrderedSelectedPhotos() {
+          if (selectedPhotos.length === 0) {
+            return [];
+          }
+
+          const safeCoverIndex = Math.max(0, Math.min(selectedCoverPhotoIndex, selectedPhotos.length - 1));
+          return [
+            selectedPhotos[safeCoverIndex],
+            ...selectedPhotos.filter((_, index) => index !== safeCoverIndex),
+          ];
         }
 
         function revokePhotoUrls() {
@@ -4163,11 +4289,17 @@
           });
 
           selectedPhotos.forEach((photo, index) => {
+            const isCover = index === selectedCoverPhotoIndex;
             photoTrigger.insertAdjacentHTML(
               'beforebegin',
               `
                 <div class="photo-card filled" data-upload-preview="true">
+                  ${isCover ? '<span class="photo-card__cover-badge">Principal</span>' : ''}
                   <img src="${escapeHtml(photo.previewUrl)}" alt="Foto cargada ${index + 1}" />
+                  <button class="photo-card__cover-toggle" type="button" data-request-cover-photo="${index}">
+                    <span class="material-symbols-outlined">${isCover ? 'check_circle' : 'image'}</span>
+                    <span>${isCover ? 'Portada' : 'Usar como principal'}</span>
+                  </button>
                 </div>
               `
             );
@@ -4179,6 +4311,7 @@
         function resetPhotoPicker() {
           revokePhotoUrls();
           selectedPhotos = [];
+          selectedCoverPhotoIndex = 0;
           photoInput.value = '';
           renderPhotoPreviews();
         }
@@ -4198,11 +4331,32 @@
             file,
             previewUrl: URL.createObjectURL(file),
           }));
+          selectedCoverPhotoIndex = 0;
 
           if (files.length > 5) {
             setStatusMessage(feedback, 'Solo puedes cargar hasta 5 fotos por solicitud.', 'warning');
           }
 
+          renderPhotoPreviews();
+        });
+
+        photoGrid.addEventListener('click', (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLElement)) {
+            return;
+          }
+
+          const coverButton = target.closest('[data-request-cover-photo]');
+          if (!(coverButton instanceof HTMLButtonElement)) {
+            return;
+          }
+
+          const nextIndex = Number(coverButton.dataset.requestCoverPhoto);
+          if (!Number.isFinite(nextIndex) || !selectedPhotos[nextIndex]) {
+            return;
+          }
+
+          selectedCoverPhotoIndex = nextIndex;
           renderPhotoPreviews();
         });
 
@@ -4234,7 +4388,8 @@
 
           try {
             const requestId = window.crypto?.randomUUID?.() || `request-${Date.now()}`;
-            const galleryUrls = await uploadRequestGalleryPhotos(selectedPhotos, requestId);
+            const orderedPhotos = getOrderedSelectedPhotos();
+            const galleryUrls = await uploadRequestGalleryPhotos(orderedPhotos, requestId);
             const { error } = await supabaseClient
               .from('service_requests')
               .insert({
@@ -4883,10 +5038,14 @@
         const desktopDetailName = document.getElementById('chat-desktop-name');
         const desktopDetailStatus = document.getElementById('chat-desktop-status');
         const desktopMessageList = document.getElementById('chat-desktop-message-list');
+        const mobileComposerInput = detailView?.querySelector('.chat-composer input');
+        const mobileComposerSendButton = detailView?.querySelector('.chat-send-button');
+        const desktopComposerInput = desktopDetailPanel?.querySelector('.chat-composer input');
+        const desktopComposerSendButton = desktopDetailPanel?.querySelector('.chat-send-button');
         const filterButtons = Array.from(chatSection?.querySelectorAll('[data-chat-filter]') || []);
         const desktopMediaQuery = window.matchMedia('(min-width: 1100px)');
 
-        if (!chatSection || !inboxView || !detailView || !searchInput || !emptyState || !syncStatus || !threadList || !detailBackButton || !detailAvatar || !detailName || !detailStatus || !messageList || !desktopDetailPanel || !desktopDetailAvatar || !desktopDetailName || !desktopDetailStatus || !desktopMessageList) {
+        if (!chatSection || !inboxView || !detailView || !searchInput || !emptyState || !syncStatus || !threadList || !detailBackButton || !detailAvatar || !detailName || !detailStatus || !messageList || !desktopDetailPanel || !desktopDetailAvatar || !desktopDetailName || !desktopDetailStatus || !desktopMessageList || !mobileComposerInput || !mobileComposerSendButton || !desktopComposerInput || !desktopComposerSendButton) {
           return;
         }
 
@@ -4901,10 +5060,100 @@
         let selectedFilter = 'all';
         let selectedThreadId = '';
         let isDetailOpen = false;
+        let currentRemoteThreads = [];
         const initialMarkup = threadList.innerHTML;
 
         function isDesktopLayout() {
           return desktopMediaQuery.matches;
+        }
+
+        function getCurrentChatStorageKey() {
+          return `conctando-local-chat-threads:${currentAuthSession?.user?.id || 'guest'}`;
+        }
+
+        function loadLocalThreads() {
+          try {
+            const parsed = JSON.parse(window.localStorage.getItem(getCurrentChatStorageKey()) || '[]');
+            if (!Array.isArray(parsed)) {
+              return [];
+            }
+
+            return parsed.filter((thread) => thread && typeof thread === 'object' && typeof thread.id === 'string');
+          } catch (error) {
+            return [];
+          }
+        }
+
+        function saveLocalThreads(threads) {
+          window.localStorage.setItem(getCurrentChatStorageKey(), JSON.stringify(threads));
+        }
+
+        function sortThreadsByDate(threads) {
+          return [...threads].sort((a, b) => new Date(b.lastCreatedAt || 0).getTime() - new Date(a.lastCreatedAt || 0).getTime());
+        }
+
+        function buildThreadMarkup(thread) {
+          const preview = thread.preview || 'Nuevo mensaje';
+          const job = thread.job || 'Conversación';
+          const time = thread.time || '';
+          const avatar = thread.avatar || getUserInitials(thread.name || 'CP');
+          const messagesJson = escapeHtml(JSON.stringify(thread.messages || []));
+          return `
+            <button
+              class="chat-thread-card"
+              type="button"
+              data-chat-thread="${escapeHtml(thread.id)}"
+              data-chat-source="${escapeHtml(thread.source || 'local')}"
+              data-chat-request-id="${escapeHtml(thread.requestId || '')}"
+              data-chat-counterpart-id="${escapeHtml(thread.counterpartId || '')}"
+              data-chat-counterpart-name="${escapeHtml(thread.name || 'Conversación')}"
+              data-chat-counterpart-role="${escapeHtml(thread.role || 'Profesional')}"
+              data-chat-filter-type="${escapeHtml(thread.filterType || 'trabajos')}"
+              data-chat-name="${escapeHtml(thread.name || 'Conversación')}"
+              data-chat-role="${escapeHtml(thread.role || 'Profesional')}"
+              data-chat-status="${escapeHtml(thread.status || 'offline')}"
+              data-chat-status-label="${escapeHtml(thread.statusLabel || 'Disponible')}"
+              data-chat-time="${escapeHtml(time)}"
+              data-chat-job="${escapeHtml(job)}"
+              data-chat-preview="${escapeHtml(preview)}"
+              data-chat-avatar="${escapeHtml(avatar)}"
+              data-chat-messages="${messagesJson}"
+            >
+              <div class="chat-thread-avatar-wrap">
+                <div class="chat-avatar">${escapeHtml(avatar)}</div>
+                <span class="chat-thread-presence ${thread.status === 'online' ? '' : 'is-hidden'}"></span>
+              </div>
+              <div class="chat-thread-body">
+                <div class="chat-thread-top plain-time">
+                  <h4>${escapeHtml(thread.name || 'Conversación')} - ${escapeHtml(thread.role || 'Profesional')}</h4>
+                  <span>${escapeHtml(time)}</span>
+                </div>
+                <p class="chat-thread-job">${escapeHtml(job)}</p>
+                <div class="chat-thread-bottom">
+                  <p>${escapeHtml(preview)}</p>
+                </div>
+              </div>
+            </button>
+          `;
+        }
+
+        function renderThreadList(threads, options = {}) {
+          const { useFallback = false, targetThreadId = '' } = options;
+          const localThreads = loadLocalThreads();
+          const mergedThreads = sortThreadsByDate([
+            ...localThreads.filter((localThread) => !threads.some((thread) => thread.id === localThread.id)),
+            ...threads,
+          ]);
+          threadList.innerHTML = useFallback && mergedThreads.length === 0
+            ? initialMarkup
+            : mergedThreads.map(buildThreadMarkup).join('');
+
+          const availableThreadIds = getThreadButtons().map((button) => button.dataset.chatThread);
+          if (targetThreadId && availableThreadIds.includes(targetThreadId)) {
+            selectedThreadId = targetThreadId;
+          } else if (!availableThreadIds.includes(selectedThreadId)) {
+            selectedThreadId = availableThreadIds[0] || '';
+          }
         }
 
         function getThreadButtons() {
@@ -4938,13 +5187,13 @@
           `;
         }
 
-        function renderProposalCard(button, time) {
+        function renderProposalCard(message, button = null) {
           const proposal = {
-            title: button.dataset.chatProposalTitle || fallbackProposal.title,
-            total: button.dataset.chatProposalTotal || fallbackProposal.total,
-            state: button.dataset.chatProposalState || fallbackProposal.state,
-            copy: button.dataset.chatProposalCopy || fallbackProposal.copy,
-            note: button.dataset.chatNote || fallbackProposal.note,
+            title: message.proposal?.title || button?.dataset.chatProposalTitle || fallbackProposal.title,
+            total: message.proposal?.total || button?.dataset.chatProposalTotal || fallbackProposal.total,
+            state: message.proposal?.state || button?.dataset.chatProposalState || fallbackProposal.state,
+            copy: message.proposal?.copy || button?.dataset.chatProposalCopy || fallbackProposal.copy,
+            note: message.proposal?.note || button?.dataset.chatNote || fallbackProposal.note,
           };
 
           return `
@@ -4968,19 +5217,20 @@
                 </div>
               </div>
               <p class="chat-note">${proposal.note}</p>
-              ${buildMeta(time, false)}
+              ${buildMeta(message.time, false)}
             </div>
           `;
         }
 
         function renderImageMessage(message) {
+          const isSelf = message.type !== 'incoming';
           return `
-            <div class="chat-message-row is-self">
+            <div class="chat-message-row ${isSelf ? 'is-self' : ''}">
               <div class="chat-image-card">
                 <img src="${message.image || ''}" alt="Referencia enviada en el chat" />
-                <div class="chat-bubble">${message.text || ''}</div>
+                <div class="chat-bubble ${isSelf ? '' : 'is-received'}">${message.text || ''}</div>
               </div>
-              ${buildMeta(message.time, Boolean(message.seen))}
+              ${buildMeta(message.time, isSelf && Boolean(message.seen))}
             </div>
           `;
         }
@@ -5000,7 +5250,7 @@
           targetList.innerHTML = messages
             .map((message) => {
               if (message.type === 'proposal') {
-                return renderProposalCard(button, message.time);
+                return renderProposalCard(message, button);
               }
 
               if (message.type === 'image') {
@@ -5021,6 +5271,17 @@
           renderMessages(button, elements.messageList);
         }
 
+        function syncComposerState() {
+          const hasSelectedThread = Boolean(getThreadButtons().find((item) => item.dataset.chatThread === selectedThreadId));
+          [mobileComposerInput, desktopComposerInput, mobileComposerSendButton, desktopComposerSendButton].forEach((element) => {
+            element.disabled = !hasSelectedThread;
+          });
+          if (!hasSelectedThread) {
+            mobileComposerInput.value = '';
+            desktopComposerInput.value = '';
+          }
+        }
+
         function syncSelectedThread() {
           const button = getThreadButtons().find((item) => item.dataset.chatThread === selectedThreadId);
 
@@ -5029,6 +5290,7 @@
             messageList.innerHTML = '';
             desktopMessageList.innerHTML = '';
             updateActiveThreadStyles();
+            syncComposerState();
             return;
           }
 
@@ -5046,6 +5308,7 @@
             messageList: desktopMessageList,
           });
           updateActiveThreadStyles();
+          syncComposerState();
         }
 
         function openDetail(threadId) {
@@ -5075,6 +5338,33 @@
           detailView.hidden = true;
           syncBodyModalState();
           updateActiveThreadStyles();
+        }
+
+        function openChatThread(threadId) {
+          if (!threadId) {
+            return;
+          }
+
+          if (window.location.hash.replace('#', '') !== 'chat') {
+            window.location.hash = '#chat';
+          } else {
+            setActiveScreen('chat');
+          }
+
+          openDetail(threadId);
+        }
+
+        function upsertLocalThread(thread) {
+          const threads = loadLocalThreads();
+          const nextThreads = sortThreadsByDate([
+            thread,
+            ...threads.filter((item) => item.id !== thread.id),
+          ]);
+          saveLocalThreads(nextThreads);
+          renderThreadList(currentRemoteThreads, { targetThreadId: thread.id });
+          renderInbox();
+          syncSelectedThread();
+          openChatThread(thread.id);
         }
 
         function renderInbox() {
@@ -5114,6 +5404,7 @@
           }
 
           updateActiveThreadStyles();
+          syncComposerState();
         }
 
         filterButtons.forEach((button) => {
@@ -5175,18 +5466,26 @@
         function mapRemoteMessage(message) {
           const isSelf = message.sender_id === currentAuthSession?.user?.id;
           if (message.message_type === 'quote') {
+            const quote = message.metadata?.quote || {};
             return {
               type: 'proposal',
               time: formatChatTimestamp(message.created_at),
+              proposal: {
+                title: quote.title || message.metadata?.request_title || fallbackProposal.title,
+                total: quote.total || fallbackProposal.total,
+                state: quote.state || 'Enviada para revisión',
+                copy: quote.copy || message.body || fallbackProposal.copy,
+                note: quote.note || 'Propuesta compartida en el chat.',
+              },
             };
           }
 
           if (message.message_type === 'image') {
             return {
-              type: 'image',
+              type: isSelf ? 'outgoing' : 'incoming',
               text: message.body || 'Imagen compartida',
               time: formatChatTimestamp(message.created_at),
-              seen: !isSelf,
+              seen: isSelf,
               image: message.metadata?.image_url || message.metadata?.url || '',
             };
           }
@@ -5199,46 +5498,83 @@
           };
         }
 
-        async function loadRemoteThreads() {
+        async function loadRemoteThreads(options = {}) {
+          const { silent = false, targetThreadId = '' } = options;
           if (!isAuthenticatedUser()) {
-            threadList.innerHTML = '';
+            currentRemoteThreads = [];
             selectedThreadId = '';
-            setStatusMessage(syncStatus, 'Inicia sesión para ver tus mensajes recibidos.', 'neutral');
+            renderThreadList([], { useFallback: true, targetThreadId });
+            if (!silent) {
+              setStatusMessage(syncStatus, 'Inicia sesión para ver tus mensajes recibidos.', 'neutral');
+            }
             renderInbox();
             syncSelectedThread();
             return;
           }
 
           if (!supabaseClient) {
-            setStatusMessage(syncStatus, 'Falta configurar Supabase para cargar mensajes reales.', 'warning');
+            currentRemoteThreads = [];
+            renderThreadList([], { useFallback: true, targetThreadId });
+            if (!silent) {
+              setStatusMessage(syncStatus, 'Falta configurar Supabase para cargar mensajes reales.', 'warning');
+            }
             return;
           }
 
-          setStatusMessage(syncStatus, 'Cargando mensajes recibidos...', 'neutral');
+          if (!silent) {
+            setStatusMessage(syncStatus, 'Cargando mensajes recibidos...', 'neutral');
+          }
 
           try {
-            const { data: requests, error: requestsError } = await supabaseClient
+            const userId = currentAuthSession.user.id;
+            const { data: ownedRequests, error: ownedRequestsError } = await supabaseClient
               .from('service_requests')
-              .select('id, title')
-              .eq('created_by', currentAuthSession.user.id)
+              .select('id, title, created_by, requester_name')
+              .eq('created_by', userId)
               .order('created_at', { ascending: false })
               .limit(30);
 
-            if (requestsError) {
-              throw requestsError;
+            if (ownedRequestsError) {
+              throw ownedRequestsError;
             }
 
-            if (!requests || requests.length === 0) {
-              threadList.innerHTML = '';
-              selectedThreadId = '';
-              setStatusMessage(syncStatus, 'Todavía no recibiste mensajes para tus solicitudes.', 'neutral');
+            const { data: sentMessages, error: sentMessagesError } = await supabaseClient
+              .from('request_messages')
+              .select('request_id')
+              .eq('sender_id', userId)
+              .order('created_at', { ascending: false })
+              .limit(100);
+
+            if (sentMessagesError) {
+              throw sentMessagesError;
+            }
+
+            const requestIds = Array.from(new Set([
+              ...(ownedRequests || []).map((request) => request.id),
+              ...(sentMessages || []).map((message) => message.request_id).filter(Boolean),
+            ]));
+
+            if (requestIds.length === 0) {
+              currentRemoteThreads = [];
+              renderThreadList([], { targetThreadId });
+              if (!silent) {
+                setStatusMessage(syncStatus, 'Todavía no recibiste mensajes para tus solicitudes.', 'neutral');
+              }
               renderInbox();
               syncSelectedThread();
               return;
             }
 
-            const requestById = new Map(requests.map((request) => [request.id, request]));
-            const requestIds = requests.map((request) => request.id);
+            const { data: requests, error: requestsError } = await supabaseClient
+              .from('service_requests')
+              .select('id, title, created_by, requester_name')
+              .in('id', requestIds);
+
+            if (requestsError) {
+              throw requestsError;
+            }
+
+            const requestById = new Map((requests || []).map((request) => [request.id, request]));
             const { data: messages, error: messagesError } = await supabaseClient
               .from('request_messages')
               .select('id, request_id, sender_id, sender_name, message_type, body, metadata, created_at')
@@ -5252,23 +5588,52 @@
             const groupedThreads = new Map();
             (messages || []).forEach((message) => {
               const request = requestById.get(message.request_id);
-              const counterpartId = message.sender_id === currentAuthSession.user.id
-                ? (message.metadata?.recipient_id || `request-${message.request_id}`)
-                : (message.sender_id || `guest-${message.sender_name}`);
+              if (!request) {
+                return;
+              }
+
+              const isOwner = request.created_by === userId;
+              const isParticipant = isOwner || message.sender_id === userId || message.metadata?.recipient_id === userId;
+              if (!isParticipant) {
+                return;
+              }
+
+              let counterpartId = '';
+              let counterpartName = '';
+              let counterpartRole = '';
+
+              if (isOwner) {
+                counterpartId = message.sender_id === userId
+                  ? (message.metadata?.recipient_id || `request-${message.request_id}`)
+                  : (message.sender_id || `guest-${message.sender_name}`);
+                counterpartName = message.sender_id === userId
+                  ? (message.metadata?.recipient_name || request.requester_name || 'Cliente')
+                  : (message.sender_name || 'Profesional');
+                counterpartRole = message.sender_id === userId
+                  ? (message.metadata?.recipient_role || 'Cliente')
+                  : (message.metadata?.sender_role || 'Profesional');
+              } else {
+                counterpartId = request.created_by || `owner-${message.request_id}`;
+                counterpartName = request.requester_name || message.metadata?.recipient_name || 'Cliente';
+                counterpartRole = 'Cliente';
+              }
+
               const threadKey = `${message.request_id}:${counterpartId}`;
 
               if (!groupedThreads.has(threadKey)) {
                 groupedThreads.set(threadKey, {
                   id: threadKey,
-                  name: message.sender_id === currentAuthSession.user.id
-                    ? (message.metadata?.recipient_name || 'Cliente')
-                    : (message.sender_name || 'Profesional'),
-                  role: message.metadata?.sender_role || 'Profesional',
+                  source: 'remote',
+                  requestId: message.request_id,
+                  counterpartId,
+                  name: counterpartName || 'Conversación',
+                  role: counterpartRole || 'Profesional',
                   status: 'offline',
                   statusLabel: formatRelativeDate(message.created_at),
                   time: formatChatTimestamp(message.created_at),
                   job: request?.title || 'Solicitud',
                   filterType: 'trabajos',
+                  avatar: getUserInitials(counterpartName || 'CP'),
                   messages: [],
                   lastCreatedAt: message.created_at,
                 });
@@ -5276,37 +5641,325 @@
 
               const thread = groupedThreads.get(threadKey);
               thread.messages.push(mapRemoteMessage(message));
-              thread.preview = message.body || thread.preview || 'Nuevo mensaje';
+              thread.preview = message.message_type === 'quote'
+                ? 'Propuesta enviada'
+                : (message.body || thread.preview || 'Nuevo mensaje');
               thread.time = formatChatTimestamp(message.created_at);
               thread.statusLabel = formatRelativeDate(message.created_at);
               thread.lastCreatedAt = message.created_at;
             });
 
-            const threads = Array.from(groupedThreads.values()).sort((a, b) => {
-              return new Date(b.lastCreatedAt).getTime() - new Date(a.lastCreatedAt).getTime();
-            });
-
-            if (threads.length === 0) {
-              threadList.innerHTML = '';
-              selectedThreadId = '';
-              setStatusMessage(syncStatus, 'Todavía no recibiste mensajes para tus solicitudes.', 'neutral');
-              renderInbox();
-              syncSelectedThread();
-              return;
+            currentRemoteThreads = sortThreadsByDate(Array.from(groupedThreads.values()));
+            renderThreadList(currentRemoteThreads, { targetThreadId });
+            if (!silent) {
+              setStatusMessage(
+                syncStatus,
+                currentRemoteThreads.length > 0 ? 'Mostrando mensajes reales de tu cuenta.' : 'Todavía no recibiste mensajes para tus solicitudes.',
+                currentRemoteThreads.length > 0 ? 'success' : 'neutral'
+              );
             }
-
-            threadList.innerHTML = threads.map(buildRemoteThreadMarkup).join('');
-            selectedThreadId = threads[0].id;
-            setStatusMessage(syncStatus, 'Mostrando mensajes reales de tu cuenta.', 'success');
             renderInbox();
             syncSelectedThread();
           } catch (error) {
-            threadList.innerHTML = initialMarkup;
-            selectedThreadId = getThreadButtons()[0]?.dataset.chatThread || '';
+            currentRemoteThreads = [];
+            renderThreadList([], { useFallback: true, targetThreadId });
             setStatusMessage(syncStatus, `No pudimos leer tus mensajes reales: ${error.message}`, 'error');
             renderInbox();
             syncSelectedThread();
           }
+        }
+
+        function createDirectThread(contact) {
+          const now = new Date().toISOString();
+          const threadId = `local:${contact.id || slugifyValue(contact.name || 'profesional')}`;
+          const existingThread = loadLocalThreads().find((thread) => thread.id === threadId);
+          if (existingThread) {
+            return existingThread;
+          }
+
+          return {
+            id: threadId,
+            source: 'local',
+            requestId: '',
+            counterpartId: contact.id || slugifyValue(contact.name || 'profesional'),
+            name: contact.name || 'Profesional',
+            role: contact.role || 'Profesional',
+            status: 'offline',
+            statusLabel: 'Disponible',
+            time: formatChatTimestamp(now),
+            job: contact.job || 'Contacto directo',
+            preview: contact.preview || `Abriste una conversación con ${contact.name || 'este profesional'}.`,
+            avatar: contact.avatar || getUserInitials(contact.name || 'Profesional'),
+            filterType: 'profesionales',
+            lastCreatedAt: now,
+            messages: [
+              {
+                type: 'outgoing',
+                text: `Hola ${contact.name || ''}, te escribo desde Conctando para hablar de tu servicio.`,
+                time: formatChatTimestamp(now),
+                seen: true,
+              },
+            ],
+          };
+        }
+
+        function createLocalRequestThread(requestContext, options = {}) {
+          const { includeProposal = false } = options;
+          const now = new Date().toISOString();
+          const requestId = requestContext.requestId || `draft-${slugifyValue(requestContext.requestTitle || 'solicitud')}`;
+          const counterpartId = requestContext.requesterId || slugifyValue(requestContext.requesterName || 'cliente');
+          const existingThread = loadLocalThreads().find((thread) => thread.id === `${requestId}:${counterpartId}`);
+          if (existingThread && !includeProposal) {
+            return existingThread;
+          }
+          if (existingThread && includeProposal) {
+            const nextMessages = [
+              ...(Array.isArray(existingThread.messages) ? existingThread.messages : []),
+              {
+                type: 'proposal',
+                time: formatChatTimestamp(now),
+                proposal: {
+                  title: requestContext.requestTitle || fallbackProposal.title,
+                  total: requestContext.budget || fallbackProposal.total,
+                  state: 'Enviada para revisión',
+                  copy: requestContext.description || fallbackProposal.copy,
+                  note: 'La propuesta quedó vinculada a esta solicitud.',
+                },
+              },
+            ];
+
+            return {
+              ...existingThread,
+              preview: 'Propuesta enviada',
+              time: formatChatTimestamp(now),
+              lastCreatedAt: now,
+              messages: nextMessages,
+            };
+          }
+          const messages = [
+            {
+              type: 'outgoing',
+              text: `Hola ${requestContext.requesterName || 'cliente'}, vi tu solicitud "${requestContext.requestTitle || 'Servicio'}" y te escribo por acá.`,
+              time: formatChatTimestamp(now),
+              seen: true,
+            },
+          ];
+
+          if (includeProposal) {
+            messages.push({
+              type: 'proposal',
+              time: formatChatTimestamp(now),
+              proposal: {
+                title: requestContext.requestTitle || fallbackProposal.title,
+                total: requestContext.budget || fallbackProposal.total,
+                state: 'Enviada para revisión',
+                copy: requestContext.description || fallbackProposal.copy,
+                note: 'La propuesta quedó vinculada a esta solicitud.',
+              },
+            });
+          }
+
+          return {
+            id: `${requestId}:${counterpartId}`,
+            source: 'local',
+            requestId,
+            counterpartId,
+            name: requestContext.requesterName || 'Cliente',
+            role: requestContext.requesterRole || 'Cliente',
+            status: 'offline',
+            statusLabel: 'Disponible',
+            time: formatChatTimestamp(now),
+            job: requestContext.requestTitle || 'Solicitud',
+            preview: includeProposal ? 'Propuesta enviada' : messages[messages.length - 1].text,
+            avatar: getUserInitials(requestContext.requesterName || 'Cliente'),
+            filterType: 'trabajos',
+            lastCreatedAt: now,
+            messages,
+          };
+        }
+
+        async function sendRemoteMessage(threadButton, text) {
+          if (!supabaseClient || !currentAuthSession?.user || !threadButton.dataset.chatRequestId) {
+            throw new Error('No hay una conversación real disponible para este envío.');
+          }
+
+          const counterpartRole = threadButton.dataset.chatCounterpartRole || 'Cliente';
+          const senderRole = counterpartRole === 'Cliente' ? 'Profesional' : 'Cliente';
+          const requestId = threadButton.dataset.chatRequestId;
+          const counterpartId = threadButton.dataset.chatCounterpartId || '';
+          const counterpartName = threadButton.dataset.chatCounterpartName || 'Usuario';
+          const threadId = threadButton.dataset.chatThread || '';
+
+          const { error } = await supabaseClient
+            .from('request_messages')
+            .insert({
+              request_id: requestId,
+              sender_id: currentAuthSession.user.id,
+              sender_name: currentDisplayName,
+              message_type: 'text',
+              body: text,
+              metadata: {
+                recipient_id: counterpartId || null,
+                recipient_name: counterpartName,
+                recipient_role: counterpartRole,
+                sender_role: senderRole,
+              },
+            });
+
+          if (error) {
+            throw error;
+          }
+
+          await loadRemoteThreads({ silent: true, targetThreadId: threadId });
+        }
+
+        function sendLocalMessage(threadButton, text) {
+          const threadId = threadButton.dataset.chatThread || '';
+          const nextThreads = loadLocalThreads().map((thread) => {
+            if (thread.id !== threadId) {
+              return thread;
+            }
+
+            const timestamp = new Date().toISOString();
+            const messages = [
+              ...(Array.isArray(thread.messages) ? thread.messages : []),
+              {
+                type: 'outgoing',
+                text,
+                time: formatChatTimestamp(timestamp),
+                seen: true,
+              },
+            ];
+
+            return {
+              ...thread,
+              preview: text,
+              time: formatChatTimestamp(timestamp),
+              lastCreatedAt: timestamp,
+              messages,
+            };
+          });
+
+          saveLocalThreads(sortThreadsByDate(nextThreads));
+          renderThreadList(currentRemoteThreads, { targetThreadId: threadId });
+          renderInbox();
+          syncSelectedThread();
+        }
+
+        async function handleComposerSubmit(sourceInput) {
+          const button = getThreadButtons().find((item) => item.dataset.chatThread === selectedThreadId);
+          const text = sourceInput.value.trim();
+          if (!button || !text) {
+            return;
+          }
+
+          mobileComposerSendButton.disabled = true;
+          desktopComposerSendButton.disabled = true;
+          setStatusMessage(syncStatus, 'Enviando mensaje...', 'neutral');
+
+          try {
+            if (button.dataset.chatSource === 'remote') {
+              await sendRemoteMessage(button, text);
+            } else {
+              sendLocalMessage(button, text);
+            }
+
+            mobileComposerInput.value = '';
+            desktopComposerInput.value = '';
+            setStatusMessage(syncStatus, 'Mensaje enviado.', 'success');
+            openDetail(selectedThreadId);
+          } catch (error) {
+            setStatusMessage(syncStatus, `No pudimos enviar el mensaje: ${error.message}`, 'error');
+          } finally {
+            mobileComposerSendButton.disabled = false;
+            desktopComposerSendButton.disabled = false;
+            syncComposerState();
+          }
+        }
+
+        async function createOrOpenRemoteRequestThread(requestContext, options = {}) {
+          const { includeProposal = false } = options;
+          if (!supabaseClient || !currentAuthSession?.user || !requestContext.requestId) {
+            upsertLocalThread(createLocalRequestThread(requestContext, { includeProposal }));
+            return;
+          }
+
+          const requestId = requestContext.requestId;
+          const counterpartId = requestContext.requesterId || slugifyValue(requestContext.requesterName || 'cliente');
+          const threadId = `${requestId}:${counterpartId}`;
+          const counterpartRole = requestContext.requesterRole || 'Cliente';
+          const quoteTitle = requestContext.requestTitle || fallbackProposal.title;
+          const quoteDetails = requestContext.description || fallbackProposal.copy;
+          const quoteTotal = requestContext.budget || fallbackProposal.total;
+          const senderRole = counterpartRole === 'Cliente' ? 'Profesional' : 'Cliente';
+
+          if (!includeProposal && currentRemoteThreads.some((thread) => thread.id === threadId)) {
+            openChatThread(threadId);
+            return;
+          }
+
+          const messagesToInsert = [{
+            request_id: requestId,
+            sender_id: currentAuthSession.user.id,
+            sender_name: currentDisplayName,
+            message_type: 'text',
+            body: `Hola ${requestContext.requesterName || 'cliente'}, vi tu solicitud "${quoteTitle}" y te escribo por acá.`,
+            metadata: {
+              recipient_id: requestContext.requesterId || null,
+              recipient_name: requestContext.requesterName || 'Cliente',
+              recipient_role: counterpartRole,
+              sender_role: senderRole,
+              request_title: quoteTitle,
+            },
+          }];
+
+          if (includeProposal) {
+            const { error: quoteError } = await supabaseClient
+              .from('request_quotes')
+              .insert({
+                request_id: requestId,
+                professional_id: currentAuthSession.user.id,
+                title: quoteTitle,
+                details: quoteDetails,
+                total_amount: Number.parseFloat(String(quoteTotal).replace(/[^\d,.-]/g, '').replace(/\./g, '').replace(',', '.')) || null,
+                currency: 'ARS',
+                status: 'pending',
+              });
+
+            if (quoteError) {
+              throw quoteError;
+            }
+
+            messagesToInsert.push({
+              request_id: requestId,
+              sender_id: currentAuthSession.user.id,
+              sender_name: currentDisplayName,
+              message_type: 'quote',
+              body: quoteDetails,
+              metadata: {
+                recipient_id: requestContext.requesterId || null,
+                recipient_name: requestContext.requesterName || 'Cliente',
+                recipient_role: counterpartRole,
+                sender_role: senderRole,
+                request_title: quoteTitle,
+                quote: {
+                  title: quoteTitle,
+                  total: quoteTotal,
+                  state: 'Enviada para revisión',
+                  copy: quoteDetails,
+                  note: 'La propuesta quedó vinculada a esta solicitud.',
+                },
+              },
+            });
+          }
+
+          const { error } = await supabaseClient.from('request_messages').insert(messagesToInsert);
+          if (error) {
+            throw error;
+          }
+
+          await loadRemoteThreads({ silent: true, targetThreadId: threadId });
+          openChatThread(threadId);
         }
 
         searchInput.addEventListener('input', renderInbox);
@@ -5334,12 +5987,152 @@
             closeDetail();
           }
         });
+        mobileComposerSendButton.addEventListener('click', () => {
+          handleComposerSubmit(mobileComposerInput);
+        });
+        desktopComposerSendButton.addEventListener('click', () => {
+          handleComposerSubmit(desktopComposerInput);
+        });
+        [mobileComposerInput, desktopComposerInput].forEach((input) => {
+          input.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+              event.preventDefault();
+              handleComposerSubmit(input);
+            }
+          });
+        });
+
+        openChatThreadGlobal = openChatThread;
+        openDirectChatGlobal = async (contact) => {
+          upsertLocalThread(createDirectThread(contact || {}));
+        };
+        openRequestChatGlobal = async (requestContext) => {
+          await createOrOpenRemoteRequestThread(requestContext, { includeProposal: false });
+        };
+        openRequestProposalChatGlobal = async (requestContext) => {
+          await createOrOpenRemoteRequestThread(requestContext, { includeProposal: true });
+        };
 
         refreshChatInbox = loadRemoteThreads;
         renderInbox();
         syncSelectedThread();
         loadRemoteThreads();
       }
+
+      function setupImageLightbox() {
+        const lightbox = document.getElementById('image-lightbox');
+        const lightboxImage = document.getElementById('image-lightbox-image');
+        const lightboxCaption = document.getElementById('image-lightbox-caption');
+        const lightboxCounter = document.getElementById('image-lightbox-counter');
+        const closeButton = document.getElementById('image-lightbox-close');
+        const prevButton = document.getElementById('image-lightbox-prev');
+        const nextButton = document.getElementById('image-lightbox-next');
+
+        if (!lightbox || !lightboxImage || !lightboxCaption || !lightboxCounter || !closeButton || !prevButton || !nextButton) {
+          return;
+        }
+
+        let currentGallery = [];
+        let currentIndex = 0;
+
+        function getImagesFromGalleryRoot(root) {
+          if (!root) {
+            return [];
+          }
+
+          return Array.from(root.querySelectorAll('img'))
+            .map((image) => ({
+              src: image.getAttribute('src') || '',
+              alt: image.getAttribute('alt') || 'Imagen ampliada',
+            }))
+            .filter((image) => image.src);
+        }
+
+        function renderLightboxImage() {
+          const currentImage = currentGallery[currentIndex];
+          if (!currentImage) {
+            return;
+          }
+
+          lightboxImage.src = currentImage.src;
+          lightboxImage.alt = currentImage.alt;
+          lightboxCaption.textContent = currentImage.alt;
+          lightboxCounter.textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+          prevButton.disabled = currentGallery.length <= 1;
+          nextButton.disabled = currentGallery.length <= 1;
+        }
+
+        function openLightbox(gallery, startIndex = 0) {
+          if (!Array.isArray(gallery) || gallery.length === 0) {
+            return;
+          }
+
+          currentGallery = gallery;
+          currentIndex = Math.max(0, Math.min(startIndex, gallery.length - 1));
+          renderLightboxImage();
+          lightbox.hidden = false;
+          syncBodyModalState();
+        }
+
+        function closeLightbox() {
+          lightbox.hidden = true;
+          lightboxImage.src = '';
+          currentGallery = [];
+          currentIndex = 0;
+          syncBodyModalState();
+        }
+
+        function stepLightbox(direction) {
+          if (currentGallery.length <= 1) {
+            return;
+          }
+
+          currentIndex = (currentIndex + direction + currentGallery.length) % currentGallery.length;
+          renderLightboxImage();
+        }
+
+        document.addEventListener('click', (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLImageElement)) {
+            return;
+          }
+
+          const galleryRoot = target.closest('[data-lightbox-gallery]');
+          if (!galleryRoot) {
+            return;
+          }
+
+          const images = getImagesFromGalleryRoot(galleryRoot);
+          const selectedIndex = Array.from(galleryRoot.querySelectorAll('img')).indexOf(target);
+          if (images.length === 0 || selectedIndex < 0) {
+            return;
+          }
+
+          openLightbox(images, selectedIndex);
+        });
+
+        document.querySelectorAll('[data-close-image-lightbox="true"]').forEach((element) => {
+          element.addEventListener('click', closeLightbox);
+        });
+        closeButton.addEventListener('click', closeLightbox);
+        prevButton.addEventListener('click', () => stepLightbox(-1));
+        nextButton.addEventListener('click', () => stepLightbox(1));
+
+        document.addEventListener('keydown', (event) => {
+          if (lightbox.hidden) {
+            return;
+          }
+
+          if (event.key === 'Escape') {
+            closeLightbox();
+          } else if (event.key === 'ArrowLeft') {
+            stepLightbox(-1);
+          } else if (event.key === 'ArrowRight') {
+            stepLightbox(1);
+          }
+        });
+      }
+
       function applyTheme(theme) {
         const nextTheme = theme === 'dark' ? 'dark' : 'light';
         document.documentElement.classList.toggle('dark-theme', nextTheme === 'dark');
@@ -5493,6 +6286,7 @@
       setupCreateRequestForm();
       setupProfileEditing();
       setupChatUI();
+      setupImageLightbox();
       document.querySelectorAll('[data-close-create-request="true"]').forEach((element) => {
         element.addEventListener('click', () => closeCreateRequestModal());
       });
