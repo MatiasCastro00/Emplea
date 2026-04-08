@@ -22,10 +22,6 @@
     <div class="page-shell">
       <aside class="desktop-sidebar" aria-label="Navegación principal de escritorio">
         <div class="desktop-sidebar__brand">
-          <div class="desktop-sidebar__brand-mark">
-            <img class="theme-brand-asset theme-brand-asset--light" src="./assets/branding/emplea-icon-dark.png" alt="Emplea" />
-            <img class="theme-brand-asset theme-brand-asset--dark" src="./assets/branding/emplea-icon-light.png" alt="Emplea" />
-          </div>
           <div class="desktop-sidebar__brand-copy">
             <img class="desktop-sidebar__wordmark theme-brand-asset theme-brand-asset--light" src="./assets/branding/emplea-wordmark-dark.png" alt="Emplea" />
             <img class="desktop-sidebar__wordmark theme-brand-asset theme-brand-asset--dark" src="./assets/branding/emplea-wordmark-light.png" alt="Emplea" />
@@ -1028,7 +1024,7 @@
                 <button class="chat-filter-chip" type="button" data-chat-filter="directo">Directo</button>
               </div>
 
-              <p id="chat-sync-status" class="requests-sync-status" hidden aria-live="polite"></p>
+              <p id="chat-sync-status" class="requests-sync-status chat-sync-status" hidden aria-live="polite"></p>
 
               <div id="chat-thread-list" class="chat-thread-list">
                 <button
@@ -4316,10 +4312,6 @@
           renderPhotoPreviews();
         }
 
-        function getPhotoFingerprint(file) {
-          return [file?.name || '', file?.size || 0, file?.lastModified || 0].join(':');
-        }
-
         requesterNameInput.addEventListener('input', () => {
           requesterNameInput.dataset.autofilled = 'false';
         });
@@ -4334,23 +4326,13 @@
             return;
           }
 
-          const existingFingerprints = new Set(
-            selectedPhotos.map((photo) => getPhotoFingerprint(photo.file))
-          );
-          const nextPhotos = [...selectedPhotos];
-
-          files.forEach((file) => {
-            const fingerprint = getPhotoFingerprint(file);
-            if (existingFingerprints.has(fingerprint)) {
-              return;
-            }
-
-            existingFingerprints.add(fingerprint);
-            nextPhotos.push({
+          const nextPhotos = [
+            ...selectedPhotos,
+            ...files.map((file) => ({
               file,
               previewUrl: URL.createObjectURL(file),
-            });
-          });
+            })),
+          ];
 
           const discardedPhotos = nextPhotos.slice(5);
           discardedPhotos.forEach((photo) => {
