@@ -1639,10 +1639,10 @@ html.dark-theme .home-rating-pill {
 .filter-modal__header,
 .request-detail-header {
   position: sticky;
-  top: 0;
+  top: -20px;
   z-index: 3;
-  padding-top: 4px;
-  padding-bottom: 8px;
+  margin: -20px -20px 0;
+  padding: 20px 20px 10px;
   background: linear-gradient(180deg, var(--panel-bg) 78%, color-mix(in srgb, var(--panel-bg) 0%, transparent));
 }
 
