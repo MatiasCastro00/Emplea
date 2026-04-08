@@ -4316,6 +4316,10 @@
           renderPhotoPreviews();
         }
 
+        function getPhotoFingerprint(file) {
+          return [file?.name || '', file?.size || 0, file?.lastModified || 0].join(':');
+        }
+
         requesterNameInput.addEventListener('input', () => {
           requesterNameInput.dataset.autofilled = 'false';
         });
@@ -4326,17 +4330,49 @@
 
         photoInput.addEventListener('change', () => {
           const files = Array.from(photoInput.files || []);
-          revokePhotoUrls();
-          selectedPhotos = files.slice(0, 5).map((file) => ({
-            file,
-            previewUrl: URL.createObjectURL(file),
-          }));
-          selectedCoverPhotoIndex = 0;
-
-          if (files.length > 5) {
-            setStatusMessage(feedback, 'Solo puedes cargar hasta 5 fotos por solicitud.', 'warning');
+          if (files.length === 0) {
+            return;
           }
 
+          const existingFingerprints = new Set(
+            selectedPhotos.map((photo) => getPhotoFingerprint(photo.file))
+          );
+          const nextPhotos = [...selectedPhotos];
+
+          files.forEach((file) => {
+            const fingerprint = getPhotoFingerprint(file);
+            if (existingFingerprints.has(fingerprint)) {
+              return;
+            }
+
+            existingFingerprints.add(fingerprint);
+            nextPhotos.push({
+              file,
+              previewUrl: URL.createObjectURL(file),
+            });
+          });
+
+          const discardedPhotos = nextPhotos.slice(5);
+          discardedPhotos.forEach((photo) => {
+            if (photo.previewUrl) {
+              URL.revokeObjectURL(photo.previewUrl);
+            }
+          });
+
+          selectedPhotos = nextPhotos.slice(0, 5);
+          if (selectedPhotos.length === 1) {
+            selectedCoverPhotoIndex = 0;
+          } else if (selectedPhotos.length > 0) {
+            selectedCoverPhotoIndex = Math.max(0, Math.min(selectedCoverPhotoIndex, selectedPhotos.length - 1));
+          }
+
+          if (nextPhotos.length > 5) {
+            setStatusMessage(feedback, 'Solo puedes cargar hasta 5 fotos por solicitud. Conservamos las primeras 5.', 'warning');
+          } else {
+            setStatusMessage(feedback, '', 'neutral');
+          }
+
+          photoInput.value = '';
           renderPhotoPreviews();
         });
 
