@@ -59,6 +59,13 @@ Si pruebas con otra URL local o preview, agregala tambien.
 En `Authentication > Providers > Email`:
 - habilita `Email`
 
+Si al registrar aparece `email rate limit exceeded`, el problema viene del límite de envíos del proveedor de correo de Supabase, no del formulario.
+
+Para destrabar desarrollo/local:
+- espera unos minutos antes de reintentar con el mismo proyecto
+- o desactiva temporalmente la confirmación de email en `Authentication > Providers > Email`
+- o configura un SMTP propio en Supabase para no depender del límite por defecto
+
 ### 4.3 Google
 
 En `Authentication > Providers > Google`:

@@ -1887,14 +1887,14 @@
 
         if (amounts.length === 1) {
           return {
-            budgetLabel: trimmed,
+            budgetLabel: formatCurrency(amounts[0]),
             budgetMin: amounts[0],
             budgetMax: amounts[0],
           };
         }
 
         return {
-          budgetLabel: trimmed,
+          budgetLabel: `${formatCurrency(Math.min(...amounts))} - ${formatCurrency(Math.max(...amounts))}`,
           budgetMin: Math.min(...amounts),
           budgetMax: Math.max(...amounts),
         };
@@ -1905,11 +1905,55 @@
           return 'A convenir';
         }
 
-        return new Intl.NumberFormat('es-AR', {
-          style: 'currency',
-          currency: 'ARS',
+        return `$${new Intl.NumberFormat('es-AR', {
           maximumFractionDigits: 0,
-        }).format(amount);
+        }).format(amount)}`;
+      }
+
+      function fileToDataUrl(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(typeof reader.result === 'string' ? reader.result : '');
+          reader.onerror = () => reject(reader.error || new Error('No pudimos leer la imagen.'));
+          reader.readAsDataURL(file);
+        });
+      }
+
+      async function uploadRequestGalleryPhotos(photos, requestId) {
+        if (!Array.isArray(photos) || photos.length === 0) {
+          return [];
+        }
+
+        const bucketName = supabaseSettings.storageBucket || '';
+        if (!supabaseClient || !bucketName) {
+          return Promise.all(photos.map((photo) => fileToDataUrl(photo.file)));
+        }
+
+        try {
+          const uploadedUrls = await Promise.all(
+            photos.map(async (photo, index) => {
+              const extension = (photo.file?.name?.split('.').pop() || 'jpg').toLowerCase();
+              const filePath = `requests/${requestId}/${Date.now()}-${index}.${extension}`;
+              const { error } = await supabaseClient.storage
+                .from(bucketName)
+                .upload(filePath, photo.file, {
+                  cacheControl: '3600',
+                  upsert: false,
+                });
+
+              if (error) {
+                throw error;
+              }
+
+              const { data } = supabaseClient.storage.from(bucketName).getPublicUrl(filePath);
+              return data?.publicUrl || '';
+            })
+          );
+
+          return uploadedUrls.filter(Boolean);
+        } catch (error) {
+          return Promise.all(photos.map((photo) => fileToDataUrl(photo.file)));
+        }
       }
 
       function formatRelativeDate(value) {
@@ -1981,6 +2025,20 @@
 
       function setRequestsSyncStatus(message, tone = 'neutral') {
         setStatusMessage(document.getElementById('requests-sync-status'), message, tone);
+      }
+
+      function getFriendlyAuthErrorMessage(error, context = {}) {
+        const rawMessage = String(error?.message || '').trim();
+        const normalizedMessage = rawMessage.toLowerCase();
+        const isRegister = Boolean(context?.isRegister);
+
+        if (normalizedMessage.includes('email rate limit exceeded')) {
+          return isRegister
+            ? 'No pudimos crear la cuenta ahora porque Supabase llegó al límite de envíos de email de confirmación. Espera un momento y vuelve a intentar, o desactiva la confirmación de email / configura SMTP en Supabase para desarrollo.'
+            : 'Supabase llegó al límite de envíos de email. Espera un momento y vuelve a intentar.';
+        }
+
+        return rawMessage || 'Ocurrió un error inesperado.';
       }
 
       function getProfileExtrasStorageKey(userId) {
@@ -2405,6 +2463,7 @@
         const gallery = Array.isArray(request.gallery_urls) ? request.gallery_urls.filter(Boolean) : [];
         const published = formatRelativeDate(request.created_at);
         const title = request.title || 'Solicitud';
+        const requesterName = String(request.requester_name || 'Usuario de Conctando').trim();
         const coverImage = gallery[0] || requestCardFallbackImage;
         const tags = [
           categoryLabel,
@@ -2425,6 +2484,7 @@
             data-payment-type="${escapeHtml(paymentType)}"
             data-location="${escapeHtml(location)}"
             data-published="${escapeHtml(published)}"
+            data-requester-name="${escapeHtml(requesterName)}"
             data-tags="${escapeHtml(tags.join('|'))}"
             data-gallery="${escapeHtml(gallery.join('|'))}"
           >
@@ -2434,13 +2494,14 @@
                 <span class="${pillClass}">${escapeHtml(pillLabel)}</span>
                 <strong>${escapeHtml(budgetLabel)}</strong>
               </div>
-              <h4>${escapeHtml(title)}</h4>
-              <p>${escapeHtml(description)}</p>
-              <div class="request-meta">
-                <span>${escapeHtml(location)}</span>
-                <span>${escapeHtml(published)}</span>
+                <h4>${escapeHtml(title)}</h4>
+                <p>${escapeHtml(description)}</p>
+                <div class="request-meta">
+                  <span>Por ${escapeHtml(requesterName)}</span>
+                  <span>${escapeHtml(location)}</span>
+                  <span>${escapeHtml(published)}</span>
+                </div>
               </div>
-            </div>
           </article>
         `;
       }
@@ -2857,7 +2918,7 @@
             budgetMaxInput.value = String(maxValue);
           }
 
-          budgetLabel.textContent = `$${minValue} - $${maxValue}`;
+          budgetLabel.textContent = `${formatCurrency(minValue)} - ${formatCurrency(maxValue)}`;
           const trackMin = Number(budgetMinInput.min);
           const trackMax = Number(budgetMinInput.max);
           const start = ((minValue - trackMin) / (trackMax - trackMin)) * 100;
@@ -3176,6 +3237,9 @@
         const requestDetailDescription = document.getElementById('request-detail-description');
         const requestDetailGalleryMain = document.getElementById('request-detail-gallery-main');
         const requestDetailGallerySide = document.getElementById('request-detail-gallery-side');
+        const requestDetailClientAvatar = document.querySelector('.request-detail-client-avatar img');
+        const requestDetailClientName = document.getElementById('request-detail-client-name');
+        const requestDetailClientMeta = document.getElementById('request-detail-client-meta');
 
         if (!searchInput || quickCategoryButtons.length === 0 || !requestsGrid) {
           return;
@@ -3185,6 +3249,7 @@
           category: 'all',
         };
         const filterState = { ...defaultFilterState };
+        let showReferenceCards = true;
 
         let emptyState = requestsSection.querySelector('.requests-empty-state');
         if (!emptyState) {
@@ -3225,9 +3290,10 @@
           syncCardSearchData();
 
           cards.forEach((card) => {
+            const isReferenceCard = card.dataset.requestOrigin !== 'remote';
             const matchesCategory = filterState.category === 'all' || card.dataset.category === filterState.category;
             const matchesQuery = query === '' || (card.dataset.search || '').includes(query);
-            const isVisible = matchesCategory && matchesQuery;
+            const isVisible = (showReferenceCards || !isReferenceCard) && matchesCategory && matchesQuery;
             card.hidden = !isVisible;
             if (isVisible) {
               visibleCount += 1;
@@ -3251,7 +3317,10 @@
             !requestDetailTags ||
             !requestDetailDescription ||
             !requestDetailGalleryMain ||
-            !requestDetailGallerySide
+            !requestDetailGallerySide ||
+            !requestDetailClientAvatar ||
+            !requestDetailClientName ||
+            !requestDetailClientMeta
           ) {
             return;
           }
@@ -3264,6 +3333,7 @@
           const paymentType = card.dataset.paymentType || 'A convenir';
           const location = card.dataset.location || card.querySelector('.request-meta span')?.textContent?.trim() || 'CABA';
           const published = card.dataset.published || card.querySelectorAll('.request-meta span')[1]?.textContent?.trim() || 'Hoy';
+          const requesterName = card.dataset.requesterName || 'Usuario de Conctando';
           const tags = (card.dataset.tags || '').split('|').filter(Boolean);
           const gallery = (card.dataset.gallery || '')
             .split('|')
@@ -3279,6 +3349,10 @@
           requestDetailLocation.textContent = location;
           requestDetailPublished.textContent = published;
           requestDetailDescription.textContent = description;
+          requestDetailClientAvatar.src = defaultUserAvatar;
+          requestDetailClientAvatar.alt = `Foto de ${requesterName}`;
+          requestDetailClientName.textContent = requesterName;
+          requestDetailClientMeta.textContent = `${clientBadge} · ${location}`;
           requestDetailTags.innerHTML = tags
             .map((tag, index) => `<span class="request-detail-tag ${index === tags.length - 1 && priority === 'urgente' ? 'is-alert' : ''}">${tag}</span>`)
             .join('');
@@ -3329,7 +3403,7 @@
           try {
             const { data, error } = await supabaseClient
               .from('service_requests')
-              .select('id, title, description, category, priority, location, budget_label, budget_min, budget_max, payment_type, client_badge, gallery_urls, created_at, status')
+              .select('id, requester_name, title, description, category, priority, location, budget_label, budget_min, budget_max, payment_type, client_badge, gallery_urls, created_at, status')
               .eq('status', 'open')
               .order('created_at', { ascending: false })
               .limit(8);
@@ -3339,6 +3413,7 @@
             }
 
             requestsGrid.querySelectorAll('[data-request-origin="remote"]').forEach((card) => card.remove());
+            showReferenceCards = !(Array.isArray(data) && data.length > 0);
 
             if (Array.isArray(data) && data.length > 0) {
               requestsGrid.insertAdjacentHTML(
@@ -3347,11 +3422,13 @@
               );
               setRequestsSyncStatus('Solicitudes sincronizadas con Supabase.', 'success');
             } else {
+              showReferenceCards = true;
               setRequestsSyncStatus('Todavía no hay solicitudes reales cargadas. Te dejo el contenido de referencia visible.', 'neutral');
             }
 
             renderRequestFilters();
           } catch (error) {
+            showReferenceCards = true;
             setRequestsSyncStatus(`No pudimos leer Supabase todavía: ${error.message || 'revisa el schema y las policies.'}`, 'error');
             renderRequestFilters();
           }
@@ -3591,7 +3668,11 @@
               closeAuthModal();
             }
           } catch (error) {
-            setStatusMessage(authFeedback, `No pudimos completar el acceso: ${error.message}`, 'error');
+            setStatusMessage(
+              authFeedback,
+              `No pudimos completar el acceso: ${getFriendlyAuthErrorMessage(error, { isRegister })}`,
+              'error'
+            );
           } finally {
             authSubmit.disabled = false;
           }
@@ -3760,9 +3841,12 @@
           setStatusMessage(feedback, 'Guardando solicitud en Supabase...', 'neutral');
 
           try {
+            const requestId = window.crypto?.randomUUID?.() || `request-${Date.now()}`;
+            const galleryUrls = await uploadRequestGalleryPhotos(selectedPhotos, requestId);
             const { error } = await supabaseClient
               .from('service_requests')
               .insert({
+                id: requestId,
                 created_by: currentAuthSession?.user?.id || null,
                 requester_name: requesterName,
                 title,
@@ -3775,6 +3859,7 @@
                 budget_max: budgetMax,
                 payment_type: 'A convenir',
                 client_badge: 'Cliente verificado',
+                gallery_urls: galleryUrls,
                 status: 'open',
               });
 
@@ -3948,15 +4033,6 @@
           menu.hidden = !shouldOpen;
           trigger.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
           trigger.closest('.profile-custom-select')?.classList.toggle('is-open', shouldOpen);
-        }
-
-        function fileToDataUrl(file) {
-          return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(typeof reader.result === 'string' ? reader.result : '');
-            reader.onerror = () => reject(reader.error || new Error('No pudimos leer la imagen.'));
-            reader.readAsDataURL(file);
-          });
         }
 
         function syncPortfolioCounter() {
