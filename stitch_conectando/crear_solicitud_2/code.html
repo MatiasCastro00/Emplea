@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crear Solicitud de Trabajo - ConectaPro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#f8f9fa",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb59b",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#424654",
+                    "on-primary-container": "#ccd8ff",
+                    "tertiary-container": "#a93802",
+                    "on-background": "#191c1d",
+                    "inverse-surface": "#2e3132",
+                    "surface-container-low": "#f3f4f5",
+                    "primary-fixed": "#dae2ff",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "inverse-primary": "#b2c5ff",
+                    "on-secondary-fixed-variant": "#324575",
+                    "surface-dim": "#d9dadb",
+                    "tertiary-fixed": "#ffdbcf",
+                    "on-primary-fixed-variant": "#0040a1",
+                    "surface": "#f8f9fa",
+                    "outline": "#737785",
+                    "on-tertiary-fixed": "#380d00",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-container": "#edeeef",
+                    "on-tertiary-fixed-variant": "#812800",
+                    "primary-container": "#0056d2",
+                    "secondary-container": "#b3c5fd",
+                    "tertiary": "#822800",
+                    "secondary-fixed": "#dae2ff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-secondary-container": "#3e5181",
+                    "primary": "#0040a1",
+                    "outline-variant": "#c3c6d6",
+                    "surface-variant": "#e1e3e4",
+                    "on-primary-fixed": "#001847",
+                    "on-secondary-fixed": "#001847",
+                    "on-surface": "#191c1d",
+                    "secondary": "#4a5d8e",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#b3c5fd",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#f8f9fa",
+                    "on-tertiary-container": "#ffcebd",
+                    "surface-tint": "#0056d2",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .photo-grid-item:nth-child(odd) {
+            aspect-ratio: 4/5;
+        }
+        .photo-grid-item:nth-child(even) {
+            aspect-ratio: 1/1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased">
+<!-- TopAppBar -->
+<header class="bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl docked full-width top-0 sticky z-50">
+<div class="flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors p-2 rounded-full Active: scale-95 duration-150">
+<span class="material-symbols-outlined text-on-surface">arrow_back</span>
+</button>
+<h1 class="text-2xl font-bold tracking-tight text-blue-800 dark:text-blue-300 font-headline">ConectaPro</h1>
+</div>
+<div class="flex items-center gap-3">
+<button class="hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors p-2 rounded-full Active: scale-95 duration-150">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-6 py-10 pb-32">
+<!-- Hero Section Asymmetry -->
+<div class="mb-12 ml-0 md:ml-6 lg:ml-12">
+<h2 class="text-4xl md:text-5xl font-extrabold font-headline text-on-surface tracking-tight leading-tight">
+                Cuéntanos qué <br/>
+<span class="text-primary">necesitas resolver.</span>
+</h2>
+<p class="mt-4 text-on-surface-variant max-w-md body-md leading-relaxed">
+                Describe tu proyecto para recibir propuestas de los mejores profesionales calificados en tu zona.
+            </p>
+</div>
+<!-- Form Canvas -->
+<div class="space-y-8">
+<!-- Text Inputs Section -->
+<section class="bg-surface-container p-1 rounded-2xl">
+<div class="bg-surface-container-lowest rounded-xl p-8 space-y-8">
+<!-- Job Title -->
+<div class="space-y-2">
+<label class="text-sm font-semibold text-on-surface-variant ml-1 font-label" for="job-title">Título del Trabajo</label>
+<input class="w-full bg-surface-container-high border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all placeholder:text-outline-variant outline-none text-on-surface" id="job-title" placeholder="Ej. Reparación de tubería en cocina" type="text"/>
+</div>
+<!-- Description -->
+<div class="space-y-2">
+<label class="text-sm font-semibold text-on-surface-variant ml-1 font-label" for="description">Descripción</label>
+<textarea class="w-full bg-surface-container-high border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all placeholder:text-outline-variant outline-none text-on-surface resize-none" id="description" placeholder="Describe los detalles, materiales necesarios o cualquier requerimiento específico..." rows="4"></textarea>
+</div>
+<!-- Address -->
+<div class="space-y-2">
+<label class="text-sm font-semibold text-on-surface-variant ml-1 font-label" for="address">Dirección</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-high border-none rounded-xl px-4 py-4 pl-12 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all placeholder:text-outline-variant outline-none text-on-surface" id="address" placeholder="Calle, número y ciudad" type="text"/>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">location_on</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Photos Section (Bento Inspired Grid) -->
+<section class="space-y-4">
+<div class="flex items-end justify-between px-2">
+<div>
+<h3 class="text-xl font-bold font-headline text-on-surface">Subir Fotos</h3>
+<p class="text-sm text-on-surface-variant">Agrega hasta 5 fotos del área de trabajo.</p>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 bg-secondary-container text-on-secondary-container rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-lg">add_a_photo</span>
+                        Añadir
+                    </button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-start">
+<!-- Photo Slots -->
+<div class="photo-grid-item bg-surface-container rounded-xl overflow-hidden group relative border-2 border-dashed border-outline-variant/30 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="close-up of a damaged copper water pipe with minor leakage in a kitchen setting with soft industrial lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl-XBTzRVTMhTq74qPFu1hWQUvhTuC2BscoxnLniAG2SFQM_GVHJzCM_0ZE28FwNFk0qTcnUtlqvPaP-Z2sFMEBOFG-a0shiFC9VNAYvb48tzVEzUPmwo1uRcSXbTBNB1I2Il2gZ6_xr1s8kaHisQpHNyrw5DFhyXoF6sflFzox6OSWj5aA6u06w8wEC80tZsssdjl2fppZYJAnSMO19m2xRkAJD_aFL-LL0fcr4MawN_6uI6M55c1JOyOZAcBaFgvMVqwVAra5sA"/>
+<button class="absolute top-2 right-2 bg-on-background/60 text-white p-1 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<div class="photo-grid-item bg-surface-container rounded-xl overflow-hidden group relative flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="wide shot of a bright modern kitchen interior with wooden cabinets showing the workspace area requiring maintenance" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDye1Ph2kKcMODdjRAjdAPFkgS-PjcvtBL9L5FDOI-TzTQEGgGs0JYIjVdZEnNgU5RdLLBXsMZ-HwrA-gErwBJSTBjC3OTfW10ShRB9xdaBST4yz99zputWNVigBsWtqiF_9Xb907CLxjLfXcENmmY0ijAwAR3tF6MkJCDLCOppVrLwFvfLoc7CD1T-3q5XYh9NyQHsJCEuuiD_4saaeqGflTgjcHDQn6B1Bt8JNWa_Pa_92R78xOjwN2CtGY1tYsjWBsp3WBS_YAY"/>
+<button class="absolute top-2 right-2 bg-on-background/60 text-white p-1 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<div class="photo-grid-item photo-grid-item bg-surface-container-low rounded-xl flex flex-col items-center justify-center text-outline gap-2 border-2 border-dashed border-outline-variant/50 hover:bg-surface-container transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-3xl">image</span>
+<span class="text-xs font-medium">3/5</span>
+</div>
+<div class="photo-grid-item photo-grid-item bg-surface-container-low rounded-xl flex items-center justify-center border-2 border-dashed border-outline-variant/50">
+<span class="material-symbols-outlined text-2xl text-outline-variant">add</span>
+</div>
+</div>
+</section>
+<!-- Sticky Submit Action -->
+<div class="fixed bottom-20 md:bottom-10 left-0 w-full px-6 flex justify-center z-40">
+<button class="w-full max-w-lg bg-gradient-to-r from-primary to-primary-container text-on-primary py-5 rounded-2xl font-bold text-lg shadow-[0_8px_24px_rgba(0,64,161,0.15)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+                    Enviar Solicitud
+                    <span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-md fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe z-50 rounded-t-2xl shadow-[0_-4px_20px_rgba(0,0,0,0.05)] md:hidden">
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 hover:text-blue-600 dark:hover:text-blue-300 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="text-[11px] font-semibold font-body">Buscar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 rounded-xl px-3 py-1 tap-highlight-none transition-transform duration-200" href="{{DATA:SCREEN:SCREEN_2}}">
+<span class="material-symbols-outlined" data-icon="build">build</span>
+<span class="text-[11px] font-semibold font-body">Solicitudes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 hover:text-blue-600 dark:hover:text-blue-300 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-[11px] font-semibold font-body">Mensajes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 hover:text-blue-600 dark:hover:text-blue-300 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[11px] font-semibold font-body">Perfil</span>
+</a>
+</nav>
+<!-- Desktop Navigation Side Anchors (Editorial Style) -->
+<div class="hidden md:block fixed left-8 top-1/2 -translate-y-1/2 space-y-8 z-40">
+<div class="h-12 w-1 bg-primary rounded-full"></div>
+<div class="flex flex-col gap-6">
+<span class="material-symbols-outlined text-outline hover:text-primary cursor-pointer transition-colors">home</span>
+<span class="material-symbols-outlined text-primary">add_circle</span>
+<span class="material-symbols-outlined text-outline hover:text-primary cursor-pointer transition-colors">history</span>
+<span class="material-symbols-outlined text-outline hover:text-primary cursor-pointer transition-colors">settings</span>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chat y Presupuesto - ConectaPro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#f8f9fa",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb59b",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#424654",
+                    "on-primary-container": "#ccd8ff",
+                    "tertiary-container": "#a93802",
+                    "on-background": "#191c1d",
+                    "inverse-surface": "#2e3132",
+                    "surface-container-low": "#f3f4f5",
+                    "primary-fixed": "#dae2ff",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "inverse-primary": "#b2c5ff",
+                    "on-secondary-fixed-variant": "#324575",
+                    "surface-dim": "#d9dadb",
+                    "tertiary-fixed": "#ffdbcf",
+                    "on-primary-fixed-variant": "#0040a1",
+                    "surface": "#f8f9fa",
+                    "outline": "#737785",
+                    "on-tertiary-fixed": "#380d00",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-container": "#edeeef",
+                    "on-tertiary-fixed-variant": "#812800",
+                    "primary-container": "#0056d2",
+                    "secondary-container": "#b3c5fd",
+                    "tertiary": "#822800",
+                    "secondary-fixed": "#dae2ff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-secondary-container": "#3e5181",
+                    "primary": "#0040a1",
+                    "outline-variant": "#c3c6d6",
+                    "surface-variant": "#e1e3e4",
+                    "on-primary-fixed": "#001847",
+                    "on-secondary-fixed": "#001847",
+                    "on-surface": "#191c1d",
+                    "secondary": "#4a5d8e",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#b3c5fd",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#f8f9fa",
+                    "on-tertiary-container": "#ffcebd",
+                    "surface-tint": "#0056d2",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl docked full-width top-0 sticky z-50 flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined text-blue-700 dark:text-blue-400">arrow_back</span>
+</button>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a contractor in a blue shirt smiling confidently, studio lighting, high-end professional photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYeawHe8LvtHsQo7PP7GFcM3sbSckI1Tu05vr0TP9Akqj2TLAlg-Ooq3w2_8d7LxYkxxtRZFfecw_6wZnK5YEr1KyAGkSv5DvkEZx0WwZqoe6m9eg9SynF51zDaowHEZALz_WahEsYCjbcZGUvNJ-VRgEGi0McuRiXeLy37wBgMviizSHFr4IGbjZOEdWD1rcpWtsyemE6FeKoZTSo6IEEn3KXXfBffBb1DSgUidXzEmrXGJJea73tFFoURocBJey90vLPVJ3mtdM"/>
+</div>
+<div>
+<h1 class="text-blue-800 dark:text-blue-300 text-lg font-bold tracking-tight">Roberto García</h1>
+<p class="text-xs text-slate-500 font-medium">Electricista Certificado</p>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined text-blue-700 dark:text-blue-400">call</span>
+</button>
+<button class="hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined text-blue-700 dark:text-blue-400">more_vert</span>
+</button>
+</div>
+</header>
+<main class="flex-1 flex flex-col max-w-4xl mx-auto w-full px-4 md:px-6">
+<!-- Persistent Project Quote Card -->
+<section class="mt-4 mb-6 sticky top-[80px] z-40">
+<div class="bg-surface-container-lowest border-none shadow-[0_-4px_20px_rgba(0,0,0,0.05)] rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-4">
+<div class="bg-primary/10 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary">description</span>
+</div>
+<div>
+<h2 class="text-on-surface font-bold text-base">Instalación Eléctrica Cocina</h2>
+<p class="text-outline text-sm">Estado: <span class="text-primary font-semibold">Pendiente de Confirmación</span></p>
+</div>
+</div>
+<div class="flex items-center justify-between md:justify-end gap-6 border-t md:border-t-0 pt-4 md:pt-0 border-surface-container">
+<div class="text-right">
+<p class="text-xs text-outline font-medium uppercase tracking-wider">Presupuesto</p>
+<p class="text-2xl font-extrabold text-on-surface">$450.00</p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">
+                        Aceptar
+                    </button>
+</div>
+</div>
+</section>
+<!-- Chat Conversation Body -->
+<div class="flex-1 space-y-6 pb-24">
+<!-- Date Divider -->
+<div class="flex justify-center">
+<span class="bg-surface-container-low text-outline text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Hoy, 14 de Octubre</span>
+</div>
+<!-- Message Bubble: Professional -->
+<div class="flex items-end gap-3 max-w-[85%]">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up face of a professional service provider" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcJ5TlI-7-TmbEoFtbyE9MxfvKoAqyesm0ozZiBhNntSBcD48dOngZ-tVTKgB86-SNkSOIIZKlCE4S879gFdt_n6gU5FFCAg5JgRa28WYBS4huvr_9_5BbYdSyOtxOBxexYzP4bruK4rPlm36k46V1ZgRPS7BjVvBzWmVO2qCc03BLwpZT6sGg_y-Z2wxMwSCOkUdbCqqXiBxmOsLFXDlcoJwME28u7ONPTIX6OgArQZE2ONuMDFu8VnFkN07zKKzL_S0NRjY6nog"/>
+</div>
+<div class="bg-surface-container-high text-on-surface px-4 py-3 rounded-t-2xl rounded-r-2xl shadow-sm">
+<p class="text-sm leading-relaxed">Hola! He revisado las fotos de tu cocina. El trabajo requerirá cambiar el cableado principal y añadir tres puntos nuevos de luz.</p>
+<span class="text-[10px] text-outline mt-1 block text-right">09:42 AM</span>
+</div>
+</div>
+<!-- Message Bubble: User -->
+<div class="flex items-end gap-3 max-w-[85%] ml-auto flex-row-reverse">
+<div class="bg-primary text-on-primary px-4 py-3 rounded-t-2xl rounded-l-2xl shadow-sm">
+<p class="text-sm leading-relaxed">Perfecto Roberto. ¿El presupuesto de $450 incluye los materiales o solo la mano de obra?</p>
+<span class="text-[10px] text-on-primary/70 mt-1 block text-right">09:45 AM</span>
+</div>
+</div>
+<!-- Message Bubble: Professional with Attachment -->
+<div class="flex items-end gap-3 max-w-[85%]">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up face of a professional service provider" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEV_lYN9gME5KIA78qtUtcgn4Oprw-jiLzspjdKsQ_9MCWYqCLHLs27pyG_zW6-m-Eh3Ve6v-uMrcbHMNY1upO_q5oDvDVnhqCQ6zgMqXksnaqCrZ9SrrvpMmviI02VuHJpdZwccN1f3E100QbT4-F1ycZwh_u9RpoqNWlXwldcQR5Nl4QJAAKEYCzMDezP7eCDU4y5g6H5uu_XSKYiqtNloVXeY2_j8DG4spY27HB0P28kVKaTc-0_6Megsb5pkr-eBmltKmyfEc"/>
+</div>
+<div class="space-y-2">
+<div class="bg-surface-container-high text-on-surface px-4 py-3 rounded-t-2xl rounded-r-2xl shadow-sm">
+<p class="text-sm leading-relaxed">Incluye todo: cables, cajas de registro y mano de obra. Aquí te adjunto el desglose oficial del material que voy a utilizar.</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/20 p-3 rounded-xl flex items-center gap-3 shadow-sm max-w-sm">
+<div class="bg-red-50 text-red-600 p-2 rounded-lg">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="text-sm font-semibold truncate text-on-surface">desglose_materiales_v1.pdf</p>
+<p class="text-[10px] text-outline">1.2 MB • PDF</p>
+</div>
+<button class="text-primary">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<span class="text-[10px] text-outline mt-1 block">09:48 AM</span>
+</div>
+</div>
+<!-- Message Bubble: User -->
+<div class="flex items-end gap-3 max-w-[85%] ml-auto flex-row-reverse">
+<div class="bg-primary text-on-primary px-4 py-3 rounded-t-2xl rounded-l-2xl shadow-sm">
+<p class="text-sm leading-relaxed">Entendido. Me parece justo. ¿Podrías empezar este jueves por la mañana?</p>
+<span class="text-[10px] text-on-primary/70 mt-1 block text-right">09:50 AM</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Input Bar -->
+<footer class="fixed bottom-0 left-0 w-full bg-white/90 dark:bg-slate-950/90 backdrop-blur-md px-4 py-4 pb-safe flex items-center gap-3 z-50">
+<button class="text-slate-500 hover:text-primary transition-colors p-2">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<button class="text-slate-500 hover:text-primary transition-colors p-2">
+<span class="material-symbols-outlined">image</span>
+</button>
+<div class="flex-1 bg-surface-container-high rounded-2xl px-4 py-2.5 flex items-center">
+<input class="bg-transparent border-none focus:ring-0 w-full text-sm placeholder:text-outline text-on-surface" placeholder="Escribe un mensaje..." type="text"/>
+<button class="text-slate-400 ml-2">
+<span class="material-symbols-outlined">sentiment_satisfied</span>
+</button>
+</div>
+<button class="bg-primary text-on-primary w-11 h-11 rounded-full flex items-center justify-center shadow-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</footer>
+<!-- Invisible spacer for bottom bar -->
+<div class="h-24"></div>
+<!-- Mobile Bottom Navigation (Hidden on this specific task-focused screen) -->
+<!-- Suppressed per "Task-Focused" rule in Shell Visibility -->
+</body></html>

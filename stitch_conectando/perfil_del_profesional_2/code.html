@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#f8f9fa",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb59b",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#424654",
+                    "on-primary-container": "#ccd8ff",
+                    "tertiary-container": "#a93802",
+                    "on-background": "#191c1d",
+                    "inverse-surface": "#2e3132",
+                    "surface-container-low": "#f3f4f5",
+                    "primary-fixed": "#dae2ff",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "inverse-primary": "#b2c5ff",
+                    "on-secondary-fixed-variant": "#324575",
+                    "surface-dim": "#d9dadb",
+                    "tertiary-fixed": "#ffdbcf",
+                    "on-primary-fixed-variant": "#0040a1",
+                    "surface": "#f8f9fa",
+                    "outline": "#737785",
+                    "on-tertiary-fixed": "#380d00",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-container": "#edeeef",
+                    "on-tertiary-fixed-variant": "#812800",
+                    "primary-container": "#0056d2",
+                    "secondary-container": "#b3c5fd",
+                    "tertiary": "#822800",
+                    "secondary-fixed": "#dae2ff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-secondary-container": "#3e5181",
+                    "primary": "#0040a1",
+                    "outline-variant": "#c3c6d6",
+                    "surface-variant": "#e1e3e4",
+                    "on-primary-fixed": "#001847",
+                    "on-secondary-fixed": "#001847",
+                    "on-surface": "#191c1d",
+                    "secondary": "#4a5d8e",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#b3c5fd",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#f8f9fa",
+                    "on-tertiary-container": "#ffcebd",
+                    "surface-tint": "#0056d2",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .masonry {
+            column-count: 2;
+            column-gap: 1rem;
+        }
+        @media (min-width: 768px) {
+            .masonry {
+                column-count: 3;
+            }
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl docked full-width top-0 sticky z-50 flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors p-2 rounded-full Active: scale-95 duration-150">
+<span class="material-symbols-outlined text-blue-700 dark:text-blue-400">arrow_back</span>
+</button>
+<h1 class="text-2xl font-bold tracking-tight text-blue-800 dark:text-blue-300 font-headline">ConectaPro</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors p-2 rounded-full Active: scale-95 duration-150">
+<span class="material-symbols-outlined text-blue-700 dark:text-blue-400">search</span>
+</button>
+<button class="hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors p-2 rounded-full Active: scale-95 duration-150">
+<span class="material-symbols-outlined text-blue-700 dark:text-blue-400">notifications</span>
+</button>
+</div>
+</header>
+<main class="max-w-5xl mx-auto pb-32">
+<!-- Profile Header Section -->
+<section class="px-6 pt-8 pb-12 bg-gradient-to-b from-primary-fixed/30 to-transparent">
+<div class="flex flex-col md:flex-row items-center md:items-end gap-8">
+<div class="relative">
+<div class="w-40 h-40 md:w-56 md:h-56 rounded-3xl overflow-hidden shadow-2xl ring-4 ring-surface-container-lowest">
+<img alt="Professional portrait" class="w-full h-full object-cover" data-alt="Close-up professional portrait of a confident male contractor in high-end workshop environment with warm natural sunlight across his face" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpQGs28I5QA92-t-vHjCl9PSeBnXmxSAsNSJnxi4vglHWw62K-E4eU6EhRybLZApfYuiWI2sjdobIKsnQMG9EwE3mepYxJ8oFdLW8MD5z3_-BPGxBXqHsyB9Ehd8G_lSyc2Rm5sALpiXjhF6jykgJatZ0BsAxf8AFw6nmk9nxylGrInSqj_TqJnENq8gIV1-QNAxYm_t0T5Oh9ylx51RCEft9sbxJ9d1_HwD1ZKJM6KcgeGpF2buSR2U3CIXlqugTyYr6mKAN-Gco"/>
+</div>
+<div class="absolute -bottom-3 -right-3 bg-tertiary-fixed text-on-tertiary-fixed-variant px-4 py-2 rounded-xl font-bold text-sm flex items-center gap-1 shadow-lg">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                        Verificado
+                    </div>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h2 class="text-4xl md:text-5xl font-extrabold font-headline text-on-background tracking-tight mb-2">Alejandro Herrera</h2>
+<p class="text-xl text-on-surface-variant font-medium mb-4">Especialista en Diseño de Interiores y Carpintería Fina</p>
+<div class="flex flex-wrap justify-center md:justify-start gap-6 items-center">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-lg">4.9</span>
+<span class="text-on-surface-variant">(128 reseñas)</span>
+</div>
+<div class="flex items-center gap-2 text-primary font-semibold">
+<span class="material-symbols-outlined">location_on</span>
+<span>Ciudad de México</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Grid (High-end Utility) -->
+<section class="px-6 mb-12">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="bg-surface-container-low p-6 rounded-2xl">
+<p class="text-on-surface-variant text-sm font-medium mb-1">Experiencia</p>
+<p class="text-2xl font-bold font-headline text-primary">12 Años</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-2xl">
+<p class="text-on-surface-variant text-sm font-medium mb-1">Proyectos</p>
+<p class="text-2xl font-bold font-headline text-primary">350+</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-2xl">
+<p class="text-on-surface-variant text-sm font-medium mb-1">Respuesta</p>
+<p class="text-2xl font-bold font-headline text-primary">&lt; 2h</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-2xl">
+<p class="text-on-surface-variant text-sm font-medium mb-1">Certificaciones</p>
+<p class="text-2xl font-bold font-headline text-primary">8</p>
+</div>
+</div>
+</section>
+<!-- Previous Work (Masonry Grid) -->
+<section class="px-6 mb-16">
+<div class="flex items-end justify-between mb-8">
+<div>
+<h3 class="text-3xl font-bold font-headline text-on-background">Trabajos Anteriores</h3>
+<div class="w-12 h-1 bg-primary mt-2 rounded-full"></div>
+</div>
+<button class="text-primary font-semibold flex items-center gap-1 hover:gap-2 transition-all">
+                    Ver Galería Completa <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<div class="masonry">
+<div class="masonry-item group relative overflow-hidden rounded-2xl bg-surface-container">
+<img alt="Interior project 1" class="w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Modern minimalist living room featuring bespoke oak cabinetry and soft ambient cove lighting at dusk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOgnH7nP0E7o9tDgxdME75pDh5_XaSHuSWPdef9uRJI6FSe1j-ElmGf5kg1Ubb0iRon83NfLrtHgRRcWJpVDOLGhY6TDRGddCzZ3BdtQtYfKoN_HkBPfoqJQG1epnAz6tAxkWvm2wCMIT_xruEYWm0vv5s-tIc5hZmVgl2zq8qe3wEl3pm7RTX4zVNm5i9z4Eb68wuArgDHSMHJH69V9_As0CI_v6awu6mpPjni0PSbgkgzX1fziBxuDlZKglp8oGowG8Y-VqFlGQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+<p class="text-white text-sm font-medium">Cocina Gourmet Minimalista</p>
+</div>
+</div>
+<div class="masonry-item group relative overflow-hidden rounded-2xl bg-surface-container">
+<img alt="Interior project 2" class="w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Close up of a handcrafted dark walnut dining table with intricate joinery details in a sunlit dining area" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJu99KUslL47G5xuCyKli5wyOLeKiYIrktvkF7HkZdM2-wLWtLCVdYkiY43RX46F3u_gu6SQ6LghTvL-VaL4bs-TyJPjk69XGOFpVF9DktK6bp3WVioIHng7zzsdgJLg064fiuFVHzpQgIFHD9c7xOSktG8Wle51t7lXIJzXY9PnhMCJdPLdp6mrOyZAOdBfdCitiRr3fqmwTiPg_EoyEIezYCYMskqSoEhrvmTQ68YVjHgXWz1zS8_k-vN2DvC2bnF-UZAQwqp0w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+<p class="text-white text-sm font-medium">Muebles de Autor</p>
+</div>
+</div>
+<div class="masonry-item group relative overflow-hidden rounded-2xl bg-surface-container">
+<img alt="Interior project 3" class="w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Sleek home office renovation with custom wall-to-wall library shelving and integrated LED strip lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXfX4MYAbPerGZH2b8lDCxFi23Loem8gmf5R0RRrOX2v6KFnFyxxJw5xaA5LbAMMc8KCbFSJMn5nXpR288EFh8_qHlsToSvfPQJdr-ypjTwHGKifJX9wx5XL13re9XoPjqMcOVr0KbkInXntB_t-E79LLvQXAxNwGJE_G5EBBk4QAGjicdR4GfnQGQRgXp7shgoAjqUaZmzTL8QzdIuXHOooLTELOzXUvYRSbaozPaKUgpDOD-WCqoQJ-ACJTS6_MH-EIctfXsUrs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+<p class="text-white text-sm font-medium">Estudio de Diseño</p>
+</div>
+</div>
+<div class="masonry-item group relative overflow-hidden rounded-2xl bg-surface-container">
+<img alt="Interior project 4" class="w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Luxury bathroom suite featuring marble cladding and custom teak vanity units under soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCVQ8kldNZg1p0ZxZgo-wX0lLmRKoDqOoKqWZOi2p6xv7V_QRUfjoD0K4S2sxtgWMvvdQPAlV9Az-1n_GmIs54wgJgpobmSU0ZCv-xTx5bJ_63OgpeQh_g64m7__QH69UTkXcKyO3OtnZPeX33N8RGTJRifncQkAtaxWt6s71Oxaov1jLChe0W2mtj7QMeXqtd1DZ1WhJrnd2zhRTAikotHgJPmFMSfMQ6KbavqCtROYwQSFseKW2E0m_Rn4XjES14MDnKAn2Hp0E"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+<p class="text-white text-sm font-medium">Baño de Lujo</p>
+</div>
+</div>
+<div class="masonry-item group relative overflow-hidden rounded-2xl bg-surface-container">
+<img alt="Interior project 5" class="w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Detailed shot of a modern staircase with glass balustrades and floating wooden steps in a high-end villa" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcDPO8EUflTYKWc55Vev8TSSY903qfxQxp1ae9xNt5slOcdM4RT5WoDfTSdyMScrmLsgjjnv1gZGz6mx2EgAwxqvu_U5uOcLp8HxUNBBoMvhtdx6wqur_ej0BXWN7G3A6CBtd35qZ5prvnKeGoQWy8i8aVJ4aeeP_zKQmOg7QPMHspPsLK1DGgnB4hrOgtfkVUx_qMMaMqMZIT-GlxRhOJf7XALPNChEXNtfkTj6SIC20cdiMf6StGU6Ub3unn0ud5vHmldscoCoA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+<p class="text-white text-sm font-medium">Reformas Integrales</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Reviews Section -->
+<section class="px-6 mb-16">
+<div class="flex items-end justify-between mb-8">
+<div>
+<h3 class="text-3xl font-bold font-headline text-on-background">Opiniones</h3>
+<div class="w-12 h-1 bg-primary mt-2 rounded-full"></div>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Review 1 -->
+<article class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold">ML</div>
+<div>
+<h4 class="font-bold text-on-surface">Mariana López</h4>
+<p class="text-xs text-on-surface-variant">Hace 2 semanas</p>
+</div>
+</div>
+<div class="flex text-tertiary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="text-on-surface-variant leading-relaxed">
+                        "El trabajo de Alejandro superó todas mis expectativas. Su atención al detalle en la carpintería de mi cocina es impecable. Fue puntual, limpio y muy profesional durante todo el proceso."
+                    </p>
+</article>
+<!-- Review 2 -->
+<article class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold">RG</div>
+<div>
+<h4 class="font-bold text-on-surface">Roberto García</h4>
+<p class="text-xs text-on-surface-variant">Hace 1 mes</p>
+</div>
+</div>
+<div class="flex text-tertiary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]">star</span>
+</div>
+</div>
+<p class="text-on-surface-variant leading-relaxed">
+                        "Excelente diseñador. Entendió perfectamente el estilo que buscaba para mi oficina y propuso soluciones creativas para optimizar el espacio. Altamente recomendado."
+                    </p>
+</article>
+</div>
+<button class="w-full mt-6 py-4 bg-surface-container-high rounded-xl text-primary font-bold hover:bg-surface-container-highest transition-colors">
+                Ver las 128 opiniones
+            </button>
+</section>
+</main>
+<!-- Bottom Action Bar (Contextual FAB Suppression as per rules, using a fixed bar for primary intent) -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-lowest/80 backdrop-blur-md border-t border-outline-variant/20 px-6 py-6 z-50 flex items-center justify-between shadow-[0_-4px_24px_rgba(0,0,0,0.06)]">
+<div>
+<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Desde</p>
+<p class="text-2xl font-bold font-headline text-on-surface">$1,200 <span class="text-sm font-normal text-on-surface-variant">/hora</span></p>
+</div>
+<button class="bg-primary text-on-primary px-10 py-4 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+            Contactar ahora
+        </button>
+</div>
+<!-- BottomNavBar (Hidden on desktop as per rules) -->
+<nav class="md:hidden fixed bottom-24 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe bg-white/90 dark:bg-slate-950/90 backdrop-blur-md shadow-[0_-4px_20px_rgba(0,0,0,0.05)] rounded-t-2xl z-40">
+<div class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 hover:text-blue-600 dark:hover:text-blue-300">
+<span class="material-symbols-outlined">search</span>
+<span class="text-[11px] font-semibold font-label">Buscar</span>
+</div>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 hover:text-blue-600 dark:hover:text-blue-300" href="{{DATA:SCREEN:SCREEN_2}}">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-[11px] font-semibold font-label">Solicitudes</span>
+</a>
+<div class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 hover:text-blue-600 dark:hover:text-blue-300">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="text-[11px] font-semibold font-label">Mensajes</span>
+</div>
+<!-- Active Tab: Perfil -->
+<div class="flex flex-col items-center justify-center text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 rounded-xl px-3 py-1">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[11px] font-semibold font-label">Perfil</span>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,33 @@
+# Prompt para Agente de Desarrollo: Implementación de App de Oficios "ConectaPro"
+
+## Contexto del Proyecto
+Estoy desarrollando una aplicación móvil llamada **ConectaPro**, un marketplace de servicios técnicos (plomería, electricidad, etc.). Ya tengo el diseño de alta fidelidad y el sistema de diseño definido. Necesito que actúes como un Desarrollador Mobile Senior para ayudarme a configurar el entorno y construir el MVP.
+
+## El Prompt que debes usar:
+
+"Actúa como un desarrollador experto en [React Native / Flutter]. He diseñado una aplicación de marketplace de servicios y necesito llevarla a código. Por favor, indícame:
+
+1. **Stack Tecnológico:** Recomienda las mejores librerías para:
+   - Navegación (Tab Bar inferior y Stack de pantallas).
+   - Gestión de estados (Redux, Context API o Riverpod).
+   - Manejo de imágenes y carga de archivos.
+   - Base de datos en tiempo real para el Chat y las Solicitudes.
+
+2. **Guía de Instalación:** Dame la lista de comandos para configurar mi entorno de desarrollo desde cero (Node.js, SDKs, CLIs necesarias).
+
+3. **Arquitectura de Carpetas:** Propón una estructura de archivos profesional para organizar componentes, pantallas, servicios y assets.
+
+4. **Plan de Implementación por Pantallas:** Basado en estas 4 vistas principales:
+   - **Explorar:** Lista de profesionales con filtros y barra de búsqueda.
+   - **Perfil del Profesional:** Vista detallada con galería de trabajos y reseñas.
+   - **Panel de Solicitudes:** Feed de trabajos disponibles con botón de creación.
+   - **Chat y Presupuesto:** Interfaz de mensajes con tarjetas interactivas de presupuesto.
+
+¿Qué pasos debo seguir para conectar el frontend que diseñamos con un backend como Firebase o Supabase?"
+
+---
+
+## Recomendaciones Adicionales de Stitch:
+- **Backend:** Te sugiero usar **Firebase** o **Supabase**. Son ideales para el chat en tiempo real y la subida de fotos sin configurar servidores complejos.
+- **Iconografía:** En los diseños usamos iconos de material design, asegúrate de pedirle al agente que use `react-native-vector-icons` o similar.
+- **Fuentes:** El diseño utiliza **Manrope** y **Inter**, dile que las incluya en los assets globales.

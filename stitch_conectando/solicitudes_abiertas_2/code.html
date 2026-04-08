@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#380d00",
+                    "outline": "#737785",
+                    "primary": "#0040a1",
+                    "tertiary-fixed-dim": "#ffb59b",
+                    "surface-container": "#edeeef",
+                    "on-surface": "#191c1d",
+                    "on-tertiary-container": "#ffcebd",
+                    "inverse-surface": "#2e3132",
+                    "on-primary-fixed": "#001847",
+                    "tertiary-fixed": "#ffdbcf",
+                    "tertiary": "#822800",
+                    "surface-container-highest": "#e1e3e4",
+                    "primary-container": "#0056d2",
+                    "on-secondary-fixed-variant": "#324575",
+                    "surface-dim": "#d9dadb",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#ccd8ff",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#a93802",
+                    "outline-variant": "#c3c6d6",
+                    "on-tertiary-fixed-variant": "#812800",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed": "#dae2ff",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#e7e8e9",
+                    "surface": "#f8f9fa",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#b3c5fd",
+                    "secondary-fixed-dim": "#b3c5fd",
+                    "on-surface-variant": "#424654",
+                    "surface-variant": "#e1e3e4",
+                    "surface-tint": "#0056d2",
+                    "on-primary": "#ffffff",
+                    "secondary": "#4a5d8e",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "primary-fixed": "#dae2ff",
+                    "on-secondary-fixed": "#001847",
+                    "surface-bright": "#f8f9fa",
+                    "on-secondary": "#ffffff",
+                    "background": "#f8f9fa",
+                    "surface-container-low": "#f3f4f5",
+                    "on-secondary-container": "#3e5181",
+                    "on-primary-fixed-variant": "#0040a1",
+                    "on-background": "#191c1d",
+                    "inverse-on-surface": "#f0f1f2",
+                    "inverse-primary": "#b2c5ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+        .card-shadow {
+            box-shadow: 0 8px 24px rgba(25, 28, 29, 0.06);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-[#f8f9fa] dark:bg-slate-950 flex justify-between items-center px-6 py-4 w-full sticky top-0 z-40">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 p-2 rounded-full transition-colors duration-200" data-icon="menu">menu</button>
+<h1 class="text-xl font-bold text-[#0040a1] dark:text-blue-400">Panel de Solicitudes</h1>
+</div>
+<div class="flex items-center gap-4">
+<nav class="hidden md:flex gap-8 mr-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#0040a1] transition-colors font-medium" href="#">Explorar</a>
+<a class="text-[#0040a1] dark:text-blue-300 font-bold" href="{{DATA:SCREEN:SCREEN_2}}">Solicitudes</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#0040a1] transition-colors font-medium" href="#">Mensajes</a>
+</nav>
+<img alt="User Profile" class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="Close-up professional headshot of a friendly man with a slight smile and clean-cut appearance in bright studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrdYQwAlnHnre9Nm0JDe6wJ8bxiuxTtLxYonV4tZRBKcYmuKTBY_TiPBkcAAckV5MBJVv60QxO3dLTkjTlgKyA_xFrc6LcD2huH9jpMUMB-ombIAQWzIEMnH6_470ywFZ9Iqd_DorlvxAlTGMG2adRMQCxHtMuDbYG6G47-JpabVXSu_ScMC0R_04DNFmH1Xc8Rbrrz-xqiMKtHnLj5AQYqt8KJPl8s5qC_IyXELYZWit21l3dzWgIZJ0vU-mziYMpYSKdMAx14uE"/>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-6 py-8">
+<!-- Hero Section / CTA -->
+<section class="mb-12 relative overflow-hidden rounded-3xl bg-primary-container p-8 md:p-12 text-on-primary">
+<div class="relative z-10 max-w-2xl">
+<h2 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">¿Tienes un problema que resolver?</h2>
+<p class="text-lg opacity-90 mb-8 font-body">Publica tu solicitud y recibe presupuestos de profesionales verificados en minutos.</p>
+<a class="bg-surface-container-lowest text-primary px-8 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-transform flex items-center gap-3 shadow-lg w-fit" href="{{DATA:SCREEN:SCREEN_7}}">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                    Crear mi solicitud
+                </a>
+</div>
+<!-- Abstract background shape -->
+<div class="absolute top-0 right-0 w-1/3 h-full opacity-20 pointer-events-none">
+<svg class="w-full h-full scale-150" viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<path d="M44.7,-76.4C58.1,-69.2,69.2,-58.1,77.3,-44.7C85.4,-31.3,90.5,-15.7,89.5,-0.6C88.5,14.5,81.4,29,72.3,42.4C63.2,55.8,52.1,68.1,38.7,75.2C25.3,82.3,9.6,84.2,-5.7,83.2C-21,82.2,-35.8,78.3,-49.2,71.2C-62.6,64.1,-74.6,53.8,-81.8,40.4C-89,27,-91.4,10.5,-89.4,-5.4C-87.4,-21.3,-81,-36.6,-71.4,-50C-61.8,-63.4,-49,-74.9,-34.6,-80.7C-20.2,-86.5,-4.1,-86.6,11.5,-84.6C27.1,-82.6,44.7,-76.4Z" fill="#FFFFFF" transform="translate(100 100)"></path>
+</svg>
+</div>
+</section>
+<!-- Filter Chips -->
+<div class="flex gap-3 mb-8 overflow-x-auto pb-2 no-scrollbar">
+<button class="bg-primary text-on-primary px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap">Todas las categorías</button>
+<button class="bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors">Plomería</button>
+<button class="bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors">Electricidad</button>
+<button class="bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors">Climatización</button>
+<button class="bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors">Carpintería</button>
+</div>
+<!-- Bento-style Request Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest rounded-2xl overflow-hidden card-shadow group transition-all hover:-translate-y-1">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up of a leaking metal pipe under a kitchen sink with water dripping into a puddle on the cabinet floor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBA86igS3vaH05Ge8bVgcagc_dtitQXQ5muN1Rq8-tzJSJnK4Os5uTTrNkkUZfX_rq34YcK7QMNh-T28ooQdkmMNOXWNwh-Ny_LCnkmohL1_J90hMYFUIv2ZvM5nnLS15AQ6kZl0CiWb2ADcXX5qmsk4k8A_lr-LkAzi-wH54UIfA1Hbm9j9faghXiWhepT9ltL0cUvA5rCMuFlXGjEOC0mOByltZBDGvEfIa4AB2gJveZ_7Izo4XygNtxeZnDn7X7590sBOEs7pCo"/>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold text-tertiary">URGENTE</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold text-on-surface">Reparación de filtración</h3>
+<span class="text-primary font-bold">$4,500 - $6,000</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-6 line-clamp-2">Tengo una fuga importante bajo el fregadero de la cocina que está dañando el mueble. Necesito reparación inmediata.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-surface-container">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+<span class="text-xs">Palermo, CABA</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-xs">Hace 2 horas</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest rounded-2xl overflow-hidden card-shadow group transition-all hover:-translate-y-1">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern split air conditioning unit mounted on a white wall with professional tools resting on a ladder nearby" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZx0iBSuHdVCLbCGadx6O_jmWl8512SIZ-JIr5GussMt70KQStrK0P1wdUN_pQ5nnClBYbw5NdZuorCCywI7gvJbKDVsZJVbEZvu-Cz1Cz71FJANGEXre8C6VsGroAWHYP7Ntz00eHLja04-JscEJWTA7MMAXkJVjuwspJhWdaEVZQsY2XtKz3dk-4dSqqP0qqNPKk2B86RhJho13RsNE1BQG9uRUOj_wjzK10zMjKMxffd8tSfxkTyyjtlCSX1f7Gx8thqATc310"/>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold text-on-surface">Instalación Aire 3000 frigorías</h3>
+<span class="text-primary font-bold">$12,000</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-6 line-clamp-2">Instalación completa de unidad split nueva. Ya tengo los materiales básicos, necesito mano de obra matriculada.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-surface-container">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+<span class="text-xs">Belgrano, CABA</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-xs">Hace 5 horas</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container-lowest rounded-2xl overflow-hidden card-shadow group transition-all hover:-translate-y-1">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A dark interior room with a flickering old light bulb on a textured concrete ceiling, moody atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsTA-xEKaBDNOYAen4dtMYpJ5mn1sviiDFEHE-PRpUFcEERe3_cxu3hohMFVYdt4vj9kxE52bptg78vbBSxS9Ab34zddYbW_CW8h2BT5QJSjybrQ1-mjfeSEkE7Z7yEFAyi4Y7UwhtypEvlXJ-i7GwThz8web_UiKevVW4tjSaOtETzb4SDpUCiYbJwyMdSKNU6xxr8nG2OYoyHywa6zjid6g7Y6qYwzY_KWSO3_4qeE_e0h1M0UpGt2hrNTC6wab7KR7K-k4-LVA"/>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold text-on-surface">Cortocircuito en living</h3>
+<span class="text-primary font-bold">A convenir</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-6 line-clamp-2">Saltó la térmica y no puedo restablecer la luz en el sector del living. Sospecho de un enchufe en mal estado.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-surface-container">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+<span class="text-xs">Villa Urquiza, CABA</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-xs">Ayer</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 4 (Asymmetric sizing for editorial feel) -->
+<article class="md:col-span-2 bg-surface-container-low rounded-2xl overflow-hidden card-shadow group transition-all hover:-translate-y-1 flex flex-col md:flex-row">
+<div class="relative w-full md:w-2/5 h-64 md:h-auto overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Interior of a modern house under renovation with sawdust on floor and wooden frames being installed" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHrM1VDOhlmusDpmZtFIABXa4I_ibHrQ4XmFB6fk79x0hC3v2iQdnegMfOH7W15ye2lpGRvyB5F6bHyEf0rSKMHWmjYTeDcE5MczyP4RIpDZwN2-aHJJs6uBBJv52rNRboreh5Ge7HVLcynPiwXuHPRFnc9_slPz93A6bnKaPjnzU20tWYukWCyggHnvqoi9i8xSzKInaXCQBAbqbRqYqQbJ4T3b2DLs-Q0TljatB4ro9meycU1CYFenIVQlM4n1KrwI3wMwGj35s"/>
+</div>
+<div class="p-8 flex flex-col justify-center flex-1">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-2xl font-bold text-on-surface mb-1">Mueble de cocina a medida</h3>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-xs font-bold">PROYECTO GRANDE</span>
+</div>
+<span class="text-primary font-bold text-xl">$85,000+</span>
+</div>
+<p class="text-on-surface-variant text-base mb-8">Buscamos carpintero para realizar alacena y bajo mesada en melamina blanca sobre diseño existente. Aproximadamente 4 metros lineales.</p>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+<span class="text-sm">San Isidro, GBA</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-sm">Publicado por Marina G.</span>
+</div>
+<button class="ml-auto bg-primary text-on-primary px-6 py-2 rounded-xl font-bold hover:bg-primary-container transition-colors">Postularme</button>
+</div>
+</div>
+</article>
+<!-- Card 5 -->
+<article class="bg-surface-container-lowest rounded-2xl overflow-hidden card-shadow group transition-all hover:-translate-y-1">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up of a technician's hands repairing a complex circuit board with professional testing tools and soldering iron" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_yV_7YtRDsseiBjR3dEGqFtD9AG9_vMzGu7FDIK9XBFtFZT5Oppy9syc7Ip5VxK0QHG1cDvHof2B9Y0tAmJ4n1_8SpsGFI-uoK1_YSkFG8HXfUNlHLAwUY6EEaKr8xgDrI1pu7GERY4SYdHjccQo-JC8GIPylVEfRTrhloCLWVDzaRtRXebgr4GugwcBHWLamTXYpsq7TIpE43FkAfqENi6OA0XN-sU7r8Fv0B1htV8CtuhtoMYgq9NMrbC5_I3dRENc4hq2IuWQ"/>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold text-on-surface">Reparación de lavarropas</h3>
+<span class="text-primary font-bold">$8,000</span>
+</div>
+<p class="text-on-surface-variant text-sm mb-6 line-clamp-2">Lavarropas Samsung no completa el ciclo de centrifugado. Hace un ruido metálico fuerte al intentar girar.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-surface-container">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+<span class="text-xs">Nuñez, CABA</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-xs">Hace 8 horas</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- Pagination/Load More -->
+<div class="mt-16 flex justify-center">
+<button class="bg-surface-container text-primary px-12 py-3 rounded-full font-bold hover:bg-surface-container-high transition-colors">
+                Cargar más solicitudes
+            </button>
+</div>
+</main>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-[0_-8px_24px_rgba(25,28,29,0.06)] rounded-t-3xl border-t border-slate-100 dark:border-slate-800">
+<div class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1 hover:opacity-80 transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="text-[11px] font-medium font-label">Explorar</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-[#edeeef] dark:bg-slate-800 text-[#0040a1] dark:text-blue-300 rounded-xl px-4 py-1 hover:opacity-80 transition-transform scale-95 active:scale-90" onclick="window.location.href='{{DATA:SCREEN:SCREEN_2}}'">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="text-[11px] font-medium font-label">Solicitudes</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1 hover:opacity-80 transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-[11px] font-medium font-label">Mensajes</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-4 py-1 hover:opacity-80 transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[11px] font-medium font-label">Perfil</span>
+</div>
+</nav>
+</body></html>

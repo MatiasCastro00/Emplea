@@ -1,0 +1,3029 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ConectaPro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <aside class="desktop-sidebar" aria-label="Navegación principal de escritorio">
+        <div class="desktop-sidebar__brand">
+          <div class="desktop-sidebar__brand-mark">
+            <span class="material-symbols-outlined">hub</span>
+          </div>
+          <div class="desktop-sidebar__brand-copy">
+            <h1>ConectaPro</h1>
+            <p>Marketplace</p>
+          </div>
+          <button
+            id="desktop-sidebar-toggle"
+            class="desktop-sidebar__toggle"
+            type="button"
+            aria-label="Minimizar navegación"
+            aria-expanded="true"
+          >
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+        </div>
+
+        <nav class="desktop-sidebar__nav" aria-label="Navegación principal">
+          <a class="nav-item active" href="#inicio">
+            <span class="material-symbols-outlined">home</span>
+            <span>Inicio</span>
+          </a>
+          <a class="nav-item" href="#explorar">
+            <span class="material-symbols-outlined">search</span>
+            <span>Explorar</span>
+          </a>
+          <a class="nav-item" href="#solicitudes">
+            <span class="material-symbols-outlined">description</span>
+            <span>Solicitudes</span>
+          </a>
+          <a class="nav-item" href="#chat">
+            <span class="material-symbols-outlined">chat</span>
+            <span>Mensajes</span>
+          </a>
+          <a class="nav-item" href="#perfil">
+            <span class="material-symbols-outlined">person</span>
+            <span>Perfil</span>
+          </a>
+        </nav>
+
+        <a class="desktop-sidebar__cta" href="#crear">
+          <span class="material-symbols-outlined">add_circle</span>
+          <span>Publicar solicitud</span>
+        </a>
+      </aside>
+
+      <div class="desktop-main">
+      <header class="desktop-topbar">
+        <label class="desktop-topbar__search" aria-label="Buscar profesionales o servicios">
+          <span class="material-symbols-outlined">search</span>
+          <input
+            id="desktop-global-search"
+            type="text"
+            placeholder="Buscar profesionales, oficios o solicitudes..."
+          />
+        </label>
+
+        <div class="desktop-topbar__actions">
+          <button class="topbar-icon-button" type="button" aria-label="Notificaciones">
+            <span class="material-symbols-outlined">notifications</span>
+          </button>
+          <button
+            class="topbar-icon-button"
+            type="button"
+            aria-label="Cambiar tema"
+            aria-pressed="false"
+            data-theme-toggle="true"
+          >
+            <span class="material-symbols-outlined">dark_mode</span>
+          </button>
+          <div class="desktop-user-chip">
+            <div class="desktop-user-chip__copy">
+              <strong>Alex Rivera</strong>
+              <span>Cuenta verificada</span>
+            </div>
+            <img
+              class="desktop-user-chip__avatar"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCLvKIfWDWrDiu5zCx40vXT8MhSvoJPG0XLzL19otSyHw05-t-6I-8S-zG_AAJMrVRFdXmZWaeucU9I2SYGU9V8-AuA9tDcQV0b9IskyYHxHz73PoVkWhIrmg3vU06Qovw6o4DgF19QxFXnaF2FYSyypVm9XWV-rkbkvYSkVo3SIA7JDN_zop5pOlEcO0HBmw_9oxa4yzE_nNefClMFH6_LOvtaZcX34RoLDc3L5O-Wnb-KiDO4AtXHnjUaFTTDfcs9DploQZNY4g"
+              alt="Alex Rivera"
+            />
+          </div>
+        </div>
+      </header>
+
+      <header class="topbar mobile-topbar">
+        <div class="brand-group">
+          <img
+            class="brand-mark"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpQGs28I5QA92-t-vHjCl9PSeBnXmxSAsNSJnxi4vglHWw62K-E4eU6EhRybLZApfYuiWI2sjdobIKsnQMG9EwE3mepYxJ8oFdLW8MD5z3_-BPGxBXqHsyB9Ehd8G_lSyc2Rm5sALpiXjhF6jykgJatZ0BsAxf8AFw6nmk9nxylGrInSqj_TqJnENq8gIV1-QNAxYm_t0T5Oh9ylx51RCEft9sbxJ9d1_HwD1ZKJM6KcgeGpF2buSR2U3CIXlqugTyYr6mKAN-Gco"
+            alt="Alejandro Herrera"
+          />
+          <div class="brand-text">
+            <h1>ConectaPro</h1>
+            <p class="topbar-subtitle">Marketplace de oficios</p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button class="topbar-icon-button" type="button" aria-label="Notificaciones">
+            <span class="material-symbols-outlined">notifications</span>
+          </button>
+          <button
+            id="theme-toggle"
+            class="topbar-icon-button"
+            type="button"
+            aria-label="Cambiar tema"
+            aria-pressed="false"
+            data-theme-toggle="true"
+          >
+            <span class="material-symbols-outlined">dark_mode</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="screen-stack">
+        <section id="inicio" class="app-screen active-screen screen-home">
+          <div class="home-layout">
+            <header class="home-welcome">
+              <div class="home-copy">
+                <p class="home-greeting">Buenos días,</p>
+                <h2>Alex Rivera</h2>
+              </div>
+              <div class="home-search">
+                <span class="material-symbols-outlined">search</span>
+                <input type="text" placeholder="Busca un plomero, electricista..." />
+              </div>
+            </header>
+
+            <section class="home-actions-grid" aria-label="Acciones rápidas">
+              <a class="home-action-card home-action-primary" href="#crear">
+                <div class="home-action-icon">
+                  <span class="material-symbols-outlined">assignment_add</span>
+                </div>
+                <strong>Publicar una<br />solicitud</strong>
+              </a>
+              <a class="home-action-card home-action-secondary" href="#explorar">
+                <div class="home-action-icon home-action-icon-soft">
+                  <span class="material-symbols-outlined">person_search</span>
+                </div>
+                <strong>Encontrar un<br />profesional</strong>
+              </a>
+            </section>
+
+            <section class="home-section">
+              <div class="home-section-head">
+                <h3>Tus solicitudes activas</h3>
+                <a href="#solicitudes">Ver todas</a>
+              </div>
+              <div class="home-requests-strip">
+                <article class="home-request-card is-primary">
+                  <div class="home-request-top">
+                    <h4>Reparación de fregadero</h4>
+                    <span class="home-status-chip">Presupuesto pendiente</span>
+                  </div>
+                  <div class="home-request-meta">
+                    <span class="material-symbols-outlined">schedule</span>
+                    <span>Creada hace 2 h</span>
+                  </div>
+                </article>
+                <article class="home-request-card is-tertiary">
+                  <div class="home-request-top">
+                    <h4>Mantenimiento de A/C</h4>
+                    <span class="home-status-chip home-status-chip-warm">En curso</span>
+                  </div>
+                  <div class="home-request-meta">
+                    <span class="material-symbols-outlined">person</span>
+                    <span>Pro: Marco Silva</span>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="home-section">
+              <div class="home-section-head">
+                <h3>Profesionales recomendados</h3>
+              </div>
+              <div class="home-pro-list">
+                <article class="home-pro-card">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHYZ3xDhTwMmLZQt9lamhtua77FTbLlAaEWP3yDSEAOUO8uRZlJ10zvWU5Nz3rFo7igRo-GxiqLCq10MVsfMfahkliqma03I6q2vgv_yHl0jH19bdco8ia6GcMXsA_wpqEBEXwB2E20LwNrV9mefdyr89l7VOfxhXhyzhK9Yrn1ngFq2EIoWuYWqtb4YjNzn2Fy1vrwmfvEPlOdpeFpsyHSQIAtlZMDoJMVPJ9gD0AiT9eQhdE2MJcMqKPiePZmVA_jwxZwptwBBU"
+                    alt="Roberto Mendes"
+                  />
+                  <div class="home-pro-copy">
+                    <h4>Roberto Mendes</h4>
+                    <p>Electricista profesional</p>
+                  </div>
+                  <div class="home-rating-pill">
+                    <span class="material-symbols-outlined">star</span>
+                    <span>4.9</span>
+                  </div>
+                </article>
+                <article class="home-pro-card">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm-bjDeZFMklrpNWbae9yw4k9jaZIviIX6SbmP3lK0Tqf7FNkhZYMXixEVTC0XvhMuXwrvtinebP-YoRxjvurVCWzWOx-8culKtHK46N-c6DnBOUH30bt_XggyVtUBefgN-vJc4NqRstjRssYnMGLn_dkeiHhmC4SCj9Mz3evdebqQBPNHJyPVBWBNDnMmV68FKdsv5Dp1-wzbUHoM2R-I8heHwBYMmJqYCnGOV8V_70-fo84i4tLIzcANkOiSx0AF5NeS62JDx90"
+                    alt="Elena Soros"
+                  />
+                  <div class="home-pro-copy">
+                    <h4>Elena Soros</h4>
+                    <p>Especialista en limpieza</p>
+                  </div>
+                  <div class="home-rating-pill">
+                    <span class="material-symbols-outlined">star</span>
+                    <span>5.0</span>
+                  </div>
+                </article>
+                <article class="home-pro-card">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1cGEb5gHapI44MHpyETT_oEG9cilyGRUP-ziI5h5PAr2FWeJuqeJ7rHqlC9YntZspSIrjBn5aAPikY5pOzflECZ5gpiuIjpoVQwt2gdqmA3UqpoKYAUkwgbWAgdVG7K7aQLXN5vCDUMGQ2annhAIedeZz78nrEdkanoTw1UFj2_d3v7PWHdyUPUQtRwWj8Rv_3QtHPbZTajwWouu5VxaJIgyIFrT80SrKTVoyI3fAo1erSiYceioCrheJyxOLTTjGNZhtn_CmjZw"
+                    alt="James Wilson"
+                  />
+                  <div class="home-pro-copy">
+                    <h4>James Wilson</h4>
+                    <p>Especialista en tuberías</p>
+                  </div>
+                  <div class="home-rating-pill">
+                    <span class="material-symbols-outlined">star</span>
+                    <span>4.7</span>
+                  </div>
+                </article>
+              </div>
+            </section>
+          </div>
+          <div class="hero">
+            <div class="hero-copy">
+              <p class="section-kicker">Editorial Trust & Fluid Utility</p>
+              <h2>
+                Encuentra expertos para cada
+                <span>proyecto del hogar.</span>
+              </h2>
+              <p class="hero-text">
+                Una sola experiencia para descubrir profesionales verificados,
+                publicar trabajos, comparar presupuestos y cerrar acuerdos por chat.
+              </p>
+              <div class="hero-actions">
+                <a class="button button-primary" href="#explorar">Explorar oficios</a>
+                <a class="button button-secondary" href="#crear">Crear solicitud</a>
+              </div>
+              <div class="hero-metrics">
+                <div class="metric-card">
+                  <strong>2.4k</strong>
+                  <span>Profesionales activos</span>
+                </div>
+                <div class="metric-card">
+                  <strong>15 min</strong>
+                  <span>Tiempo medio de respuesta</span>
+                </div>
+                <div class="metric-card">
+                  <strong>4.9/5</strong>
+                  <span>Promedio de reseñas</span>
+                </div>
+              </div>
+            </div>
+            <aside class="hero-panel">
+              <div class="floating-card glass">
+                <div class="floating-card-head">
+                  <span class="material-symbols-outlined">bolt</span>
+                  <div>
+                    <p>Urgencia eléctrica</p>
+                    <small>Caballito, CABA</small>
+                  </div>
+                </div>
+                <h3>Cambio de térmica y revisión de tablero</h3>
+                <p>Recibe propuestas de técnicos matriculados en minutos.</p>
+                <div class="floating-card-foot">
+                  <span class="pill pill-amber">Hoy</span>
+                  <span class="price">$35.000 - $60.000</span>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section id="explorar" class="app-screen content-section screen-explore">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Explorar</p>
+              <h3>Oficios destacados y perfiles curados</h3>
+            </div>
+            <a href="#perfil" class="text-link">Ver perfil destacado</a>
+          </div>
+
+          <div class="search-strip">
+            <div class="search-input">
+              <span class="material-symbols-outlined">search</span>
+              <input type="text" placeholder="¿Qué oficio necesitas hoy?" />
+            </div>
+            <button class="filter-button">
+              <span class="material-symbols-outlined">tune</span>
+              Filtros
+            </button>
+          </div>
+
+          <div class="quick-filter-grid" id="quick-filter-grid" aria-label="Filtros rapidos por profesion">
+            <button class="quick-filter-card" type="button" data-category="plomeria">
+              <span class="material-symbols-outlined">plumbing</span>
+              <span>Plomería</span>
+            </button>
+            <button class="quick-filter-card" type="button" data-category="electricidad">
+              <span class="material-symbols-outlined">bolt</span>
+              <span>Electricidad</span>
+            </button>
+            <button class="quick-filter-card" type="button" data-category="limpieza">
+              <span class="material-symbols-outlined">mop</span>
+              <span>Limpieza</span>
+            </button>
+            <button class="quick-filter-card" type="button" data-category="albanileria">
+              <span class="material-symbols-outlined">home_repair_service</span>
+              <span>Albañilería</span>
+            </button>
+            <button class="quick-filter-card" type="button" data-category="jardineria">
+              <span class="material-symbols-outlined">yard</span>
+              <span>Jardinería</span>
+            </button>
+            <button class="quick-filter-card" type="button" data-category="pintura">
+              <span class="material-symbols-outlined">format_paint</span>
+              <span>Pintura</span>
+            </button>
+          </div>
+
+          <div class="explore-results-divider">
+            <span>Profesionales</span>
+          </div>
+
+          <div class="pro-grid">
+            <article
+              class="pro-card"
+              data-category="plomeria"
+              data-budget="140"
+              data-rating="4.9"
+              data-distance="4"
+            >
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL-sRa8cwGnkKS0naR2lrcG3wxak-HMROyXA8jPxdBxpIoITiSwTqs7G0SaqAURCaI8ByZP1Qqa9orC-vERZontYXHlxswu2niPhp1FbBRAMbY0qUg14jnJF23Jq0TrlfG60_D_A1g1DQ4OfQP5C8l8nr9ATxjNn1f9IVPKr-LSmPSpJYZyTnupkH9WF8beByJFiZSuTfprizFTA52jNfAbqCYaVA-KSgTvJFo_EN2zS0fbI0QpShzSgJ-JUP42zWnuZkdJBraAiA"
+                alt="Plomero profesional"
+              />
+              <div class="pro-body">
+                <div class="pro-meta">
+                  <span class="pill pill-soft">PRO</span>
+                  <span class="rating">4.9</span>
+                </div>
+                <h4>Roberto Méndez</h4>
+                <p class="role">Plomero especialista</p>
+                <p class="description">
+                  Más de 15 años resolviendo filtraciones, termotanques y urgencias
+                  con presupuesto claro y documentación del trabajo.
+                </p>
+                <div class="pro-footer">
+                  <span>124 trabajos</span>
+                  <button class="pro-profile-link" type="button" data-open-professional-profile="true">
+                    Ver perfil
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="pro-card"
+              data-category="carpinteria"
+              data-budget="320"
+              data-rating="4.7"
+              data-distance="5"
+            >
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWbSExA5BZD-q6G2oqi59YynMSNIlZuLtD29l5hu1lCsCPp76LkM7ryejhchK9LExe3WObxWAS5Pf_7jtCiuyMe-0fz6WvyMYSa46s_3OeLoYXi7ws7DXKFo8XchE_N4udm_1J4dbcQBqrykp_aAI6RUVdmNhzU_z6eKwvrf2yxTZfMDaoG6mjot4Nf4Kd_LgZ2I4BpEukCe4ywcPIXlDP2vyUii3-LLis-4laFDTzc-fVEORJ6rFTgyWPMyXGmvZEM20jSbSdCO4"
+                alt="Carpintero profesional"
+              />
+              <div class="pro-body">
+                <div class="pro-meta">
+                  <span class="pill pill-soft">Curado</span>
+                  <span class="rating">4.7</span>
+                </div>
+                <h4>Carlos Silva</h4>
+                <p class="role">Maestro carpintero</p>
+                <p class="description">
+                  Muebles a medida y restauración fina con acabados premium y fotos
+                  de avance para cada cliente.
+                </p>
+                <div class="pro-footer">
+                  <span>89 trabajos</span>
+                  <button class="pro-profile-link" type="button" data-open-professional-profile="true">
+                    Ver perfil
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="pro-card"
+              data-category="electricidad"
+              data-budget="260"
+              data-rating="4.8"
+              data-distance="5"
+            >
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHYZ3xDhTwMmLZQt9lamhtua77FTbLlAaEWP3yDSEAOUO8uRZlJ10zvWU5Nz3rFo7igRo-GxiqLCq10MVsfMfahkliqma03I6q2vgv_yHl0jH19bdco8ia6GcMXsA_wpqEBEXwB2E20LwNrV9mefdyr89l7VOfxhXhyzhK9Yrn1ngFq2EIoWuYWqtb4YjNzn2Fy1vrwmfvEPlOdpeFpsyHSQIAtlZMDoJMVPJ9gD0AiT9eQhdE2MJcMqKPiePZmVA_jwxZwptwBBU"
+                alt="Electricista profesional"
+              />
+              <div class="pro-body">
+                <div class="pro-meta">
+                  <span class="pill pill-soft">PRO</span>
+                  <span class="rating">4.8</span>
+                </div>
+                <h4>Lucía Herrera</h4>
+                <p class="role">Electricista matriculada</p>
+                <p class="description">
+                  Instalaciones seguras, tableros eléctricos y visitas técnicas con
+                  diagnóstico claro para hogares y comercios.
+                </p>
+                <div class="pro-footer">
+                  <span>102 trabajos</span>
+                  <button class="pro-profile-link" type="button" data-open-professional-profile="true">
+                    Ver perfil
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="pro-card"
+              data-category="limpieza"
+              data-budget="110"
+              data-rating="4.9"
+              data-distance="3"
+            >
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm-bjDeZFMklrpNWbae9yw4k9jaZIviIX6SbmP3lK0Tqf7FNkhZYMXixEVTC0XvhMuXwrvtinebP-YoRxjvurVCWzWOx-8culKtHK46N-c6DnBOUH30bt_XggyVtUBefgN-vJc4NqRstjRssYnMGLn_dkeiHhmC4SCj9Mz3evdebqQBPNHJyPVBWBNDnMmV68FKdsv5Dp1-wzbUHoM2R-I8heHwBYMmJqYCnGOV8V_70-fo84i4tLIzcANkOiSx0AF5NeS62JDx90"
+                alt="Especialista en limpieza"
+              />
+              <div class="pro-body">
+                <div class="pro-meta">
+                  <span class="pill pill-soft">Top</span>
+                  <span class="rating">4.9</span>
+                </div>
+                <h4>Elena Soros</h4>
+                <p class="role">Limpieza integral</p>
+                <p class="description">
+                  Servicio puntual para departamentos, oficinas y finales de obra con
+                  checklist, insumos y seguimiento por fotos.
+                </p>
+                <div class="pro-footer">
+                  <span>136 trabajos</span>
+                  <button class="pro-profile-link" type="button" data-open-professional-profile="true">
+                    Ver perfil
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="pro-card"
+              data-category="albanileria"
+              data-budget="390"
+              data-rating="4.6"
+              data-distance="5"
+            >
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1cGEb5gHapI44MHpyETT_oEG9cilyGRUP-ziI5h5PAr2FWeJuqeJ7rHqlC9YntZspSIrjBn5aAPikY5pOzflECZ5gpiuIjpoVQwt2gdqmA3UqpoKYAUkwgbWAgdVG7K7aQLXN5vCDUMGQ2annhAIedeZz78nrEdkanoTw1UFj2_d3v7PWHdyUPUQtRwWj8Rv_3QtHPbZTajwWouu5VxaJIgyIFrT80SrKTVoyI3fAo1erSiYceioCrheJyxOLTTjGNZhtn_CmjZw"
+                alt="Albañil profesional"
+              />
+              <div class="pro-body">
+                <div class="pro-meta">
+                  <span class="pill pill-soft">Curado</span>
+                  <span class="rating">4.6</span>
+                </div>
+                <h4>Mariano Quiroga</h4>
+                <p class="role">Albañil y refacciones</p>
+                <p class="description">
+                  Levantamiento de muros, revoques y reparaciones de humedad con
+                  planificación por etapas y materiales definidos.
+                </p>
+                <div class="pro-footer">
+                  <span>74 trabajos</span>
+                  <button class="pro-profile-link" type="button" data-open-professional-profile="true">
+                    Ver perfil
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="pro-card"
+              data-category="jardineria"
+              data-budget="150"
+              data-rating="4.8"
+              data-distance="5"
+            >
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL-sRa8cwGnkKS0naR2lrcG3wxak-HMROyXA8jPxdBxpIoITiSwTqs7G0SaqAURCaI8ByZP1Qqa9orC-vERZontYXHlxswu2niPhp1FbBRAMbY0qUg14jnJF23Jq0TrlfG60_D_A1g1DQ4OfQP5C8l8nr9ATxjNn1f9IVPKr-LSmPSpJYZyTnupkH9WF8beByJFiZSuTfprizFTA52jNfAbqCYaVA-KSgTvJFo_EN2zS0fbI0QpShzSgJ-JUP42zWnuZkdJBraAiA"
+                alt="Jardinero profesional"
+              />
+              <div class="pro-body">
+                <div class="pro-meta">
+                  <span class="pill pill-soft">PRO</span>
+                  <span class="rating">4.8</span>
+                </div>
+                <h4>Tomás Verde</h4>
+                <p class="role">Jardinería y poda</p>
+                <p class="description">
+                  Mantenimiento de jardines, diseño de canteros y podas estacionales
+                  con recomendaciones de cuidado simples.
+                </p>
+                <div class="pro-footer">
+                  <span>58 trabajos</span>
+                  <button class="pro-profile-link" type="button" data-open-professional-profile="true">
+                    Ver perfil
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="pro-card"
+              data-category="pintura"
+              data-budget="210"
+              data-rating="4.7"
+              data-distance="5"
+            >
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWbSExA5BZD-q6G2oqi59YynMSNIlZuLtD29l5hu1lCsCPp76LkM7ryejhchK9LExe3WObxWAS5Pf_7jtCiuyMe-0fz6WvyMYSa46s_3OeLoYXi7ws7DXKFo8XchE_N4udm_1J4dbcQBqrykp_aAI6RUVdmNhzU_z6eKwvrf2yxTZfMDaoG6mjot4Nf4Kd_LgZ2I4BpEukCe4ywcPIXlDP2vyUii3-LLis-4laFDTzc-fVEORJ6rFTgyWPMyXGmvZEM20jSbSdCO4"
+                alt="Pintor profesional"
+              />
+              <div class="pro-body">
+                <div class="pro-meta">
+                  <span class="pill pill-soft">Destacado</span>
+                  <span class="rating">4.7</span>
+                </div>
+                <h4>Agustín Rojas</h4>
+                <p class="role">Pintura interior y exterior</p>
+                <p class="description">
+                  Preparación de superficies, pintura de ambientes y terminaciones
+                  prolijas con tiempos de entrega muy claros.
+                </p>
+                <div class="pro-footer">
+                  <span>93 trabajos</span>
+                  <button class="pro-profile-link" type="button" data-open-professional-profile="true">
+                    Ver perfil
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="perfil" class="app-screen content-section alternate screen-profile">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Perfil del profesional</p>
+            </div>
+          </div>
+
+          <div class="profile-layout">
+            <div class="profile-summary card">
+              <img
+                class="profile-photo"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpQGs28I5QA92-t-vHjCl9PSeBnXmxSAsNSJnxi4vglHWw62K-E4eU6EhRybLZApfYuiWI2sjdobIKsnQMG9EwE3mepYxJ8oFdLW8MD5z3_-BPGxBXqHsyB9Ehd8G_lSyc2Rm5sALpiXjhF6jykgJatZ0BsAxf8AFw6nmk9nxylGrInSqj_TqJnENq8gIV1-QNAxYm_t0T5Oh9ylx51RCEft9sbxJ9d1_HwD1ZKJM6KcgeGpF2buSR2U3CIXlqugTyYr6mKAN-Gco"
+                alt="Especialista destacado"
+              />
+              <div>
+                <div class="profile-title-row">
+                  <h4>Alejandro Herrera</h4>
+                  <span class="pill pill-amber">Verificado</span>
+                </div>
+                <p class="role">Dise&ntilde;o de interiores y carpinter&iacute;a fina</p>
+                <p class="description">
+                  Perfil pensado para mostrar autoridad: trabajos publicados,
+                  velocidad de respuesta, certificaciones y rese&ntilde;as con tono premium.
+                </p>
+              </div>
+              <div class="profile-specialties">
+                <h4>Especialidades</h4>
+                <div class="professional-specialty-list">
+                  <span class="professional-specialty-chip">Dise&ntilde;o integral</span>
+                  <span class="professional-specialty-chip">Muebles a medida</span>
+                  <span class="professional-specialty-chip">Carpinter&iacute;a fina</span>
+                  <span class="professional-specialty-chip">Render y planos</span>
+                </div>
+              </div>
+              <div class="stats-row">
+                <div><strong>12</strong><span>A&ntilde;os</span></div>
+                <div><strong>350+</strong><span>Proyectos</span></div>
+                <div><strong>&lt; 2h</strong><span>Respuesta</span></div>
+                <div>
+                  <strong><span class="material-symbols-outlined">star</span>4.9</strong>
+                  <span>Rating</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-work-section">
+              <div class="profile-work-header">
+                <h4>Tus trabajos</h4>
+                <span>Portafolio destacado</span>
+              </div>
+              <div class="gallery-grid profile-work-grid">
+                <article class="profile-work-card profile-work-card-featured">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOgnH7nP0E7o9tDgxdME75pDh5_XaSHuSWPdef9uRJI6FSe1j-ElmGf5kg1Ubb0iRon83NfLrtHgRRcWJpVDOLGhY6TDRGddCzZ3BdtQtYfKoN_HkBPfoqJQG1epnAz6tAxkWvm2wCMIT_xruEYWm0vv5s-tIc5hZmVgl2zq8qe3wEl3pm7RTX4zVNm5i9z4Eb68wuArgDHSMHJH69V9_As0CI_v6awu6mpPjni0PSbgkgzX1fziBxuDlZKglp8oGowG8Y-VqFlGQ"
+                    alt="Proyecto de cocina a medida"
+                  />
+                  <div class="profile-work-copy">
+                    <strong>Cocina integral en madera natural</strong>
+                    <span>Dise&ntilde;o, carpinter&iacute;a e instalaci&oacute;n final</span>
+                  </div>
+                </article>
+                <article class="profile-work-card">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJu99KUslL47G5xuCyKli5wyOLeKiYIrktvkF7HkZdM2-wLWtLCVdYkiY43RX46F3u_gu6SQ6LghTvL-VaL4bs-TyJPjk69XGOFpVF9DktK6bp3WVioIHng7zzsdgJLg064fiuFVHzpQgIFHD9c7xOSktG8Wle51t7lXIJzXY9PnhMCJdPLdp6mrOyZAOdBfdCitiRr3fqmwTiPg_EoyEIezYCYMskqSoEhrvmTQ68YVjHgXWz1zS8_k-vN2DvC2bnF-UZAQwqp0w"
+                    alt="Proyecto de living"
+                  />
+                  <div class="profile-work-copy">
+                    <strong>Living con biblioteca empotrada</strong>
+                    <span>Resoluci&oacute;n a medida para espacios compactos</span>
+                  </div>
+                </article>
+                <article class="profile-work-card profile-work-card-add">
+                  <div class="profile-work-add-icon">
+                    <span class="material-symbols-outlined">add</span>
+                  </div>
+                  <strong>Agregar trabajo</strong>
+                  <span>Sube una nueva foto de tu portafolio</span>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="solicitudes" class="app-screen content-section screen-requests">
+          <div class="requests-hero">
+            <div>
+              <p class="section-kicker requests-kicker">Panel de solicitudes</p>
+              <h3>¿Tienes un problema que resolver?</h3>
+              <p>
+                Publica tu solicitud y recibe presupuestos de profesionales verificados en minutos.
+              </p>
+            </div>
+            <a href="#crear" class="button button-secondary requests-cta">Crear mi solicitud</a>
+          </div>
+
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Solicitudes abiertas</p>
+            </div>
+          </div>
+
+          <div class="search-strip requests-search-strip">
+            <div class="search-input">
+              <span class="material-symbols-outlined">search</span>
+              <input id="requests-search-input" type="text" placeholder="Busca solicitudes por oficio o problema" />
+            </div>
+          </div>
+
+          <div class="quick-filter-grid requests-filter-grid" id="requests-filter-grid" aria-label="Filtros rapidos de solicitudes">
+            <button class="quick-filter-card" type="button" data-category="plomeria">
+              <span class="material-symbols-outlined">plumbing</span>
+              <span>Plomería</span>
+            </button>
+            <button class="quick-filter-card" type="button" data-category="electricidad">
+              <span class="material-symbols-outlined">bolt</span>
+              <span>Electricidad</span>
+            </button>
+            <button class="quick-filter-card" type="button" data-category="limpieza">
+              <span class="material-symbols-outlined">mop</span>
+              <span>Limpieza</span>
+            </button>
+            <button class="quick-filter-card" type="button" data-category="albanileria">
+              <span class="material-symbols-outlined">home_repair_service</span>
+              <span>Albañilería</span>
+            </button>
+            <button class="quick-filter-card" type="button" data-category="aire">
+              <span class="material-symbols-outlined">mode_fan</span>
+              <span>Aire</span>
+            </button>
+          </div>
+
+          <p id="requests-sync-status" class="requests-sync-status" hidden aria-live="polite"></p>
+
+          <div id="requests-grid" class="request-grid">
+            <article
+              class="request-card request-card--interactive"
+              data-category="plomeria"
+              data-priority="urgente"
+              data-client-badge="Cliente Premium"
+              data-payment-type="Precio cerrado"
+              data-location="Palermo, CABA"
+              data-published="Hace 2 horas"
+              data-tags="Materiales incluidos|Plomería|Atención inmediata"
+              data-gallery="https://lh3.googleusercontent.com/aida-public/AB6AXuAMKoQSJGfUQ0AE0qsiL2Pbx6Qq0S557P9F1ZF_QuqJbwG7IpwqWPCrj-IMz66zCIWRiD208cN5mQ-_ZdTxuXBI-zN0iEulptrW_lKVIAOqCqNDjUQ5a7yyIxcqdQkkEq6f55aTpPDgMJC_sHcaxvKNoGQBdDU8o5Bxk9Qq91CPFPTR9wyPfenz1R0AXFkXTaU_BNTZcHdDe9W-zdIYm8p-NoPggmsFpzgOy9zw-Z_QoAXoaIdPGm3nIoiQDpQ1TssrEHkivqOrh-w|https://lh3.googleusercontent.com/aida-public/AB6AXuD4uVzL9X81evlFjKmopEOW0E85WDhf5Tvu6qW4US5EmmnwQLlBkNWSvIBne6k2d9iQiYwsXd-25HPDr2_g6wN-W78eG1eURhDQCSGQLK10fX-WJe_5Z8Nq6haEOt9NzaTBgc_qxvS-ux0F3s2tCfoEycME_tMWRkCnX7T_FLNPWUky_DR5lgpJQGk9wcOTuZUgkghdIyyKXzLUMzumueAuRZDfNAg3a2vBQiYlu2WO3wVGK3lPG5hV_4S-Kfo_ZsNc8Vh-iXAzDJQ|https://lh3.googleusercontent.com/aida-public/AB6AXuAKcSX_TbIIFIf4J0Mbutv_M4kOUuQuk-cxoge0h87zyPPhcAwl6eWB0n-6oUNKc28D1Vi75cR4NUsztmvxvmWBNIWBbd2b9nQzF7dUvAMCDBNKGaGk9CvcAXp57K_VL236eNtT6p62nnNYB-CXjrA7Meet0RYqfGMuc6p5uLMj-BMDDnZGf7jGMZqwANvmJieYJpEf7ihuvdDZlpYyOEp1oXCodJGBJXfu2EwhgGYGVQlMT5nZcwnmq8xg3CW8Ex2IqU2Yez8yjik"
+            >
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBA86igS3vaH05Ge8bVgcagc_dtitQXQ5muN1Rq8-tzJSJnK4Os5uTTrNkkUZfX_rq34YcK7QMNh-T28ooQdkmMNOXWNwh-Ny_LCnkmohL1_J90hMYFUIv2ZvM5nnLS15AQ6kZl0CiWb2ADcXX5qmsk4k8A_lr-LkAzi-wH54UIfA1Hbm9j9faghXiWhepT9ltL0cUvA5rCMuFlXGjEOC0mOByltZBDGvEfIa4AB2gJveZ_7Izo4XygNtxeZnDn7X7590sBOEs7pCo"
+                alt="Filtración en cocina"
+              />
+              <div class="request-body">
+                <div class="request-top">
+                  <span class="pill pill-amber">Urgente</span>
+                  <strong>$4.500 - $6.000</strong>
+                </div>
+                <h4>Reparación de filtración</h4>
+                <p>
+                  Tengo una fuga importante bajo el fregadero y necesito visita en
+                  el día para evitar más daño en el mueble.
+                </p>
+                <div class="request-meta">
+                  <span>Palermo, CABA</span>
+                  <span>Hace 2 horas</span>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="request-card request-card--interactive"
+              data-category="aire"
+              data-priority="programable"
+              data-client-badge="Cliente verificado"
+              data-payment-type="Precio cerrado"
+              data-location="Belgrano, CABA"
+              data-published="Hace 5 horas"
+              data-tags="Equipo comprado|Aire acondicionado|Instalación completa"
+              data-gallery="https://lh3.googleusercontent.com/aida-public/AB6AXuBZx0iBSuHdVCLbCGadx6O_jmWl8512SIZ-JIr5GussMt70KQStrK0P1wdUN_pQ5nnClBYbw5NdZuorCCywI7gvJbKDVsZJVbEZvu-Cz1Cz71FJANGEXre8C6VsGroAWHYP7Ntz00eHLja04-JscEJWTA7MMAXkJVjuwspJhWdaEVZQsY2XtKz3dk-4dSqqP0qqNPKk2B86RhJho13RsNE1BQG9uRUOj_wjzK10zMjKMxffd8tSfxkTyyjtlCSX1f7Gx8thqATc310|https://lh3.googleusercontent.com/aida-public/AB6AXuDJu99KUslL47G5xuCyKli5wyOLeKiYIrktvkF7HkZdM2-wLWtLCVdYkiY43RX46F3u_gu6SQ6LghTvL-VaL4bs-TyJPjk69XGOFpVF9DktK6bp3WVioIHng7zzsdgJLg064fiuFVHzpQgIFHD9c7xOSktG8Wle51t7lXIJzXY9PnhMCJdPLdp6mrOyZAOdBfdCitiRr3fqmwTiPg_EoyEIezYCYMskqSoEhrvmTQ68YVjHgXWz1zS8_k-vN2DvC2bnF-UZAQwqp0w|https://lh3.googleusercontent.com/aida-public/AB6AXuBXfX4MYAbPerGZH2b8lDCxFi23Loem8gmf5R0RRrOX2v6KFnFyxxJw5xaA5LbAMMc8KCbFSJMn5nXpR288EFh8_qHlsToSvfPQJdr-ypjTwHGKifJX9wx5XL13re9XoPjqMcOVr0KbkInXntB_t-E79LLvQXAxNwGJE_G5EBBk4QAGjicdR4GfnQGQRgXp7shgoAjqUaZmzTL8QzdIuXHOooLTELOzXUvYRSbaozPaKUgpDOD-WCqoQJ-ACJTS6_MH-EIctfXsUrs"
+            >
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZx0iBSuHdVCLbCGadx6O_jmWl8512SIZ-JIr5GussMt70KQStrK0P1wdUN_pQ5nnClBYbw5NdZuorCCywI7gvJbKDVsZJVbEZvu-Cz1Cz71FJANGEXre8C6VsGroAWHYP7Ntz00eHLja04-JscEJWTA7MMAXkJVjuwspJhWdaEVZQsY2XtKz3dk-4dSqqP0qqNPKk2B86RhJho13RsNE1BQG9uRUOj_wjzK10zMjKMxffd8tSfxkTyyjtlCSX1f7Gx8thqATc310"
+                alt="Instalación de aire"
+              />
+              <div class="request-body">
+                <div class="request-top">
+                  <span class="pill pill-soft">Aire</span>
+                  <strong>$12.000</strong>
+                </div>
+                <h4>Instalación de aire 3000 frigorías</h4>
+                <p>
+                  Ya tengo el equipo comprado. Busco instalación completa con
+                  soporte, ménsulas y prueba final.
+                </p>
+                <div class="request-meta">
+                  <span>Belgrano, CABA</span>
+                  <span>Hace 5 horas</span>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="request-card request-card--interactive"
+              data-category="electricidad"
+              data-priority="urgente"
+              data-client-badge="Cliente Premium"
+              data-payment-type="A convenir"
+              data-location="Almagro, CABA"
+              data-published="Hoy"
+              data-tags="Diagnóstico incluido|Electricidad|Atención inmediata"
+              data-gallery="https://lh3.googleusercontent.com/aida-public/AB6AXuBsTA-xEKaBDNOYAen4dtMYpJ5mn1sviiDFEHE-PRpUFcEERe3_cxu3hohMFVYdt4vj9kxE52bptg78vbBSxS9Ab34zddYbW_CW8h2BT5QJSjybrQ1-mjfeSEkE7Z7yEFAyi4Y7UwhtypEvlXJ-i7GwThz8web_UiKevVW4tjSaOtETzb4SDpUCiYbJwyMdSKNU6xxr8nG2OYoyHywa6zjid6g7Y6qYwzY_KWSO3_4qeE_e0h1M0UpGt2hrNTC6wab7KR7K-k4-LVA|https://lh3.googleusercontent.com/aida-public/AB6AXuBOgnH7nP0E7o9tDgxdME75pDh5_XaSHuSWPdef9uRJI6FSe1j-ElmGf5kg1Ubb0iRon83NfLrtHgRRcWJpVDOLGhY6TDRGddCzZ3BdtQtYfKoN_HkBPfoqJQG1epnAz6tAxkWvm2wCMIT_xruEYWm0vv5s-tIc5hZmVgl2zq8qe3wEl3pm7RTX4zVNm5i9z4Eb68wuArgDHSMHJH69V9_As0CI_v6awu6mpPjni0PSbgkgzX1fziBxuDlZKglp8oGowG8Y-VqFlGQ|https://lh3.googleusercontent.com/aida-public/AB6AXuDJu99KUslL47G5xuCyKli5wyOLeKiYIrktvkF7HkZdM2-wLWtLCVdYkiY43RX46F3u_gu6SQ6LghTvL-VaL4bs-TyJPjk69XGOFpVF9DktK6bp3WVioIHng7zzsdgJLg064fiuFVHzpQgIFHD9c7xOSktG8Wle51t7lXIJzXY9PnhMCJdPLdp6mrOyZAOdBfdCitiRr3fqmwTiPg_EoyEIezYCYMskqSoEhrvmTQ68YVjHgXWz1zS8_k-vN2DvC2bnF-UZAQwqp0w"
+            >
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsTA-xEKaBDNOYAen4dtMYpJ5mn1sviiDFEHE-PRpUFcEERe3_cxu3hohMFVYdt4vj9kxE52bptg78vbBSxS9Ab34zddYbW_CW8h2BT5QJSjybrQ1-mjfeSEkE7Z7yEFAyi4Y7UwhtypEvlXJ-i7GwThz8web_UiKevVW4tjSaOtETzb4SDpUCiYbJwyMdSKNU6xxr8nG2OYoyHywa6zjid6g7Y6qYwzY_KWSO3_4qeE_e0h1M0UpGt2hrNTC6wab7KR7K-k4-LVA"
+                alt="Cortocircuito"
+              />
+              <div class="request-body">
+                <div class="request-top">
+                  <span class="pill">Electricidad</span>
+                  <strong>A convenir</strong>
+                </div>
+                <h4>Cortocircuito en living</h4>
+                <p>
+                  Salta la térmica cuando prendo dos artefactos. Necesito
+                  diagnóstico y presupuesto con materiales incluidos.
+                </p>
+                <div class="request-meta">
+                  <span>Almagro, CABA</span>
+                  <span>Hoy</span>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="request-card request-card--interactive"
+              data-category="limpieza"
+              data-priority="programable"
+              data-client-badge="Cliente verificado"
+              data-payment-type="Precio cerrado"
+              data-location="Villa Crespo, CABA"
+              data-published="Ayer"
+              data-tags="Insumos incluidos|Limpieza|Post obra"
+              data-gallery="https://lh3.googleusercontent.com/aida-public/AB6AXuCm-bjDeZFMklrpNWbae9yw4k9jaZIviIX6SbmP3lK0Tqf7FNkhZYMXixEVTC0XvhMuXwrvtinebP-YoRxjvurVCWzWOx-8culKtHK46N-c6DnBOUH30bt_XggyVtUBefgN-vJc4NqRstjRssYnMGLn_dkeiHhmC4SCj9Mz3evdebqQBPNHJyPVBWBNDnMmV68FKdsv5Dp1-wzbUHoM2R-I8heHwBYMmJqYCnGOV8V_70-fo84i4tLIzcANkOiSx0AF5NeS62JDx90|https://lh3.googleusercontent.com/aida-public/AB6AXuDJu99KUslL47G5xuCyKli5wyOLeKiYIrktvkF7HkZdM2-wLWtLCVdYkiY43RX46F3u_gu6SQ6LghTvL-VaL4bs-TyJPjk69XGOFpVF9DktK6bp3WVioIHng7zzsdgJLg064fiuFVHzpQgIFHD9c7xOSktG8Wle51t7lXIJzXY9PnhMCJdPLdp6mrOyZAOdBfdCitiRr3fqmwTiPg_EoyEIezYCYMskqSoEhrvmTQ68YVjHgXWz1zS8_k-vN2DvC2bnF-UZAQwqp0w|https://lh3.googleusercontent.com/aida-public/AB6AXuBXfX4MYAbPerGZH2b8lDCxFi23Loem8gmf5R0RRrOX2v6KFnFyxxJw5xaA5LbAMMc8KCbFSJMn5nXpR288EFh8_qHlsToSvfPQJdr-ypjTwHGKifJX9wx5XL13re9XoPjqMcOVr0KbkInXntB_t-E79LLvQXAxNwGJE_G5EBBk4QAGjicdR4GfnQGQRgXp7shgoAjqUaZmzTL8QzdIuXHOooLTELOzXUvYRSbaozPaKUgpDOD-WCqoQJ-ACJTS6_MH-EIctfXsUrs"
+            >
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm-bjDeZFMklrpNWbae9yw4k9jaZIviIX6SbmP3lK0Tqf7FNkhZYMXixEVTC0XvhMuXwrvtinebP-YoRxjvurVCWzWOx-8culKtHK46N-c6DnBOUH30bt_XggyVtUBefgN-vJc4NqRstjRssYnMGLn_dkeiHhmC4SCj9Mz3evdebqQBPNHJyPVBWBNDnMmV68FKdsv5Dp1-wzbUHoM2R-I8heHwBYMmJqYCnGOV8V_70-fo84i4tLIzcANkOiSx0AF5NeS62JDx90"
+                alt="Limpieza de departamento"
+              />
+              <div class="request-body">
+                <div class="request-top">
+                  <span class="pill pill-soft">Limpieza</span>
+                  <strong>$8.000</strong>
+                </div>
+                <h4>Limpieza profunda post obra</h4>
+                <p>
+                  Necesito limpieza completa de un depto recién pintado, con vidrios,
+                  pisos y retiro de polvo fino.
+                </p>
+                <div class="request-meta">
+                  <span>Villa Crespo, CABA</span>
+                  <span>Ayer</span>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="request-card request-card--interactive"
+              data-category="albanileria"
+              data-priority="programable"
+              data-client-badge="Cliente Premium"
+              data-payment-type="Precio cerrado"
+              data-location="Boedo, CABA"
+              data-published="Hace 1 día"
+              data-tags="Materiales aparte|Albañilería|Humedad"
+              data-gallery="https://lh3.googleusercontent.com/aida-public/AB6AXuA1cGEb5gHapI44MHpyETT_oEG9cilyGRUP-ziI5h5PAr2FWeJuqeJ7rHqlC9YntZspSIrjBn5aAPikY5pOzflECZ5gpiuIjpoVQwt2gdqmA3UqpoKYAUkwgbWAgdVG7K7aQLXN5vCDUMGQ2annhAIedeZz78nrEdkanoTw1UFj2_d3v7PWHdyUPUQtRwWj8Rv_3QtHPbZTajwWouu5VxaJIgyIFrT80SrKTVoyI3fAo1erSiYceioCrheJyxOLTTjGNZhtn_CmjZw|https://lh3.googleusercontent.com/aida-public/AB6AXuBOgnH7nP0E7o9tDgxdME75pDh5_XaSHuSWPdef9uRJI6FSe1j-ElmGf5kg1Ubb0iRon83NfLrtHgRRcWJpVDOLGhY6TDRGddCzZ3BdtQtYfKoN_HkBPfoqJQG1epnAz6tAxkWvm2wCMIT_xruEYWm0vv5s-tIc5hZmVgl2zq8qe3wEl3pm7RTX4zVNm5i9z4Eb68wuArgDHSMHJH69V9_As0CI_v6awu6mpPjni0PSbgkgzX1fziBxuDlZKglp8oGowG8Y-VqFlGQ|https://lh3.googleusercontent.com/aida-public/AB6AXuBXfX4MYAbPerGZH2b8lDCxFi23Loem8gmf5R0RRrOX2v6KFnFyxxJw5xaA5LbAMMc8KCbFSJMn5nXpR288EFh8_qHlsToSvfPQJdr-ypjTwHGKifJX9wx5XL13re9XoPjqMcOVr0KbkInXntB_t-E79LLvQXAxNwGJE_G5EBBk4QAGjicdR4GfnQGQRgXp7shgoAjqUaZmzTL8QzdIuXHOooLTELOzXUvYRSbaozPaKUgpDOD-WCqoQJ-ACJTS6_MH-EIctfXsUrs"
+            >
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1cGEb5gHapI44MHpyETT_oEG9cilyGRUP-ziI5h5PAr2FWeJuqeJ7rHqlC9YntZspSIrjBn5aAPikY5pOzflECZ5gpiuIjpoVQwt2gdqmA3UqpoKYAUkwgbWAgdVG7K7aQLXN5vCDUMGQ2annhAIedeZz78nrEdkanoTw1UFj2_d3v7PWHdyUPUQtRwWj8Rv_3QtHPbZTajwWouu5VxaJIgyIFrT80SrKTVoyI3fAo1erSiYceioCrheJyxOLTTjGNZhtn_CmjZw"
+                alt="Reparación de pared"
+              />
+              <div class="request-body">
+                <div class="request-top">
+                  <span class="pill">Albañilería</span>
+                  <strong>$18.000</strong>
+                </div>
+                <h4>Reparación de pared con humedad</h4>
+                <p>
+                  Busco arreglar una pared interior con revoque saltado y humedad en
+                  la parte baja del ambiente.
+                </p>
+                <div class="request-meta">
+                  <span>Boedo, CABA</span>
+                  <span>Hace 1 día</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="crear" class="app-screen content-section alternate screen-create filter-modal create-request-modal" hidden>
+          <div class="filter-modal__backdrop" data-close-create-request="true"></div>
+          <div class="filter-modal__panel create-request-modal__panel">
+            <div class="filter-modal__header create-request-modal__header">
+              <button
+                class="filter-modal__icon-button"
+                type="button"
+                data-close-create-request="true"
+                aria-label="Cerrar crear solicitud"
+              >
+                <span class="material-symbols-outlined">close</span>
+              </button>
+              <div class="create-request-modal__title">
+                <p class="section-kicker">Crear solicitud</p>
+                <h3>
+                  <span class="create-request-modal__title-primary">Cuéntanos qué</span>
+                  <span class="create-request-modal__title-accent">necesitas resolver.</span>
+                </h3>
+                <p class="create-request-modal__subtitle">
+                  Describe tu proyecto para recibir propuestas de los mejores profesionales calificados en tu zona.
+                </p>
+              </div>
+            </div>
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Crear solicitud</p>
+              <h3>Formulario pensado para recibir mejores propuestas</h3>
+            </div>
+          </div>
+
+          <div class="create-layout">
+            <form class="card form-card" id="create-request-form">
+              <label>
+                Tu nombre
+                <input id="requester-name" name="requesterName" type="text" placeholder="Ej. Alex Rivera" value="Alex Rivera" required />
+              </label>
+              <label>
+                Oficio
+                <select id="request-category" name="category" required>
+                  <option value="plomeria">Plomería</option>
+                  <option value="electricidad">Electricidad</option>
+                  <option value="limpieza">Limpieza</option>
+                  <option value="albanileria">Albañilería</option>
+                  <option value="aire">Aire</option>
+                  <option value="jardineria">Jardinería</option>
+                  <option value="pintura">Pintura</option>
+                  <option value="carpinteria">Carpintería</option>
+                  <option value="general">Otro</option>
+                </select>
+              </label>
+              <label>
+                Título del trabajo
+                <input id="request-title" name="title" type="text" placeholder="Ej. Reparación de tubería en cocina" required />
+              </label>
+              <label>
+                Prioridad
+                <select id="request-priority" name="priority">
+                  <option value="programable">Programable</option>
+                  <option value="urgente">Urgente</option>
+                </select>
+              </label>
+              <label>
+                Descripción
+                <textarea id="request-description" name="description" rows="5" placeholder="Describe el problema, horario ideal y cualquier detalle útil." required></textarea>
+              </label>
+              <label>
+                Dirección
+                <input id="request-location" name="location" type="text" placeholder="Calle, número y barrio" required />
+              </label>
+              <label>
+                Presupuesto estimado
+                <input id="request-budget" name="budget" type="text" placeholder="$20.000 - $35.000" />
+              </label>
+              <p id="create-request-feedback" class="form-feedback" hidden role="status" aria-live="polite"></p>
+              <button id="create-request-submit" type="submit" class="button button-primary">Enviar solicitud</button>
+            </form>
+
+            <div class="upload-panel">
+              <div class="photo-grid">
+                <div class="photo-card filled">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl-XBTzRVTMhTq74qPFu1hWQUvhTuC2BscoxnLniAG2SFQM_GVHJzCM_0ZE28FwNFk0qTcnUtlqvPaP-Z2sFMEBOFG-a0shiFC9VNAYvb48tzVEzUPmwo1uRcSXbTBNB1I2Il2gZ6_xr1s8kaHisQpHNyrw5DFhyXoF6sflFzox6OSWj5aA6u06w8wEC80tZsssdjl2fppZYJAnSMO19m2xRkAJD_aFL-LL0fcr4MawN_6uI6M55c1JOyOZAcBaFgvMVqwVAra5sA"
+                    alt="Foto del problema"
+                  />
+                </div>
+                <div class="photo-card filled">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDye1Ph2kKcMODdjRAjdAPFkgS-PjcvtBL9L5FDOI-TzTQEGgGs0JYIjVdZEnNgU5RdLLBXsMZ-HwrA-gErwBJSTBjC3OTfW10ShRB9xdaBST4yz99zputWNVigBsWtqiF_9Xb907CLxjLfXcENmmY0ijAwAR3tF6MkJCDLCOppVrLwFvfLoc7CD1T-3q5XYh9NyQHsJCEuuiD_4saaeqGflTgjcHDQn6B1Bt8JNWa_Pa_92R78xOjwN2CtGY1tYsjWBsp3WBS_YAY"
+                    alt="Foto del ambiente"
+                  />
+                </div>
+                <div class="photo-card placeholder">
+                  <span class="material-symbols-outlined">add_a_photo</span>
+                  <span>Agregar foto</span>
+                </div>
+                <div class="photo-card placeholder">
+                  <span class="material-symbols-outlined">image</span>
+                  <span>3/5</span>
+                </div>
+              </div>
+              <div class="card helper-card">
+                <h4>Consejo para mejores presupuestos</h4>
+                <p>
+                  Agrega una foto general y una en detalle. Eso ayuda a que el
+                  profesional estime materiales y urgencia con mucha más precisión.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="chat" class="app-screen content-section screen-chat">
+          <div class="chat-stage">
+            <div id="chat-inbox-view" class="chat-view">
+              <div class="chat-inbox-header">
+                <div class="chat-title-row">
+                  <div class="chat-avatar current-user">AR</div>
+                  <div>
+                    <p class="section-kicker">Mensajes</p>
+                    <h3>Tu bandeja de entrada</h3>
+                  </div>
+                </div>
+                <button class="topbar-icon-button chat-settings-button" type="button" aria-label="Configurar mensajes">
+                  <span class="material-symbols-outlined">settings</span>
+                </button>
+              </div>
+
+              <label class="chat-search" aria-label="Buscar conversaciones">
+                <span class="material-symbols-outlined">search</span>
+                <input id="chat-search-input" type="text" placeholder="Buscar conversaciones..." />
+              </label>
+
+              <div class="chat-filter-row" role="tablist" aria-label="Filtrar conversaciones">
+                <button class="chat-filter-chip is-selected" type="button" data-chat-filter="all">Todos</button>
+                <button class="chat-filter-chip" type="button" data-chat-filter="trabajos">Trabajos</button>
+                <button class="chat-filter-chip" type="button" data-chat-filter="directo">Directo</button>
+              </div>
+
+              <div id="chat-thread-list" class="chat-thread-list">
+                <button
+                  class="chat-thread-card is-active"
+                  type="button"
+                  data-chat-thread="roberto"
+                  data-chat-filter-type="trabajos"
+                  data-chat-name="Roberto G."
+                  data-chat-role="Plomeria"
+                  data-chat-status="online"
+                  data-chat-status-label="Activo"
+                  data-chat-time="14:20"
+                  data-chat-job="Arreglo de filtracion"
+                  data-chat-preview="Ya estoy en camino con los repuestos y te mando el presupuesto final apenas llego."
+                  data-chat-avatar="RG"
+                  data-chat-badge="plumbing"
+                  data-chat-note="Roberto envio una propuesta"
+                  data-chat-proposal-title="Mantenimiento de plomeria"
+                  data-chat-proposal-total="$185.000"
+                  data-chat-proposal-state="Listo para aprobar"
+                  data-chat-proposal-copy="Incluye reparacion de fuga, sellado de canerias y cambio de valvula."
+                  data-chat-messages='[{"type":"incoming","text":"Hola! Revise tu solicitud por la filtracion de la cocina. Puedo empezar este jueves por la manana.","time":"09:41"},{"type":"outgoing","text":"Perfecto, Roberto. Me compartes un presupuesto para aprobarlo?","time":"09:43","seen":true},{"type":"proposal","time":"09:44"},{"type":"image","text":"Para referencia, esta es la zona puntual donde esta la perdida.","time":"09:45","seen":true,"image":"https://lh3.googleusercontent.com/aida-public/AB6AXuBfI9zPBQcMDgVqkFh-WoZ8F2yxr-7FNhG3AVodA7K7AosNd5oIRDjHeyL7wwOGlud3DTB1jigSnTAN82zazQE-t9q6sK5CkaLYDEFseoDeRmxy9sriLV6J2Z6_TvG-_tDGqigjxy6jPofjc1OUoBSKc0R8BR6m6tgSaT01pNQgjfI6DZn3hJlsrFCR6hisEJ361N3ZZ_uZVfg59waZpehHE0jPE5Xut46Kr_QopOaz2I4sbJU839Pdem5MHr9uCr2-_Q_BFnh0ouU"}]'
+                >
+                  <span class="chat-thread-accent"></span>
+                  <div class="chat-thread-avatar-wrap">
+                    <div class="chat-avatar">RG</div>
+                    <span class="chat-thread-badge">
+                      <span class="material-symbols-outlined">plumbing</span>
+                    </span>
+                  </div>
+                  <div class="chat-thread-body">
+                    <div class="chat-thread-top">
+                      <h4>Roberto G. - Plomeria</h4>
+                      <span class="chat-thread-state">Activo</span>
+                    </div>
+                    <p class="chat-thread-job">Arreglo de filtracion</p>
+                    <div class="chat-thread-bottom">
+                      <p>"Ya estoy en camino con los repuestos..."</p>
+                      <span>14:20</span>
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  class="chat-thread-card"
+                  type="button"
+                  data-chat-thread="elena"
+                  data-chat-filter-type="directo"
+                  data-chat-name="Elena M."
+                  data-chat-role="Arquitectura"
+                  data-chat-status="online"
+                  data-chat-status-label="En linea"
+                  data-chat-time="12:05"
+                  data-chat-job="Diseno de interiores - Fase 2"
+                  data-chat-preview="Recibiste los planos actualizados que te envie?"
+                  data-chat-avatar="EM"
+                  data-chat-badge="architecture"
+                  data-chat-messages='[{"type":"incoming","text":"Te mande la version final del plano de cocina con la nueva distribucion.","time":"11:48"},{"type":"incoming","text":"Recibiste los planos actualizados que te envie?","time":"12:05"}]'
+                >
+                  <div class="chat-thread-avatar-wrap">
+                    <div class="chat-avatar soft">EM</div>
+                    <span class="chat-thread-presence"></span>
+                  </div>
+                  <div class="chat-thread-body">
+                    <div class="chat-thread-top plain-time">
+                      <h4>Elena M. - Arquitectura</h4>
+                      <span>12:05</span>
+                    </div>
+                    <p class="chat-thread-job">Diseno de interiores - Fase 2</p>
+                    <div class="chat-thread-bottom">
+                      <p>Recibiste los planos actualizados que te envie?</p>
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  class="chat-thread-card"
+                  type="button"
+                  data-chat-thread="carlos"
+                  data-chat-filter-type="trabajos"
+                  data-chat-name="Carlos D."
+                  data-chat-role="Electricidad"
+                  data-chat-status="offline"
+                  data-chat-status-label="Ayer"
+                  data-chat-time="Ayer"
+                  data-chat-job="Tablero principal - Reparacion"
+                  data-chat-preview="Presupuesto enviado. Quedo a la espera."
+                  data-chat-avatar="CD"
+                  data-chat-badge="bolt"
+                  data-chat-note="Carlos envio un presupuesto"
+                  data-chat-proposal-title="Reparacion de tablero"
+                  data-chat-proposal-total="$96.000"
+                  data-chat-proposal-state="En revision"
+                  data-chat-proposal-copy="Cambio de termicas, puesta a punto y prueba completa de circuito."
+                  data-chat-messages='[{"type":"incoming","text":"Detecte una termica fatigada y dos conexiones flojas en el tablero principal.","time":"18:12"},{"type":"proposal","time":"18:16"},{"type":"incoming","text":"Presupuesto enviado. Quedo a la espera por si quieres que avancemos hoy mismo.","time":"18:18"}]'
+                >
+                  <div class="chat-thread-avatar-wrap">
+                    <div class="chat-avatar warm">CD</div>
+                    <span class="chat-thread-badge">
+                      <span class="material-symbols-outlined">bolt</span>
+                    </span>
+                  </div>
+                  <div class="chat-thread-body">
+                    <div class="chat-thread-top plain-time">
+                      <h4>Carlos D. - Electricidad</h4>
+                      <span>Ayer</span>
+                    </div>
+                    <p class="chat-thread-job">Tablero principal - Reparacion</p>
+                    <div class="chat-thread-bottom">
+                      <p>Presupuesto enviado. Quedo a la espera.</p>
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  class="chat-thread-card"
+                  type="button"
+                  data-chat-thread="sofia"
+                  data-chat-filter-type="directo"
+                  data-chat-name="Sofia V."
+                  data-chat-role="Contacto"
+                  data-chat-status="offline"
+                  data-chat-status-label="Mar"
+                  data-chat-time="Mar"
+                  data-chat-job="Recomendacion"
+                  data-chat-preview="Gracias por la recomendacion!"
+                  data-chat-avatar="SV"
+                  data-chat-badge=""
+                  data-chat-messages='[{"type":"incoming","text":"Hola Alex, te queria agradecer por pasarme el contacto del gasista.","time":"10:10"},{"type":"incoming","text":"Gracias por la recomendacion!","time":"10:12"}]'
+                >
+                  <div class="chat-thread-avatar-wrap">
+                    <div class="chat-avatar soft-alt">SV</div>
+                  </div>
+                  <div class="chat-thread-body">
+                    <div class="chat-thread-top plain-time">
+                      <h4>Sofia V.</h4>
+                      <span>Mar</span>
+                    </div>
+                    <p class="chat-thread-job">Recomendacion</p>
+                    <div class="chat-thread-bottom">
+                      <p>Gracias por la recomendacion!</p>
+                    </div>
+                  </div>
+                </button>
+              </div>
+
+              <p id="chat-empty-state" class="explore-empty-state" hidden>No encontramos conversaciones con ese filtro.</p>
+
+              <button class="chat-compose-fab" type="button" aria-label="Nuevo mensaje">
+                <span class="material-symbols-outlined">edit_square</span>
+              </button>
+            </div>
+
+            <section id="chat-desktop-detail" class="chat-desktop-detail" aria-label="Detalle del chat">
+              <div class="chat-detail-header chat-detail-header--desktop">
+                <div class="chat-detail-left">
+                  <div class="chat-avatar" id="chat-desktop-avatar">RG</div>
+                  <div class="chat-detail-meta">
+                    <h3 id="chat-desktop-name">Roberto G.</h3>
+                    <p id="chat-desktop-status">Activo ahora</p>
+                  </div>
+                </div>
+                <div class="chat-detail-actions">
+                  <button class="topbar-icon-button" type="button" aria-label="Llamar">
+                    <span class="material-symbols-outlined">call</span>
+                  </button>
+                  <button class="topbar-icon-button" type="button" aria-label="Videollamada">
+                    <span class="material-symbols-outlined">videocam</span>
+                  </button>
+                  <button class="topbar-icon-button" type="button" aria-label="Opciones del chat">
+                    <span class="material-symbols-outlined">more_horiz</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="chat-day-separator">Hoy</div>
+
+              <div id="chat-desktop-message-list" class="chat-message-list"></div>
+
+              <div class="chat-composer">
+                <button type="button" aria-label="Adjuntar archivo">
+                  <span class="material-symbols-outlined">add_circle</span>
+                </button>
+                <input type="text" placeholder="Escribe un mensaje..." />
+                <button type="button" aria-label="Enviar mensaje" class="chat-send-button">
+                  <span class="material-symbols-outlined">send</span>
+                </button>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <div id="chat-detail-view" class="filter-modal chat-detail-modal" hidden>
+          <div class="filter-modal__backdrop" data-close-chat-detail="true"></div>
+          <section class="filter-modal__panel chat-detail-modal__panel" aria-label="Detalle del chat">
+            <div class="chat-detail-header">
+              <div class="chat-detail-left">
+                <button id="chat-detail-back" class="chat-back-button" type="button" aria-label="Volver a la bandeja">
+                  <span class="material-symbols-outlined">close</span>
+                </button>
+                <div class="chat-avatar" id="chat-detail-avatar">RG</div>
+                <div class="chat-detail-meta">
+                  <h3 id="chat-detail-name">Roberto G.</h3>
+                  <p id="chat-detail-status">Activo ahora</p>
+                </div>
+              </div>
+              <div class="chat-detail-actions">
+                <button class="topbar-icon-button" type="button" aria-label="Llamar">
+                  <span class="material-symbols-outlined">call</span>
+                </button>
+                <button class="topbar-icon-button" type="button" aria-label="Opciones del chat">
+                  <span class="material-symbols-outlined">more_horiz</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="chat-day-separator">Hoy</div>
+
+            <div id="chat-message-list" class="chat-message-list"></div>
+
+            <div class="chat-composer">
+              <button type="button" aria-label="Adjuntar archivo">
+                <span class="material-symbols-outlined">add_circle</span>
+              </button>
+              <input type="text" placeholder="Escribe un mensaje..." />
+              <button type="button" aria-label="Enviar mensaje" class="chat-send-button">
+                <span class="material-symbols-outlined">send</span>
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <div id="explore-filters-modal" class="filter-modal" hidden>
+          <div class="filter-modal__backdrop" data-close-filters="true"></div>
+          <section class="filter-modal__panel" aria-label="Panel de filtros">
+            <div class="filter-modal__header">
+              <button class="filter-modal__icon-button" type="button" data-close-filters="true" aria-label="Cerrar filtros">
+                <span class="material-symbols-outlined">close</span>
+              </button>
+              <h3>Filtros</h3>
+              <button id="filters-reset" class="filter-modal__text-button" type="button">Reset</button>
+            </div>
+
+            <div class="filter-modal__section">
+              <h4>Categoria de busqueda</h4>
+              <div class="filter-category-grid" id="filter-category-grid">
+                <button class="filter-category-card" type="button" data-category="plomeria">
+                  <span class="material-symbols-outlined">plumbing</span>
+                  <span>Plomería</span>
+                </button>
+                <button class="filter-category-card" type="button" data-category="electricidad">
+                  <span class="material-symbols-outlined">bolt</span>
+                  <span>Electricidad</span>
+                </button>
+                <button class="filter-category-card" type="button" data-category="limpieza">
+                  <span class="material-symbols-outlined">mop</span>
+                  <span>Limpieza</span>
+                </button>
+                <button class="filter-category-card" type="button" data-category="albanileria">
+                  <span class="material-symbols-outlined">home_repair_service</span>
+                  <span>Albañilería</span>
+                </button>
+                <button class="filter-category-card" type="button" data-category="jardineria">
+                  <span class="material-symbols-outlined">yard</span>
+                  <span>Jardinería</span>
+                </button>
+                <button class="filter-category-card" type="button" data-category="pintura">
+                  <span class="material-symbols-outlined">format_paint</span>
+                  <span>Pintura</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="filter-modal__section">
+              <div class="filter-modal__section-head">
+                <div>
+                  <h4>Presupuesto</h4>
+                  <p>Define tu rango de precio</p>
+                </div>
+                <strong id="budget-label">$50 - $450</strong>
+              </div>
+              <div class="budget-slider-group">
+                <div class="budget-slider-track">
+                  <div id="budget-slider-fill" class="budget-slider-fill"></div>
+                </div>
+                <input id="budget-min" type="range" min="0" max="1000" step="10" value="50" />
+                <input id="budget-max" type="range" min="0" max="1000" step="10" value="450" />
+              </div>
+              <div class="budget-range-labels">
+                <span>$0</span>
+                <span>$1000+</span>
+              </div>
+            </div>
+
+            <div class="filter-modal__section">
+              <h4>Calificación mínima</h4>
+              <div class="rating-filter-card" id="rating-filter-card">
+                <div class="rating-stars" id="rating-stars">
+                  <button type="button" data-rating="1">★</button>
+                  <button type="button" data-rating="2">★</button>
+                  <button type="button" data-rating="3">★</button>
+                  <button type="button" data-rating="4">★</button>
+                  <button type="button" data-rating="5">★</button>
+                </div>
+                <strong id="rating-label">4.0 & Up</strong>
+              </div>
+            </div>
+
+            <div class="filter-modal__section">
+              <h4>Distancia</h4>
+              <div class="distance-chip-row" id="distance-chip-row">
+                <button class="distance-chip is-selected" type="button" data-distance="5">5 km</button>
+                <button class="distance-chip" type="button" data-distance="10">10 km</button>
+                <button class="distance-chip" type="button" data-distance="25">25 km</button>
+                <button class="distance-chip" type="button" data-distance="50">50 km</button>
+              </div>
+            </div>
+
+            <div class="filter-modal__section">
+              <h4>Ubicación</h4>
+              <div class="filter-location-input">
+                <span class="material-symbols-outlined">location_on</span>
+                <input id="filters-location" type="text" placeholder="Escribe tu ubicación actual" />
+              </div>
+              <div class="filter-map-card">
+                <button id="filters-current-location" class="filter-map-action" type="button">
+                  <span class="material-symbols-outlined">my_location</span>
+                  Usar ubicación actual
+                </button>
+                <span class="filter-map-status">LIVE LOCATION ACTIVE</span>
+              </div>
+            </div>
+
+            <button id="filters-apply" class="filter-apply-button" type="button">
+              <span class="material-symbols-outlined">check_circle</span>
+              Aplicar filtros
+            </button>
+          </section>
+        </div>
+
+        <div id="professional-profile-modal" class="filter-modal professional-modal" hidden>
+          <div class="filter-modal__backdrop" data-close-professional-profile="true"></div>
+          <section class="filter-modal__panel professional-modal__panel" aria-label="Perfil del profesional">
+            <div class="filter-modal__header professional-modal__header">
+              <button
+                class="filter-modal__icon-button"
+                type="button"
+                data-close-professional-profile="true"
+                aria-label="Cerrar perfil del profesional"
+              >
+                <span class="material-symbols-outlined">close</span>
+              </button>
+              <h3>Perfil profesional</h3>
+            </div>
+
+            <div class="professional-profile-card">
+              <img id="professional-modal-photo" class="profile-photo" src="" alt="Foto del profesional" />
+              <div class="professional-profile-copy">
+                <div class="profile-title-row">
+                  <h4 id="professional-modal-name">Profesional</h4>
+                  <span id="professional-modal-badge" class="pill pill-amber">Verificado</span>
+                </div>
+                <p id="professional-modal-role" class="role"></p>
+                <p id="professional-modal-description" class="description"></p>
+              </div>
+              <div class="stats-row professional-modal__stats">
+                <div><strong id="professional-modal-rating">4.8</strong><span>Rating</span></div>
+                <div><strong id="professional-modal-jobs">0</strong><span>Trabajos</span></div>
+                <div><strong id="professional-modal-category">Oficio</strong><span>Categoría</span></div>
+                <div><strong id="professional-modal-response">&lt; 1h</strong><span>Respuesta</span></div>
+              </div>
+            </div>
+
+            <div class="professional-modal__section">
+              <h4>Especialidades</h4>
+              <div id="professional-modal-specialties" class="professional-specialty-list"></div>
+            </div>
+
+            <div class="professional-modal__section">
+              <h4>Fotos de trabajos</h4>
+              <div id="professional-modal-gallery" class="professional-gallery-grid"></div>
+            </div>
+
+            <div class="professional-modal__section">
+              <h4>Sobre este profesional</h4>
+              <p id="professional-modal-summary"></p>
+            </div>
+
+            <button class="filter-apply-button professional-modal__cta" type="button">
+              <span class="material-symbols-outlined">chat</span>
+              Contactar profesional
+            </button>
+          </section>
+        </div>
+
+        <div id="request-detail-modal" class="filter-modal request-detail-modal" hidden>
+          <div class="filter-modal__backdrop" data-close-request-detail="true"></div>
+          <section class="filter-modal__panel request-detail-modal__panel" aria-label="Detalle de solicitud">
+            <div class="request-detail-header">
+              <button
+                class="filter-modal__icon-button"
+                type="button"
+                data-close-request-detail="true"
+                aria-label="Cerrar detalle de solicitud"
+              >
+                <span class="material-symbols-outlined">close</span>
+              </button>
+              <h3>Detalle de Solicitud</h3>
+              <button class="filter-modal__icon-button" type="button" aria-label="Compartir solicitud">
+                <span class="material-symbols-outlined">share</span>
+              </button>
+            </div>
+
+            <section class="request-detail-gallery">
+              <div id="request-detail-gallery-main" class="request-detail-gallery__main"></div>
+              <div id="request-detail-gallery-side" class="request-detail-gallery__side"></div>
+            </section>
+
+            <section class="request-detail-copy">
+              <div class="request-detail-badges">
+                <span id="request-detail-priority" class="request-detail-priority-badge">URGENTE</span>
+                <span id="request-detail-client-badge" class="request-detail-client-badge">
+                  <span class="material-symbols-outlined">star</span>
+                  Cliente Premium
+                </span>
+              </div>
+              <h2 id="request-detail-title">Solicitud</h2>
+            </section>
+
+            <section class="request-detail-price-card">
+              <div>
+                <p>Presupuesto estimado</p>
+                <strong id="request-detail-budget">$0</strong>
+              </div>
+              <div class="request-detail-price-divider"></div>
+              <div class="request-detail-price-meta">
+                <p>Tipo de pago</p>
+                <strong id="request-detail-payment-type">A convenir</strong>
+              </div>
+            </section>
+
+            <section class="request-detail-meta-grid">
+              <article class="request-detail-meta-card">
+                <div class="request-detail-meta-icon">
+                  <span class="material-symbols-outlined">location_on</span>
+                </div>
+                <div>
+                  <p>Ubicación</p>
+                  <strong id="request-detail-location">CABA</strong>
+                </div>
+              </article>
+              <article class="request-detail-meta-card">
+                <div class="request-detail-meta-icon request-detail-meta-icon--amber">
+                  <span class="material-symbols-outlined">schedule</span>
+                </div>
+                <div>
+                  <p>Publicado</p>
+                  <strong id="request-detail-published">Hoy</strong>
+                </div>
+              </article>
+            </section>
+
+            <section class="request-detail-section">
+              <h4>Detalles del servicio</h4>
+              <div id="request-detail-tags" class="request-detail-tags"></div>
+            </section>
+
+            <section class="request-detail-description-card">
+              <h4>Descripción</h4>
+              <p id="request-detail-description"></p>
+            </section>
+
+            <section class="request-detail-client-card">
+              <div class="request-detail-client-avatar">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgTxl6oC4iigOD6XdEsLUZxkvXXngb_ogysa9953v2iqSNjdnGD_kbrwW6iQ3ozZL-r_csdKYYwnnh4AcJycPJUSchY5IDWUa8mV7XMLNru4thAOu_KBSyQEIw_IdzIQc9zGbiuphOqyB1xIpaewvCP7wEWr9G1LlF0vdhk9V_d4oRRdoF5onGbRVfFYRJo5RRu8MNRwT-8w-jOQuH4kWBwESKwmrr4VUTWOFrmIWr4YkUUg7fly5N0WdH8FWDs3XSgY3ZycWt1qc"
+                  alt="Cliente"
+                />
+              </div>
+              <div class="request-detail-client-copy">
+                <strong id="request-detail-client-name">Roberto G.</strong>
+                <span id="request-detail-client-meta">4.9 · 12 trabajos completados</span>
+              </div>
+              <button class="request-detail-profile-link" type="button">Ver Perfil</button>
+            </section>
+
+            <div class="request-detail-bottom-bar">
+              <div class="request-detail-actions">
+                <button class="request-detail-secondary-action" type="button">
+                  <span class="material-symbols-outlined">chat_bubble</span>
+                  Contactar
+                </button>
+                <button class="request-detail-primary-action" type="button">
+                  <span class="material-symbols-outlined">send</span>
+                  Enviar propuesta
+                </button>
+              </div>
+              <div class="request-detail-handle" aria-hidden="true"></div>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <nav class="bottom-nav" aria-label="Navegación principal">
+        <a class="nav-item active" href="#inicio">
+          <span class="material-symbols-outlined">home</span>
+          <span>Inicio</span>
+        </a>
+        <a class="nav-item" href="#explorar">
+          <span class="material-symbols-outlined">search</span>
+          <span>Explorar</span>
+        </a>
+        <a class="nav-item" href="#solicitudes">
+          <span class="material-symbols-outlined">description</span>
+          <span>Solicitudes</span>
+        </a>
+        <a class="nav-item" href="#chat">
+          <span class="material-symbols-outlined">chat</span>
+          <span>Chat</span>
+        </a>
+        <a class="nav-item" href="#perfil">
+          <span class="material-symbols-outlined">person</span>
+          <span>Perfil</span>
+        </a>
+      </nav>
+      </div>
+    </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+      <script src="./app-config.js"></script>
+      <script>
+      const themeToggleButtons = Array.from(document.querySelectorAll('[data-theme-toggle="true"]'));
+      const screens = Array.from(document.querySelectorAll('.app-screen'));
+      const navItems = Array.from(document.querySelectorAll('.nav-item'));
+      const fallbackScreen = 'inicio';
+      const themeStorageKey = 'conectapro-theme';
+      const desktopSidebarStorageKey = 'conectapro-desktop-sidebar-collapsed';
+      const desktopGlobalSearchInput = document.getElementById('desktop-global-search');
+      const exploreSection = document.getElementById('explorar');
+      const createRequestModal = document.getElementById('crear');
+      const desktopSidebarToggle = document.getElementById('desktop-sidebar-toggle');
+      const desktopSidebarReveal = null;
+      const appConfig = window.CONCTANDO_CONFIG || {};
+      const supabaseSettings = appConfig.supabase || {};
+      const supabaseUrl = supabaseSettings.url || '';
+      const supabasePublishableKey = supabaseSettings.publishableKey || '';
+      const supabaseClient = window.supabase && supabaseUrl && supabasePublishableKey
+        ? window.supabase.createClient(supabaseUrl, supabasePublishableKey, {
+            auth: {
+              persistSession: false,
+              autoRefreshToken: false,
+            },
+          })
+        : null;
+      const requestCategoryLabels = {
+        all: 'Todos',
+        general: 'General',
+        plomeria: 'Plomería',
+        electricidad: 'Electricidad',
+        limpieza: 'Limpieza',
+        albanileria: 'Albañilería',
+        aire: 'Aire',
+        jardineria: 'Jardinería',
+        pintura: 'Pintura',
+        carpinteria: 'Carpintería',
+      };
+      const requestCardFallbackImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuBA86igS3vaH05Ge8bVgcagc_dtitQXQ5muN1Rq8-tzJSJnK4Os5uTTrNkkUZfX_rq34YcK7QMNh-T28ooQdkmMNOXWNwh-Ny_LCnkmohL1_J90hMYFUIv2ZvM5nnLS15AQ6kZl0CiWb2ADcXX5qmsk4k8A_lr-LkAzi-wH54UIfA1Hbm9j9faghXiWhepT9ltL0cUvA5rCMuFlXGjEOC0mOByltZBDGvEfIa4AB2gJveZ_7Izo4XygNtxeZnDn7X7590sBOEs7pCo';
+      let refreshRequestCards = null;
+      let lastNonCreateScreen = fallbackScreen;
+
+      function normalizeText(value) {
+        return (value || '')
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .trim();
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function formatRequestCategory(category) {
+        return requestCategoryLabels[category] || 'General';
+      }
+
+      function detectRequestCategory(value) {
+        const normalized = normalizeText(value);
+
+        if (normalized.includes('plom') || normalized.includes('fuga') || normalized.includes('canilla') || normalized.includes('tuber')) {
+          return 'plomeria';
+        }
+
+        if (normalized.includes('electr') || normalized.includes('termica') || normalized.includes('corto') || normalized.includes('tablero')) {
+          return 'electricidad';
+        }
+
+        if (normalized.includes('limpie') || normalized.includes('obra') || normalized.includes('vidrio')) {
+          return 'limpieza';
+        }
+
+        if (normalized.includes('alban') || normalized.includes('mamposter') || normalized.includes('revoque') || normalized.includes('humedad')) {
+          return 'albanileria';
+        }
+
+        if (normalized.includes('aire') || normalized.includes('frigor') || normalized.includes('split')) {
+          return 'aire';
+        }
+
+        if (normalized.includes('jardin') || normalized.includes('poda') || normalized.includes('riego')) {
+          return 'jardineria';
+        }
+
+        if (normalized.includes('pint') || normalized.includes('enduido')) {
+          return 'pintura';
+        }
+
+        if (normalized.includes('mueble') || normalized.includes('carpint') || normalized.includes('melamina')) {
+          return 'carpinteria';
+        }
+
+        return 'general';
+      }
+
+      function parseBudgetInput(value) {
+        const trimmed = (value || '').trim();
+        if (!trimmed) {
+          return {
+            budgetLabel: 'A convenir',
+            budgetMin: null,
+            budgetMax: null,
+          };
+        }
+
+        const matches = trimmed.match(/[\d.,]+/g) || [];
+        const amounts = matches
+          .map((match) => Number(match.replace(/\./g, '').replace(',', '.')))
+          .filter((amount) => Number.isFinite(amount));
+
+        if (amounts.length === 0) {
+          return {
+            budgetLabel: trimmed,
+            budgetMin: null,
+            budgetMax: null,
+          };
+        }
+
+        if (amounts.length === 1) {
+          return {
+            budgetLabel: trimmed,
+            budgetMin: amounts[0],
+            budgetMax: amounts[0],
+          };
+        }
+
+        return {
+          budgetLabel: trimmed,
+          budgetMin: Math.min(...amounts),
+          budgetMax: Math.max(...amounts),
+        };
+      }
+
+      function formatCurrency(amount) {
+        if (!Number.isFinite(amount)) {
+          return 'A convenir';
+        }
+
+        return new Intl.NumberFormat('es-AR', {
+          style: 'currency',
+          currency: 'ARS',
+          maximumFractionDigits: 0,
+        }).format(amount);
+      }
+
+      function formatRelativeDate(value) {
+        if (!value) {
+          return 'Hoy';
+        }
+
+        const date = new Date(value);
+        const timestamp = date.getTime();
+        if (Number.isNaN(timestamp)) {
+          return 'Hoy';
+        }
+
+        const diffMs = Date.now() - timestamp;
+        const diffMinutes = Math.max(1, Math.floor(diffMs / 60000));
+
+        if (diffMinutes < 60) {
+          return `Hace ${diffMinutes} min`;
+        }
+
+        const diffHours = Math.floor(diffMinutes / 60);
+        if (diffHours < 24) {
+          return `Hace ${diffHours} h`;
+        }
+
+        if (diffHours < 48) {
+          return 'Ayer';
+        }
+
+        return `Hace ${Math.floor(diffHours / 24)} días`;
+      }
+
+      function hydrateRequestCardSearchData(card) {
+        if (!card) {
+          return;
+        }
+
+        const title = card.querySelector('h4')?.textContent || '';
+        const description = card.querySelector('p')?.textContent || '';
+        const badge = card.querySelector('.pill')?.textContent || '';
+        card.dataset.search = normalizeText(`${title} ${description} ${badge} ${card.dataset.category || ''}`);
+      }
+
+      function setStatusMessage(element, message, tone = 'neutral') {
+        if (!element) {
+          return;
+        }
+
+        element.hidden = !message;
+        element.textContent = message || '';
+        element.dataset.tone = tone;
+      }
+
+      function setRequestsSyncStatus(message, tone = 'neutral') {
+        setStatusMessage(document.getElementById('requests-sync-status'), message, tone);
+      }
+
+      function buildRequestCardMarkup(request, options = {}) {
+        const { origin = 'remote' } = options;
+        const category = request.category || detectRequestCategory(`${request.title || ''} ${request.description || ''}`);
+        const categoryLabel = formatRequestCategory(category);
+        const priority = request.priority === 'urgente' ? 'urgente' : 'programable';
+        const budgetLabel = (request.budget_label || '').trim()
+          || (Number.isFinite(request.budget_min) ? formatCurrency(request.budget_min) : 'A convenir');
+        const paymentType = request.payment_type || 'A convenir';
+        const location = request.location || 'CABA';
+        const clientBadge = request.client_badge || 'Cliente verificado';
+        const description = request.description || '';
+        const gallery = Array.isArray(request.gallery_urls) ? request.gallery_urls.filter(Boolean) : [];
+        const published = formatRelativeDate(request.created_at);
+        const title = request.title || 'Solicitud';
+        const coverImage = gallery[0] || requestCardFallbackImage;
+        const tags = [
+          categoryLabel,
+          paymentType,
+          priority === 'urgente' ? 'Atención inmediata' : 'Coordinable',
+        ];
+        const pillClass = priority === 'urgente' ? 'pill pill-amber' : 'pill pill-soft';
+        const pillLabel = priority === 'urgente' ? 'Urgente' : categoryLabel;
+
+        return `
+          <article
+            class="request-card request-card--interactive"
+            data-request-origin="${escapeHtml(origin)}"
+            data-request-id="${escapeHtml(request.id || '')}"
+            data-category="${escapeHtml(category)}"
+            data-priority="${escapeHtml(priority)}"
+            data-client-badge="${escapeHtml(clientBadge)}"
+            data-payment-type="${escapeHtml(paymentType)}"
+            data-location="${escapeHtml(location)}"
+            data-published="${escapeHtml(published)}"
+            data-tags="${escapeHtml(tags.join('|'))}"
+            data-gallery="${escapeHtml(gallery.join('|'))}"
+          >
+            <img src="${escapeHtml(coverImage)}" alt="${escapeHtml(title)}" />
+            <div class="request-body">
+              <div class="request-top">
+                <span class="${pillClass}">${escapeHtml(pillLabel)}</span>
+                <strong>${escapeHtml(budgetLabel)}</strong>
+              </div>
+              <h4>${escapeHtml(title)}</h4>
+              <p>${escapeHtml(description)}</p>
+              <div class="request-meta">
+                <span>${escapeHtml(location)}</span>
+                <span>${escapeHtml(published)}</span>
+              </div>
+            </div>
+          </article>
+        `;
+      }
+
+      function syncBodyModalState() {
+        document.body.classList.toggle(
+          'modal-open',
+          Boolean(document.querySelector('.filter-modal:not([hidden])'))
+        );
+      }
+
+      function openCreateRequestModal() {
+        if (!createRequestModal) {
+          return;
+        }
+
+        createRequestModal.hidden = false;
+        syncBodyModalState();
+      }
+
+      function closeCreateRequestModal(options = {}) {
+        if (!createRequestModal) {
+          return;
+        }
+
+        const { restoreHash = true } = options;
+        createRequestModal.hidden = true;
+        syncBodyModalState();
+
+        if (!restoreHash) {
+          return;
+        }
+
+        const targetHash = lastNonCreateScreen || fallbackScreen;
+        if (window.location.hash.replace('#', '') !== targetHash) {
+          window.location.hash = `#${targetHash}`;
+          return;
+        }
+
+        setActiveScreen(targetHash);
+      }
+
+      function setupExploreFilters() {
+        if (!exploreSection) {
+          return;
+        }
+
+        const searchInput = exploreSection.querySelector('.search-input input');
+        const openFiltersButton = exploreSection.querySelector('.filter-button');
+        const quickCategoryButtons = Array.from(exploreSection.querySelectorAll('.quick-filter-card'));
+        const cards = Array.from(exploreSection.querySelectorAll('.pro-card'));
+        const filtersModal = document.getElementById('explore-filters-modal');
+        const professionalProfileModal = document.getElementById('professional-profile-modal');
+        const modalCategoryButtons = Array.from(document.querySelectorAll('.filter-category-card'));
+        const profileOpenButtons = Array.from(exploreSection.querySelectorAll('[data-open-professional-profile="true"]'));
+        const budgetMinInput = document.getElementById('budget-min');
+        const budgetMaxInput = document.getElementById('budget-max');
+        const budgetLabel = document.getElementById('budget-label');
+        const budgetSliderFill = document.getElementById('budget-slider-fill');
+        const ratingButtons = Array.from(document.querySelectorAll('#rating-stars button'));
+        const ratingLabel = document.getElementById('rating-label');
+        const distanceButtons = Array.from(document.querySelectorAll('.distance-chip'));
+        const resetFiltersButton = document.getElementById('filters-reset');
+        const applyFiltersButton = document.getElementById('filters-apply');
+        const locationInput = document.getElementById('filters-location');
+        const currentLocationButton = document.getElementById('filters-current-location');
+        const professionalModalPhoto = document.getElementById('professional-modal-photo');
+        const professionalModalName = document.getElementById('professional-modal-name');
+        const professionalModalBadge = document.getElementById('professional-modal-badge');
+        const professionalModalRole = document.getElementById('professional-modal-role');
+        const professionalModalDescription = document.getElementById('professional-modal-description');
+        const professionalModalRating = document.getElementById('professional-modal-rating');
+        const professionalModalJobs = document.getElementById('professional-modal-jobs');
+        const professionalModalCategory = document.getElementById('professional-modal-category');
+        const professionalModalResponse = document.getElementById('professional-modal-response');
+        const professionalModalSpecialties = document.getElementById('professional-modal-specialties');
+        const professionalModalGallery = document.getElementById('professional-modal-gallery');
+        const professionalModalSummary = document.getElementById('professional-modal-summary');
+
+        if (!searchInput || quickCategoryButtons.length === 0 || cards.length === 0) {
+          return;
+        }
+
+        const categoryLabels = {
+          plomeria: 'Plomería',
+          electricidad: 'Electricidad',
+          limpieza: 'Limpieza',
+          albanileria: 'Albañilería',
+          jardineria: 'Jardinería',
+          pintura: 'Pintura',
+          carpinteria: 'Carpintería',
+        };
+
+        const categoryGalleryByType = {
+          plomeria: [
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuBOgnH7nP0E7o9tDgxdME75pDh5_XaSHuSWPdef9uRJI6FSe1j-ElmGf5kg1Ubb0iRon83NfLrtHgRRcWJpVDOLGhY6TDRGddCzZ3BdtQtYfKoN_HkBPfoqJQG1epnAz6tAxkWvm2wCMIT_xruEYWm0vv5s-tIc5hZmVgl2zq8qe3wEl3pm7RTX4zVNm5i9z4Eb68wuArgDHSMHJH69V9_As0CI_v6awu6mpPjni0PSbgkgzX1fziBxuDlZKglp8oGowG8Y-VqFlGQ',
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuDJu99KUslL47G5xuCyKli5wyOLeKiYIrktvkF7HkZdM2-wLWtLCVdYkiY43RX46F3u_gu6SQ6LghTvL-VaL4bs-TyJPjk69XGOFpVF9DktK6bp3WVioIHng7zzsdgJLg064fiuFVHzpQgIFHD9c7xOSktG8Wle51t7lXIJzXY9PnhMCJdPLdp6mrOyZAOdBfdCitiRr3fqmwTiPg_EoyEIezYCYMskqSoEhrvmTQ68YVjHgXWz1zS8_k-vN2DvC2bnF-UZAQwqp0w',
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuBXfX4MYAbPerGZH2b8lDCxFi23Loem8gmf5R0RRrOX2v6KFnFyxxJw5xaA5LbAMMc8KCbFSJMn5nXpR288EFh8_qHlsToSvfPQJdr-ypjTwHGKifJX9wx5XL13re9XoPjqMcOVr0KbkInXntB_t-E79LLvQXAxNwGJE_G5EBBk4QAGjicdR4GfnQGQRgXp7shgoAjqUaZmzTL8QzdIuXHOooLTELOzXUvYRSbaozPaKUgpDOD-WCqoQJ-ACJTS6_MH-EIctfXsUrs',
+          ],
+          electricidad: [
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuAHYZ3xDhTwMmLZQt9lamhtua77FTbLlAaEWP3yDSEAOUO8uRZlJ10zvWU5Nz3rFo7igRo-GxiqLCq10MVsfMfahkliqma03I6q2vgv_yHl0jH19bdco8ia6GcMXsA_wpqEBEXwB2E20LwNrV9mefdyr89l7VOfxhXhyzhK9Yrn1ngFq2EIoWuYWqtb4YjNzn2Fy1vrwmfvEPlOdpeFpsyHSQIAtlZMDoJMVPJ9gD0AiT9eQhdE2MJcMqKPiePZmVA_jwxZwptwBBU',
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuBOgnH7nP0E7o9tDgxdME75pDh5_XaSHuSWPdef9uRJI6FSe1j-ElmGf5kg1Ubb0iRon83NfLrtHgRRcWJpVDOLGhY6TDRGddCzZ3BdtQtYfKoN_HkBPfoqJQG1epnAz6tAxkWvm2wCMIT_xruEYWm0vv5s-tIc5hZmVgl2zq8qe3wEl3pm7RTX4zVNm5i9z4Eb68wuArgDHSMHJH69V9_As0CI_v6awu6mpPjni0PSbgkgzX1fziBxuDlZKglp8oGowG8Y-VqFlGQ',
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuDJu99KUslL47G5xuCyKli5wyOLeKiYIrktvkF7HkZdM2-wLWtLCVdYkiY43RX46F3u_gu6SQ6LghTvL-VaL4bs-TyJPjk69XGOFpVF9DktK6bp3WVioIHng7zzsdgJLg064fiuFVHzpQgIFHD9c7xOSktG8Wle51t7lXIJzXY9PnhMCJdPLdp6mrOyZAOdBfdCitiRr3fqmwTiPg_EoyEIezYCYMskqSoEhrvmTQ68YVjHgXWz1zS8_k-vN2DvC2bnF-UZAQwqp0w',
+          ],
+          limpieza: [
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuCm-bjDeZFMklrpNWbae9yw4k9jaZIviIX6SbmP3lK0Tqf7FNkhZYMXixEVTC0XvhMuXwrvtinebP-YoRxjvurVCWzWOx-8culKtHK46N-c6DnBOUH30bt_XggyVtUBefgN-vJc4NqRstjRssYnMGLn_dkeiHhmC4SCj9Mz3evdebqQBPNHJyPVBWBNDnMmV68FKdsv5Dp1-wzbUHoM2R-I8heHwBYMmJqYCnGOV8V_70-fo84i4tLIzcANkOiSx0AF5NeS62JDx90',
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuDJu99KUslL47G5xuCyKli5wyOLeKiYIrktvkF7HkZdM2-wLWtLCVdYkiY43RX46F3u_gu6SQ6LghTvL-VaL4bs-TyJPjk69XGOFpVF9DktK6bp3WVioIHng7zzsdgJLg064fiuFVHzpQgIFHD9c7xOSktG8Wle51t7lXIJzXY9PnhMCJdPLdp6mrOyZAOdBfdCitiRr3fqmwTiPg_EoyEIezYCYMskqSoEhrvmTQ68YVjHgXWz1zS8_k-vN2DvC2bnF-UZAQwqp0w',
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuBXfX4MYAbPerGZH2b8lDCxFi23Loem8gmf5R0RRrOX2v6KFnFyxxJw5xaA5LbAMMc8KCbFSJMn5nXpR288EFh8_qHlsToSvfPQJdr-ypjTwHGKifJX9wx5XL13re9XoPjqMcOVr0KbkInXntB_t-E79LLvQXAxNwGJE_G5EBBk4QAGjicdR4GfnQGQRgXp7shgoAjqUaZmzTL8QzdIuXHOooLTELOzXUvYRSbaozPaKUgpDOD-WCqoQJ-ACJTS6_MH-EIctfXsUrs',
+          ],
+          albanileria: [
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuA1cGEb5gHapI44MHpyETT_oEG9cilyGRUP-ziI5h5PAr2FWeJuqeJ7rHqlC9YntZspSIrjBn5aAPikY5pOzflECZ5gpiuIjpoVQwt2gdqmA3UqpoKYAUkwgbWAgdVG7K7aQLXN5vCDUMGQ2annhAIedeZz78nrEdkanoTw1UFj2_d3v7PWHdyUPUQtRwWj8Rv_3QtHPbZTajwWouu5VxaJIgyIFrT80SrKTVoyI3fAo1erSiYceioCrheJyxOLTTjGNZhtn_CmjZw',
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuBOgnH7nP0E7o9tDgxdME75pDh5_XaSHuSWPdef9uRJI6FSe1j-ElmGf5kg1Ubb0iRon83NfLrtHgRRcWJpVDOLGhY6TDRGddCzZ3BdtQtYfKoN_HkBPfoqJQG1epnAz6tAxkWvm2wCMIT_xruEYWm0vv5s-tIc5hZmVgl2zq8qe3wEl3pm7RTX4zVNm5i9z4Eb68wuArgDHSMHJH69V9_As0CI_v6awu6mpPjni0PSbgkgzX1fziBxuDlZKglp8oGowG8Y-VqFlGQ',
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuBXfX4MYAbPerGZH2b8lDCxFi23Loem8gmf5R0RRrOX2v6KFnFyxxJw5xaA5LbAMMc8KCbFSJMn5nXpR288EFh8_qHlsToSvfPQJdr-ypjTwHGKifJX9wx5XL13re9XoPjqMcOVr0KbkInXntB_t-E79LLvQXAxNwGJE_G5EBBk4QAGjicdR4GfnQGQRgXp7shgoAjqUaZmzTL8QzdIuXHOooLTELOzXUvYRSbaozPaKUgpDOD-WCqoQJ-ACJTS6_MH-EIctfXsUrs',
+          ],
+          jardineria: [
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuCL-sRa8cwGnkKS0naR2lrcG3wxak-HMROyXA8jPxdBxpIoITiSwTqs7G0SaqAURCaI8ByZP1Qqa9orC-vERZontYXHlxswu2niPhp1FbBRAMbY0qUg14jnJF23Jq0TrlfG60_D_A1g1DQ4OfQP5C8l8nr9ATxjNn1f9IVPKr-LSmPSpJYZyTnupkH9WF8beByJFiZSuTfprizFTA52jNfAbqCYaVA-KSgTvJFo_EN2zS0fbI0QpShzSgJ-JUP42zWnuZkdJBraAiA',
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuBXfX4MYAbPerGZH2b8lDCxFi23Loem8gmf5R0RRrOX2v6KFnFyxxJw5xaA5LbAMMc8KCbFSJMn5nXpR288EFh8_qHlsToSvfPQJdr-ypjTwHGKifJX9wx5XL13re9XoPjqMcOVr0KbkInXntB_t-E79LLvQXAxNwGJE_G5EBBk4QAGjicdR4GfnQGQRgXp7shgoAjqUaZmzTL8QzdIuXHOooLTELOzXUvYRSbaozPaKUgpDOD-WCqoQJ-ACJTS6_MH-EIctfXsUrs',
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuDJu99KUslL47G5xuCyKli5wyOLeKiYIrktvkF7HkZdM2-wLWtLCVdYkiY43RX46F3u_gu6SQ6LghTvL-VaL4bs-TyJPjk69XGOFpVF9DktK6bp3WVioIHng7zzsdgJLg064fiuFVHzpQgIFHD9c7xOSktG8Wle51t7lXIJzXY9PnhMCJdPLdp6mrOyZAOdBfdCitiRr3fqmwTiPg_EoyEIezYCYMskqSoEhrvmTQ68YVjHgXWz1zS8_k-vN2DvC2bnF-UZAQwqp0w',
+          ],
+          pintura: [
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuAWbSExA5BZD-q6G2oqi59YynMSNIlZuLtD29l5hu1lCsCPp76LkM7ryejhchK9LExe3WObxWAS5Pf_7jtCiuyMe-0fz6WvyMYSa46s_3OeLoYXi7ws7DXKFo8XchE_N4udm_1J4dbcQBqrykp_aAI6RUVdmNhzU_z6eKwvrf2yxTZfMDaoG6mjot4Nf4Kd_LgZ2I4BpEukCe4ywcPIXlDP2vyUii3-LLis-4laFDTzc-fVEORJ6rFTgyWPMyXGmvZEM20jSbSdCO4',
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuBOgnH7nP0E7o9tDgxdME75pDh5_XaSHuSWPdef9uRJI6FSe1j-ElmGf5kg1Ubb0iRon83NfLrtHgRRcWJpVDOLGhY6TDRGddCzZ3BdtQtYfKoN_HkBPfoqJQG1epnAz6tAxkWvm2wCMIT_xruEYWm0vv5s-tIc5hZmVgl2zq8qe3wEl3pm7RTX4zVNm5i9z4Eb68wuArgDHSMHJH69V9_As0CI_v6awu6mpPjni0PSbgkgzX1fziBxuDlZKglp8oGowG8Y-VqFlGQ',
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuDJu99KUslL47G5xuCyKli5wyOLeKiYIrktvkF7HkZdM2-wLWtLCVdYkiY43RX46F3u_gu6SQ6LghTvL-VaL4bs-TyJPjk69XGOFpVF9DktK6bp3WVioIHng7zzsdgJLg064fiuFVHzpQgIFHD9c7xOSktG8Wle51t7lXIJzXY9PnhMCJdPLdp6mrOyZAOdBfdCitiRr3fqmwTiPg_EoyEIezYCYMskqSoEhrvmTQ68YVjHgXWz1zS8_k-vN2DvC2bnF-UZAQwqp0w',
+          ],
+          carpinteria: [
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuAWbSExA5BZD-q6G2oqi59YynMSNIlZuLtD29l5hu1lCsCPp76LkM7ryejhchK9LExe3WObxWAS5Pf_7jtCiuyMe-0fz6WvyMYSa46s_3OeLoYXi7ws7DXKFo8XchE_N4udm_1J4dbcQBqrykp_aAI6RUVdmNhzU_z6eKwvrf2yxTZfMDaoG6mjot4Nf4Kd_LgZ2I4BpEukCe4ywcPIXlDP2vyUii3-LLis-4laFDTzc-fVEORJ6rFTgyWPMyXGmvZEM20jSbSdCO4',
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuBXfX4MYAbPerGZH2b8lDCxFi23Loem8gmf5R0RRrOX2v6KFnFyxxJw5xaA5LbAMMc8KCbFSJMn5nXpR288EFh8_qHlsToSvfPQJdr-ypjTwHGKifJX9wx5XL13re9XoPjqMcOVr0KbkInXntB_t-E79LLvQXAxNwGJE_G5EBBk4QAGjicdR4GfnQGQRgXp7shgoAjqUaZmzTL8QzdIuXHOooLTELOzXUvYRSbaozPaKUgpDOD-WCqoQJ-ACJTS6_MH-EIctfXsUrs',
+            'https://lh3.googleusercontent.com/aida-public/AB6AXuBOgnH7nP0E7o9tDgxdME75pDh5_XaSHuSWPdef9uRJI6FSe1j-ElmGf5kg1Ubb0iRon83NfLrtHgRRcWJpVDOLGhY6TDRGddCzZ3BdtQtYfKoN_HkBPfoqJQG1epnAz6tAxkWvm2wCMIT_xruEYWm0vv5s-tIc5hZmVgl2zq8qe3wEl3pm7RTX4zVNm5i9z4Eb68wuArgDHSMHJH69V9_As0CI_v6awu6mpPjni0PSbgkgzX1fziBxuDlZKglp8oGowG8Y-VqFlGQ',
+          ],
+        };
+
+        const profileDetailsByCategory = {
+          plomeria: {
+            response: '< 20m',
+            specialties: ['Urgencias 24/7', 'Termotanques', 'Destapes', 'Pérdidas'],
+          },
+          electricidad: {
+            response: '< 35m',
+            specialties: ['Tableros', 'Cortocircuitos', 'Iluminación', 'Instalación segura'],
+          },
+          limpieza: {
+            response: '< 25m',
+            specialties: ['Final de obra', 'Hogar', 'Oficinas', 'Insumos incluidos'],
+          },
+          albanileria: {
+            response: '< 50m',
+            specialties: ['Revoques', 'Humedad', 'Refacciones', 'Mampostería'],
+          },
+          jardineria: {
+            response: '< 40m',
+            specialties: ['Poda', 'Mantenimiento', 'Canteros', 'Riego'],
+          },
+          pintura: {
+            response: '< 45m',
+            specialties: ['Interior', 'Exterior', 'Enduido', 'Terminaciones'],
+          },
+          carpinteria: {
+            response: '< 30m',
+            specialties: ['Muebles a medida', 'Restauración', 'Instalación', 'Melamina'],
+          },
+        };
+
+        const defaultFilterState = {
+          category: 'all',
+          minBudget: 50,
+          maxBudget: 450,
+          minRating: 4,
+          distance: 5,
+        };
+        let filterState = { ...defaultFilterState };
+        let draftFilterState = { ...filterState };
+
+        cards.forEach((card, index) => {
+          const title = card.querySelector('h4')?.textContent || '';
+          const role = card.querySelector('.role')?.textContent || '';
+          const description = card.querySelector('.description')?.textContent || '';
+          const fallbackCategory = index === 0 ? 'plomeria' : index === 1 ? 'carpinteria' : 'all';
+          const fallbackBudget = index === 0 ? 140 : 320;
+          const fallbackRating = index === 0 ? 4.9 : 4.7;
+          const fallbackDistance = index === 0 ? 4 : 12;
+
+          if (!card.dataset.category) {
+            card.dataset.category = fallbackCategory;
+          }
+
+          card.dataset.search = normalizeText(`${title} ${role} ${description} ${card.dataset.category}`);
+          card.dataset.budget = card.dataset.budget || String(fallbackBudget);
+          card.dataset.rating = card.dataset.rating || String(fallbackRating);
+          card.dataset.distance = card.dataset.distance || String(fallbackDistance);
+        });
+
+        let emptyState = exploreSection.querySelector('.explore-empty-state');
+        if (!emptyState) {
+          emptyState = document.createElement('p');
+          emptyState.className = 'explore-empty-state';
+          emptyState.hidden = true;
+          emptyState.textContent = 'No encontramos profesionales con esos filtros.';
+          const resultsGrid = exploreSection.querySelector('.pro-grid');
+          if (resultsGrid) {
+            resultsGrid.insertAdjacentElement('afterend', emptyState);
+          }
+        }
+
+        function syncBudgetUI() {
+          if (!budgetMinInput || !budgetMaxInput || !budgetLabel || !budgetSliderFill) {
+            return;
+          }
+
+          let minValue = Number(budgetMinInput.value);
+          let maxValue = Number(budgetMaxInput.value);
+
+          if (minValue > maxValue) {
+            [minValue, maxValue] = [maxValue, minValue];
+            budgetMinInput.value = String(minValue);
+            budgetMaxInput.value = String(maxValue);
+          }
+
+          budgetLabel.textContent = `$${minValue} - $${maxValue}`;
+          const trackMin = Number(budgetMinInput.min);
+          const trackMax = Number(budgetMinInput.max);
+          const start = ((minValue - trackMin) / (trackMax - trackMin)) * 100;
+          const end = ((maxValue - trackMin) / (trackMax - trackMin)) * 100;
+          budgetSliderFill.style.left = `${start}%`;
+          budgetSliderFill.style.right = `${100 - end}%`;
+          draftFilterState.minBudget = minValue;
+          draftFilterState.maxBudget = maxValue;
+        }
+
+        function syncRatingUI() {
+          ratingButtons.forEach((button) => {
+            const value = Number(button.dataset.rating || 0);
+            button.classList.toggle('is-filled', value <= draftFilterState.minRating);
+          });
+
+          if (ratingLabel) {
+            ratingLabel.textContent = `${draftFilterState.minRating.toFixed(1)} & Up`;
+          }
+        }
+
+        function syncDistanceUI() {
+          distanceButtons.forEach((button) => {
+            button.classList.toggle('is-selected', Number(button.dataset.distance || 0) === draftFilterState.distance);
+          });
+        }
+
+        function syncCategoryUI() {
+          modalCategoryButtons.forEach((button) => {
+            button.classList.toggle('is-selected', button.dataset.category === draftFilterState.category);
+          });
+        }
+
+        function syncQuickCategoryUI() {
+          quickCategoryButtons.forEach((button) => {
+            button.classList.toggle('is-selected', button.dataset.category === filterState.category);
+          });
+        }
+
+        function syncModalFromState() {
+          draftFilterState = { ...filterState };
+
+          if (budgetMinInput) {
+            budgetMinInput.value = String(draftFilterState.minBudget);
+          }
+
+          if (budgetMaxInput) {
+            budgetMaxInput.value = String(draftFilterState.maxBudget);
+          }
+
+          syncBudgetUI();
+          syncRatingUI();
+          syncDistanceUI();
+          syncCategoryUI();
+        }
+
+        function openFiltersModal() {
+          if (!filtersModal) {
+            return;
+          }
+
+          syncModalFromState();
+          filtersModal.hidden = false;
+          syncBodyModalState();
+        }
+
+        function closeFiltersModal() {
+          if (!filtersModal) {
+            return;
+          }
+
+          filtersModal.hidden = true;
+          syncBodyModalState();
+        }
+
+        function openProfessionalProfile(card) {
+          if (
+            !professionalProfileModal ||
+            !professionalModalPhoto ||
+            !professionalModalName ||
+            !professionalModalBadge ||
+            !professionalModalRole ||
+            !professionalModalDescription ||
+            !professionalModalRating ||
+            !professionalModalJobs ||
+            !professionalModalCategory ||
+            !professionalModalResponse ||
+            !professionalModalSpecialties ||
+            !professionalModalGallery ||
+            !professionalModalSummary
+          ) {
+            return;
+          }
+
+          const image = card.querySelector('img');
+          const badge = card.querySelector('.pill');
+          const name = card.querySelector('h4')?.textContent?.trim() || 'Profesional';
+          const role = card.querySelector('.role')?.textContent?.trim() || '';
+          const description = card.querySelector('.description')?.textContent?.trim() || '';
+          const rating = card.querySelector('.rating')?.textContent?.trim() || card.dataset.rating || '4.8';
+          const jobs = card.querySelector('.pro-footer span')?.textContent?.trim() || '0 trabajos';
+          const categoryKey = card.dataset.category || 'all';
+          const categoryLabel = categoryLabels[categoryKey] || 'Oficio';
+          const profileDetails = profileDetailsByCategory[categoryKey] || {
+            response: '< 1h',
+            specialties: ['Atención profesional', 'Seguimiento', 'Presupuesto claro'],
+          };
+
+          professionalModalPhoto.src = image?.getAttribute('src') || '';
+          professionalModalPhoto.alt = image?.getAttribute('alt') || `Foto de ${name}`;
+          professionalModalName.textContent = name;
+          professionalModalBadge.textContent = badge?.textContent?.trim() || 'Verificado';
+          professionalModalRole.textContent = role;
+          professionalModalDescription.textContent = description;
+          professionalModalRating.textContent = rating;
+          professionalModalJobs.textContent = jobs.replace(/\s*trabajos?/i, '');
+          professionalModalCategory.textContent = categoryLabel;
+          professionalModalResponse.textContent = profileDetails.response;
+          professionalModalSummary.textContent = `${name} se especializa en ${categoryLabel.toLowerCase()} y trabaja con un enfoque claro en comunicación, tiempos de respuesta y seguimiento del servicio de punta a punta.`;
+          professionalModalSpecialties.innerHTML = profileDetails.specialties
+            .map((specialty) => `<span class="professional-specialty-chip">${specialty}</span>`)
+            .join('');
+          professionalModalGallery.innerHTML = (categoryGalleryByType[categoryKey] || [image?.getAttribute('src') || ''])
+            .filter(Boolean)
+            .slice(0, 3)
+            .map((src, index) => `<img src="${src}" alt="Trabajo ${index + 1} de ${name}" />`)
+            .join('');
+
+          professionalProfileModal.hidden = false;
+          syncBodyModalState();
+        }
+
+        function closeProfessionalProfile() {
+          if (!professionalProfileModal) {
+            return;
+          }
+
+          professionalProfileModal.hidden = true;
+          syncBodyModalState();
+        }
+
+        function renderExploreFilters() {
+          const query = normalizeText(searchInput.value);
+          let visibleCount = 0;
+
+          cards.forEach((card) => {
+            const matchesCategory = filterState.category === 'all' || card.dataset.category === filterState.category;
+            const matchesQuery = query === '' || (card.dataset.search || '').includes(query);
+            const isVisible = matchesCategory && matchesQuery;
+            card.hidden = !isVisible;
+            if (isVisible) {
+              visibleCount += 1;
+            }
+          });
+
+          emptyState.hidden = visibleCount > 0;
+
+          syncQuickCategoryUI();
+        }
+
+        quickCategoryButtons.forEach((button) => {
+          const activateQuickFilter = () => {
+            filterState.category = button.dataset.category || defaultFilterState.category;
+            renderExploreFilters();
+          };
+
+          button.addEventListener('click', activateQuickFilter);
+        });
+
+        profileOpenButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const card = button.closest('.pro-card');
+            if (card) {
+              openProfessionalProfile(card);
+            }
+          });
+        });
+
+        searchInput.addEventListener('input', renderExploreFilters);
+
+        openFiltersButton?.addEventListener('click', openFiltersModal);
+
+        document.querySelectorAll('[data-close-filters="true"]').forEach((element) => {
+          element.addEventListener('click', closeFiltersModal);
+        });
+
+        document.querySelectorAll('[data-close-professional-profile="true"]').forEach((element) => {
+          element.addEventListener('click', closeProfessionalProfile);
+        });
+
+        budgetMinInput?.addEventListener('input', syncBudgetUI);
+        budgetMaxInput?.addEventListener('input', syncBudgetUI);
+        budgetMinInput?.addEventListener('pointerdown', () => {
+          budgetMinInput.style.zIndex = '3';
+          if (budgetMaxInput) {
+            budgetMaxInput.style.zIndex = '2';
+          }
+        });
+        budgetMaxInput?.addEventListener('pointerdown', () => {
+          budgetMaxInput.style.zIndex = '3';
+          if (budgetMinInput) {
+            budgetMinInput.style.zIndex = '2';
+          }
+        });
+
+        modalCategoryButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            draftFilterState.category = button.dataset.category || 'all';
+            syncCategoryUI();
+          });
+        });
+
+        ratingButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            draftFilterState.minRating = Number(button.dataset.rating || 4);
+            syncRatingUI();
+          });
+        });
+
+        distanceButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            draftFilterState.distance = Number(button.dataset.distance || 5);
+            syncDistanceUI();
+          });
+        });
+
+        resetFiltersButton?.addEventListener('click', () => {
+          draftFilterState = { ...defaultFilterState };
+          syncModalFromState();
+        });
+
+        applyFiltersButton?.addEventListener('click', () => {
+          filterState = { ...draftFilterState };
+          renderExploreFilters();
+          closeFiltersModal();
+        });
+
+        currentLocationButton?.addEventListener('click', () => {
+          if (locationInput) {
+            locationInput.value = 'Mi ubicación actual';
+          }
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && filtersModal && !filtersModal.hidden) {
+            closeFiltersModal();
+          }
+
+          if (event.key === 'Escape' && professionalProfileModal && !professionalProfileModal.hidden) {
+            closeProfessionalProfile();
+          }
+        });
+
+        renderExploreFilters();
+      }
+
+      function setupRequestFilters() {
+        const requestsSection = document.getElementById('solicitudes');
+        if (!requestsSection) {
+          return;
+        }
+
+        const searchInput = document.getElementById('requests-search-input');
+        const desktopSearchInput = desktopGlobalSearchInput;
+        const desktopMediaQuery = window.matchMedia('(min-width: 1100px)');
+        const quickCategoryButtons = Array.from(requestsSection.querySelectorAll('.requests-filter-grid .quick-filter-card'));
+        const requestsGrid = document.getElementById('requests-grid');
+        const requestDetailModal = document.getElementById('request-detail-modal');
+        const requestDetailPriority = document.getElementById('request-detail-priority');
+        const requestDetailClientBadge = document.getElementById('request-detail-client-badge');
+        const requestDetailTitle = document.getElementById('request-detail-title');
+        const requestDetailBudget = document.getElementById('request-detail-budget');
+        const requestDetailPaymentType = document.getElementById('request-detail-payment-type');
+        const requestDetailLocation = document.getElementById('request-detail-location');
+        const requestDetailPublished = document.getElementById('request-detail-published');
+        const requestDetailTags = document.getElementById('request-detail-tags');
+        const requestDetailDescription = document.getElementById('request-detail-description');
+        const requestDetailGalleryMain = document.getElementById('request-detail-gallery-main');
+        const requestDetailGallerySide = document.getElementById('request-detail-gallery-side');
+
+        if (!searchInput || quickCategoryButtons.length === 0 || !requestsGrid) {
+          return;
+        }
+
+        const defaultFilterState = {
+          category: 'all',
+        };
+        const filterState = { ...defaultFilterState };
+
+        let emptyState = requestsSection.querySelector('.requests-empty-state');
+        if (!emptyState) {
+          emptyState = document.createElement('p');
+          emptyState.className = 'explore-empty-state requests-empty-state';
+          emptyState.hidden = true;
+          emptyState.textContent = 'No encontramos solicitudes con esos filtros.';
+          requestsGrid.insertAdjacentElement('afterend', emptyState);
+        }
+
+        function getCards() {
+          return Array.from(requestsGrid.querySelectorAll('.request-card'));
+        }
+
+        function syncCardSearchData() {
+          getCards().forEach(hydrateRequestCardSearchData);
+        }
+
+        function syncRequestCategoryUI() {
+          quickCategoryButtons.forEach((button) => {
+            button.classList.toggle('is-selected', button.dataset.category === filterState.category);
+          });
+        }
+
+        function getSearchValue() {
+          if (desktopMediaQuery.matches && desktopSearchInput) {
+            return desktopSearchInput.value;
+          }
+
+          return searchInput.value;
+        }
+
+        function renderRequestFilters() {
+          const query = normalizeText(getSearchValue());
+          let visibleCount = 0;
+          const cards = getCards();
+
+          syncCardSearchData();
+
+          cards.forEach((card) => {
+            const matchesCategory = filterState.category === 'all' || card.dataset.category === filterState.category;
+            const matchesQuery = query === '' || (card.dataset.search || '').includes(query);
+            const isVisible = matchesCategory && matchesQuery;
+            card.hidden = !isVisible;
+            if (isVisible) {
+              visibleCount += 1;
+            }
+          });
+
+          emptyState.hidden = visibleCount > 0;
+          syncRequestCategoryUI();
+        }
+
+        function openRequestDetail(card) {
+          if (
+            !requestDetailModal ||
+            !requestDetailPriority ||
+            !requestDetailClientBadge ||
+            !requestDetailTitle ||
+            !requestDetailBudget ||
+            !requestDetailPaymentType ||
+            !requestDetailLocation ||
+            !requestDetailPublished ||
+            !requestDetailTags ||
+            !requestDetailDescription ||
+            !requestDetailGalleryMain ||
+            !requestDetailGallerySide
+          ) {
+            return;
+          }
+
+          const title = card.querySelector('h4')?.textContent?.trim() || 'Solicitud';
+          const description = card.querySelector('p')?.textContent?.trim() || '';
+          const budget = card.querySelector('.request-top strong')?.textContent?.trim() || 'A convenir';
+          const priority = card.dataset.priority || 'programable';
+          const clientBadge = card.dataset.clientBadge || 'Cliente verificado';
+          const paymentType = card.dataset.paymentType || 'A convenir';
+          const location = card.dataset.location || card.querySelector('.request-meta span')?.textContent?.trim() || 'CABA';
+          const published = card.dataset.published || card.querySelectorAll('.request-meta span')[1]?.textContent?.trim() || 'Hoy';
+          const tags = (card.dataset.tags || '').split('|').filter(Boolean);
+          const gallery = (card.dataset.gallery || '')
+            .split('|')
+            .filter(Boolean);
+
+          requestDetailPriority.textContent = priority === 'urgente' ? 'URGENTE' : 'PROGRAMABLE';
+          requestDetailPriority.classList.toggle('is-urgent', priority === 'urgente');
+          requestDetailPriority.classList.toggle('is-scheduled', priority !== 'urgente');
+          requestDetailClientBadge.innerHTML = '<span class="material-symbols-outlined">star</span>' + clientBadge;
+          requestDetailTitle.textContent = title;
+          requestDetailBudget.textContent = budget;
+          requestDetailPaymentType.textContent = paymentType;
+          requestDetailLocation.textContent = location;
+          requestDetailPublished.textContent = published;
+          requestDetailDescription.textContent = description;
+          requestDetailTags.innerHTML = tags
+            .map((tag, index) => `<span class="request-detail-tag ${index === tags.length - 1 && priority === 'urgente' ? 'is-alert' : ''}">${tag}</span>`)
+            .join('');
+
+          const fallbackImage = card.querySelector('img')?.getAttribute('src') || '';
+          const galleryImages = gallery.length > 0 ? gallery : [fallbackImage];
+          requestDetailGalleryMain.innerHTML = `<img src="${galleryImages[0] || fallbackImage}" alt="Imagen principal de la solicitud" />`;
+
+          const sideImages = galleryImages.slice(1, 3);
+          requestDetailGallerySide.innerHTML = sideImages
+            .map((src, index) => {
+              if (index === 1) {
+                return `<div class="request-detail-gallery__tile request-detail-gallery__tile--overlay"><img src="${src}" alt="Imagen secundaria de la solicitud" /><span>+2</span></div>`;
+              }
+
+              return `<div class="request-detail-gallery__tile"><img src="${src}" alt="Imagen secundaria de la solicitud" /></div>`;
+            })
+            .join('');
+
+          requestDetailModal.hidden = false;
+          syncBodyModalState();
+        }
+
+        function closeRequestDetail() {
+          if (!requestDetailModal) {
+            return;
+          }
+
+          requestDetailModal.hidden = true;
+          syncBodyModalState();
+        }
+
+        async function loadRemoteRequests(options = {}) {
+          const { silent = false } = options;
+
+          if (!supabaseClient) {
+            if (!silent) {
+              setRequestsSyncStatus('Falta configurar Supabase en app-config.js para sincronizar solicitudes reales.', 'warning');
+            }
+            renderRequestFilters();
+            return;
+          }
+
+          if (!silent) {
+            setRequestsSyncStatus('Sincronizando solicitudes con Supabase...', 'neutral');
+          }
+
+          try {
+            const { data, error } = await supabaseClient
+              .from('service_requests')
+              .select('id, title, description, category, priority, location, budget_label, budget_min, budget_max, payment_type, client_badge, gallery_urls, created_at, status')
+              .eq('status', 'open')
+              .order('created_at', { ascending: false })
+              .limit(8);
+
+            if (error) {
+              throw error;
+            }
+
+            requestsGrid.querySelectorAll('[data-request-origin="remote"]').forEach((card) => card.remove());
+
+            if (Array.isArray(data) && data.length > 0) {
+              requestsGrid.insertAdjacentHTML(
+                'afterbegin',
+                data.map((request) => buildRequestCardMarkup(request)).join('')
+              );
+              setRequestsSyncStatus('Solicitudes sincronizadas con Supabase.', 'success');
+            } else {
+              setRequestsSyncStatus('Todavía no hay solicitudes reales cargadas. Te dejo el contenido de referencia visible.', 'neutral');
+            }
+
+            renderRequestFilters();
+          } catch (error) {
+            setRequestsSyncStatus(`No pudimos leer Supabase todavía: ${error.message || 'revisa el schema y las policies.'}`, 'error');
+            renderRequestFilters();
+          }
+        }
+
+        quickCategoryButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const nextCategory = button.dataset.category || defaultFilterState.category;
+            filterState.category = filterState.category === nextCategory
+              ? defaultFilterState.category
+              : nextCategory;
+            renderRequestFilters();
+          });
+        });
+
+        requestsGrid.addEventListener('click', (event) => {
+          const card = event.target.closest('.request-card');
+          if (!card || !requestsGrid.contains(card)) {
+            return;
+          }
+
+          openRequestDetail(card);
+        });
+
+        document.querySelectorAll('[data-close-request-detail="true"]').forEach((element) => {
+          element.addEventListener('click', closeRequestDetail);
+        });
+
+        searchInput.addEventListener('input', renderRequestFilters);
+        if (desktopSearchInput) {
+          desktopSearchInput.addEventListener('input', () => {
+            if (!desktopMediaQuery.matches) {
+              return;
+            }
+
+            searchInput.value = desktopSearchInput.value;
+            renderRequestFilters();
+          });
+        }
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && requestDetailModal && !requestDetailModal.hidden) {
+            closeRequestDetail();
+          }
+        });
+        refreshRequestCards = loadRemoteRequests;
+        renderRequestFilters();
+        loadRemoteRequests();
+      }
+
+      function setupCreateRequestForm() {
+        const form = document.getElementById('create-request-form');
+        const feedback = document.getElementById('create-request-feedback');
+        const submitButton = document.getElementById('create-request-submit');
+        const requesterNameInput = document.getElementById('requester-name');
+        const categoryInput = document.getElementById('request-category');
+        const titleInput = document.getElementById('request-title');
+        const priorityInput = document.getElementById('request-priority');
+        const descriptionInput = document.getElementById('request-description');
+        const locationInput = document.getElementById('request-location');
+        const budgetInput = document.getElementById('request-budget');
+
+        if (
+          !form ||
+          !feedback ||
+          !submitButton ||
+          !requesterNameInput ||
+          !categoryInput ||
+          !titleInput ||
+          !priorityInput ||
+          !descriptionInput ||
+          !locationInput ||
+          !budgetInput
+        ) {
+          return;
+        }
+
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+
+          if (!supabaseClient) {
+            setStatusMessage(feedback, 'Primero necesitamos una configuración válida de Supabase en app-config.js.', 'warning');
+            return;
+          }
+
+          const requesterName = requesterNameInput.value.trim();
+          const title = titleInput.value.trim();
+          const description = descriptionInput.value.trim();
+          const location = locationInput.value.trim();
+          const category = categoryInput.value || detectRequestCategory(`${title} ${description}`);
+          const priority = priorityInput.value === 'urgente' ? 'urgente' : 'programable';
+
+          if (!requesterName || !title || !description || !location) {
+            setStatusMessage(feedback, 'Completá nombre, título, descripción y dirección para publicar la solicitud.', 'error');
+            return;
+          }
+
+          const { budgetLabel, budgetMin, budgetMax } = parseBudgetInput(budgetInput.value);
+
+          submitButton.disabled = true;
+          submitButton.textContent = 'Enviando...';
+          setStatusMessage(feedback, 'Guardando solicitud en Supabase...', 'neutral');
+
+          try {
+            const { error } = await supabaseClient
+              .from('service_requests')
+              .insert({
+                requester_name: requesterName,
+                title,
+                description,
+                category,
+                priority,
+                location,
+                budget_label: budgetLabel,
+                budget_min: budgetMin,
+                budget_max: budgetMax,
+                payment_type: 'A convenir',
+                client_badge: 'Cliente verificado',
+                status: 'open',
+              });
+
+            if (error) {
+              throw error;
+            }
+
+            form.reset();
+            requesterNameInput.value = 'Alex Rivera';
+            categoryInput.value = 'plomeria';
+            priorityInput.value = 'programable';
+            setStatusMessage(feedback, 'Solicitud enviada. Ya la estamos refrescando en la grilla.', 'success');
+
+            if (typeof refreshRequestCards === 'function') {
+              await refreshRequestCards({ silent: true });
+            }
+
+            closeCreateRequestModal({ restoreHash: false });
+            window.location.hash = '#solicitudes';
+          } catch (error) {
+            setStatusMessage(feedback, `No pudimos enviar la solicitud: ${error.message || 'revisa el schema y las policies.'}`, 'error');
+          } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Enviar solicitud';
+          }
+        });
+      }
+
+      function setupChatUI() {
+        const chatSection = document.getElementById('chat');
+        const inboxView = document.getElementById('chat-inbox-view');
+        const detailView = document.getElementById('chat-detail-view');
+        const searchInput = document.getElementById('chat-search-input');
+        const emptyState = document.getElementById('chat-empty-state');
+        const detailBackButton = document.getElementById('chat-detail-back');
+        const detailAvatar = document.getElementById('chat-detail-avatar');
+        const detailName = document.getElementById('chat-detail-name');
+        const detailStatus = document.getElementById('chat-detail-status');
+        const messageList = document.getElementById('chat-message-list');
+        const desktopDetailPanel = document.getElementById('chat-desktop-detail');
+        const desktopDetailAvatar = document.getElementById('chat-desktop-avatar');
+        const desktopDetailName = document.getElementById('chat-desktop-name');
+        const desktopDetailStatus = document.getElementById('chat-desktop-status');
+        const desktopMessageList = document.getElementById('chat-desktop-message-list');
+        const filterButtons = Array.from(chatSection?.querySelectorAll('[data-chat-filter]') || []);
+        const threadButtons = Array.from(chatSection?.querySelectorAll('[data-chat-thread]') || []);
+        const desktopMediaQuery = window.matchMedia('(min-width: 1100px)');
+
+        if (!chatSection || !inboxView || !detailView || !searchInput || !emptyState || !detailBackButton || !detailAvatar || !detailName || !detailStatus || !messageList || !desktopDetailPanel || !desktopDetailAvatar || !desktopDetailName || !desktopDetailStatus || !desktopMessageList || threadButtons.length === 0) {
+          return;
+        }
+
+        const fallbackProposal = {
+          title: 'Presupuesto pendiente',
+          total: 'A coordinar',
+          state: 'Disponible para revisar',
+          copy: 'Incluye materiales y mano de obra.',
+          note: 'Propuesta compartida en el chat.',
+        };
+
+        let selectedFilter = 'all';
+        let selectedThreadId = threadButtons[0].dataset.chatThread || '';
+        let isDetailOpen = false;
+
+        function isDesktopLayout() {
+          return desktopMediaQuery.matches;
+        }
+
+        function getThreadMessages(button) {
+          try {
+            return JSON.parse(button.dataset.chatMessages || '[]');
+          } catch (error) {
+            return [];
+          }
+        }
+
+        function getVisibleThreadButtons() {
+          return threadButtons.filter((button) => !button.hidden);
+        }
+
+        function updateActiveThreadStyles() {
+          threadButtons.forEach((button) => {
+            button.classList.toggle('is-active', button.dataset.chatThread === selectedThreadId);
+          });
+        }
+
+        function buildMeta(time, seen) {
+          return `
+            <div class="chat-message-meta">
+              <span>${time || ''}</span>
+              ${seen ? '<span class="material-symbols-outlined">done_all</span>' : ''}
+            </div>
+          `;
+        }
+
+        function renderProposalCard(button, time) {
+          const proposal = {
+            title: button.dataset.chatProposalTitle || fallbackProposal.title,
+            total: button.dataset.chatProposalTotal || fallbackProposal.total,
+            state: button.dataset.chatProposalState || fallbackProposal.state,
+            copy: button.dataset.chatProposalCopy || fallbackProposal.copy,
+            note: button.dataset.chatNote || fallbackProposal.note,
+          };
+
+          return `
+            <div class="chat-message-row">
+              <div class="chat-proposal-card">
+                <div class="chat-proposal-top">
+                  <div class="chat-proposal-copy">
+                    <span class="chat-proposal-kicker">Presupuesto propuesto</span>
+                    <strong>${proposal.title}</strong>
+                    <p>${proposal.copy}</p>
+                  </div>
+                  <div class="chat-proposal-total">
+                    <span>Total</span>
+                    <strong>${proposal.total}</strong>
+                  </div>
+                </div>
+                <p class="chat-thread-job">${proposal.state}</p>
+                <div class="chat-proposal-actions">
+                  <button class="button button-primary" type="button">Aceptar y coordinar</button>
+                  <button class="button button-secondary" type="button">Pedir ajuste</button>
+                </div>
+              </div>
+              <p class="chat-note">${proposal.note}</p>
+              ${buildMeta(time, false)}
+            </div>
+          `;
+        }
+
+        function renderImageMessage(message) {
+          return `
+            <div class="chat-message-row is-self">
+              <div class="chat-image-card">
+                <img src="${message.image || ''}" alt="Referencia enviada en el chat" />
+                <div class="chat-bubble">${message.text || ''}</div>
+              </div>
+              ${buildMeta(message.time, Boolean(message.seen))}
+            </div>
+          `;
+        }
+
+        function renderTextMessage(message) {
+          const isSelf = message.type === 'outgoing';
+          return `
+            <div class="chat-message-row ${isSelf ? 'is-self' : ''}">
+              <div class="chat-bubble ${isSelf ? '' : 'is-received'}">${message.text || ''}</div>
+              ${buildMeta(message.time, isSelf && Boolean(message.seen))}
+            </div>
+          `;
+        }
+
+        function renderMessages(button, targetList) {
+          const messages = getThreadMessages(button);
+          targetList.innerHTML = messages
+            .map((message) => {
+              if (message.type === 'proposal') {
+                return renderProposalCard(button, message.time);
+              }
+
+              if (message.type === 'image') {
+                return renderImageMessage(message);
+              }
+
+              return renderTextMessage(message);
+            })
+            .join('');
+        }
+
+        function renderDetailSurface(button, elements) {
+          elements.avatar.textContent = button.dataset.chatAvatar || 'CG';
+          elements.name.textContent = button.dataset.chatName || 'Conversacion';
+          elements.status.textContent = button.dataset.chatStatus === 'online'
+            ? 'Activo ahora'
+            : button.dataset.chatStatusLabel || 'Disponible';
+          renderMessages(button, elements.messageList);
+        }
+
+        function syncSelectedThread() {
+          const button = threadButtons.find((item) => item.dataset.chatThread === selectedThreadId);
+
+          if (!button) {
+            desktopDetailPanel.hidden = true;
+            messageList.innerHTML = '';
+            desktopMessageList.innerHTML = '';
+            updateActiveThreadStyles();
+            return;
+          }
+
+          desktopDetailPanel.hidden = false;
+          renderDetailSurface(button, {
+            avatar: detailAvatar,
+            name: detailName,
+            status: detailStatus,
+            messageList,
+          });
+          renderDetailSurface(button, {
+            avatar: desktopDetailAvatar,
+            name: desktopDetailName,
+            status: desktopDetailStatus,
+            messageList: desktopMessageList,
+          });
+          updateActiveThreadStyles();
+        }
+
+        function openDetail(threadId) {
+          const button = threadButtons.find((item) => item.dataset.chatThread === threadId);
+          if (!button) {
+            return;
+          }
+
+          selectedThreadId = threadId;
+          syncSelectedThread();
+
+          if (isDesktopLayout()) {
+            isDetailOpen = false;
+            detailView.hidden = true;
+            syncBodyModalState();
+            return;
+          }
+
+          isDetailOpen = true;
+          detailView.hidden = false;
+          syncBodyModalState();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closeDetail() {
+          isDetailOpen = false;
+          detailView.hidden = true;
+          syncBodyModalState();
+          updateActiveThreadStyles();
+        }
+
+        function renderInbox() {
+          const query = normalizeText(searchInput.value);
+          let visibleCount = 0;
+
+          threadButtons.forEach((button) => {
+            const haystack = normalizeText([
+              button.dataset.chatName,
+              button.dataset.chatRole,
+              button.dataset.chatJob,
+              button.dataset.chatPreview,
+            ].join(' '));
+            const matchesFilter = selectedFilter === 'all' || button.dataset.chatFilterType === selectedFilter;
+            const matchesQuery = query === '' || haystack.includes(query);
+            const isVisible = matchesFilter && matchesQuery;
+            button.hidden = !isVisible;
+            if (isVisible) {
+              visibleCount += 1;
+            }
+          });
+
+          emptyState.hidden = visibleCount > 0;
+
+          if (!getVisibleThreadButtons().some((button) => button.dataset.chatThread === selectedThreadId)) {
+            selectedThreadId = getVisibleThreadButtons()[0]?.dataset.chatThread || selectedThreadId;
+          }
+
+          filterButtons.forEach((button) => {
+            button.classList.toggle('is-selected', button.dataset.chatFilter === selectedFilter);
+          });
+
+          if (isDesktopLayout() || isDetailOpen) {
+            syncSelectedThread();
+            return;
+          }
+
+          updateActiveThreadStyles();
+        }
+
+        filterButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            selectedFilter = button.dataset.chatFilter || 'all';
+            renderInbox();
+          });
+        });
+
+        threadButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            openDetail(button.dataset.chatThread || '');
+          });
+        });
+
+        searchInput.addEventListener('input', renderInbox);
+        detailBackButton.addEventListener('click', closeDetail);
+        document.querySelectorAll('[data-close-chat-detail="true"]').forEach((element) => {
+          element.addEventListener('click', closeDetail);
+        });
+        desktopMediaQuery.addEventListener('change', () => {
+          if (isDesktopLayout()) {
+            closeDetail();
+          }
+
+          syncSelectedThread();
+        });
+
+        window.addEventListener('hashchange', () => {
+          const currentHash = window.location.hash.replace('#', '') || fallbackScreen;
+          if (currentHash !== 'chat' && isDetailOpen) {
+            closeDetail();
+          }
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && isDetailOpen) {
+            closeDetail();
+          }
+        });
+
+        renderInbox();
+        syncSelectedThread();
+      }
+      function applyTheme(theme) {
+        const nextTheme = theme === 'dark' ? 'dark' : 'light';
+        document.documentElement.classList.toggle('dark-theme', nextTheme === 'dark');
+        themeToggleButtons.forEach((themeToggleButton) => {
+          themeToggleButton.setAttribute('aria-pressed', nextTheme === 'dark' ? 'true' : 'false');
+          const icon = themeToggleButton.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = nextTheme === 'dark' ? 'light_mode' : 'dark_mode';
+          }
+        });
+      }
+
+      function getPreferredTheme() {
+        const savedTheme = window.localStorage.getItem(themeStorageKey);
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          return savedTheme;
+        }
+
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      function applyDesktopSidebarState(isCollapsed) {
+        document.body.classList.toggle('desktop-sidebar-collapsed', Boolean(isCollapsed));
+
+        if (desktopSidebarToggle) {
+          desktopSidebarToggle.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+          desktopSidebarToggle.setAttribute(
+            'aria-label',
+            isCollapsed ? 'Expandir navegación' : 'Minimizar navegación'
+          );
+          const icon = desktopSidebarToggle.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = isCollapsed ? 'chevron_right' : 'chevron_left';
+          }
+        }
+
+        if (desktopSidebarReveal) {
+          desktopSidebarReveal.hidden = !isCollapsed;
+          desktopSidebarReveal.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+        }
+      }
+
+      function getPreferredDesktopSidebarState() {
+        return window.localStorage.getItem(desktopSidebarStorageKey) === 'true';
+      }
+
+      function setActiveScreen(screenId) {
+        const screenExists = screens.some((screen) => screen.id === screenId);
+        const targetId = screenExists ? screenId : fallbackScreen;
+
+        if (targetId !== 'crear') {
+          lastNonCreateScreen = targetId;
+        }
+
+        screens.forEach((screen) => {
+          screen.classList.toggle('active-screen', screen.id === targetId);
+        });
+
+        navItems.forEach((item) => {
+          const isActive = item.getAttribute('href') === `#${targetId}`;
+          item.classList.toggle('active', isActive);
+          if (isActive) {
+            item.setAttribute('aria-current', 'page');
+          } else {
+            item.removeAttribute('aria-current');
+          }
+        });
+
+        if (desktopGlobalSearchInput) {
+          if (targetId === 'solicitudes') {
+            const requestsSearchInput = document.getElementById('requests-search-input');
+            desktopGlobalSearchInput.placeholder = 'Busca solicitudes por oficio o problema';
+            desktopGlobalSearchInput.value = requestsSearchInput?.value || '';
+          } else {
+            desktopGlobalSearchInput.placeholder = 'Buscar profesionales, oficios o solicitudes...';
+            desktopGlobalSearchInput.value = '';
+          }
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function syncFromHash() {
+        const currentHash = window.location.hash.replace('#', '') || fallbackScreen;
+
+        if (currentHash === 'crear') {
+          setActiveScreen(lastNonCreateScreen);
+          openCreateRequestModal();
+          return;
+        }
+
+        if (createRequestModal && !createRequestModal.hidden) {
+          closeCreateRequestModal({ restoreHash: false });
+        }
+
+        setActiveScreen(currentHash);
+      }
+
+      window.addEventListener('hashchange', syncFromHash);
+      themeToggleButtons.forEach((themeToggleButton) => {
+        themeToggleButton.addEventListener('click', () => {
+          const nextTheme = document.documentElement.classList.contains('dark-theme') ? 'light' : 'dark';
+          window.localStorage.setItem(themeStorageKey, nextTheme);
+          applyTheme(nextTheme);
+        });
+      });
+
+      if (desktopSidebarToggle) {
+        desktopSidebarToggle.addEventListener('click', () => {
+          const nextCollapsed = !document.body.classList.contains('desktop-sidebar-collapsed');
+          window.localStorage.setItem(desktopSidebarStorageKey, String(nextCollapsed));
+          applyDesktopSidebarState(nextCollapsed);
+        });
+      }
+      if (desktopSidebarReveal) {
+        desktopSidebarReveal.addEventListener('click', () => {
+          window.localStorage.setItem(desktopSidebarStorageKey, 'false');
+          applyDesktopSidebarState(false);
+        });
+      }
+
+      applyTheme(getPreferredTheme());
+      applyDesktopSidebarState(getPreferredDesktopSidebarState());
+      setupExploreFilters();
+      setupRequestFilters();
+      setupCreateRequestForm();
+      setupChatUI();
+      document.querySelectorAll('[data-close-create-request="true"]').forEach((element) => {
+        element.addEventListener('click', () => closeCreateRequestModal());
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && createRequestModal && !createRequestModal.hidden) {
+          closeCreateRequestModal();
+        }
+      });
+      syncFromHash();
+    </script>
+  </body>
+</html>
+
+
+
+
