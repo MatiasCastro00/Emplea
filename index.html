@@ -1910,6 +1910,28 @@
         }).format(amount)}`;
       }
 
+      function getFormattedBudgetLabel(budgetLabel, budgetMin, budgetMax) {
+        const parsed = parseBudgetInput(budgetLabel || '');
+
+        if (Number.isFinite(parsed.budgetMin) && Number.isFinite(parsed.budgetMax)) {
+          return parsed.budgetMin === parsed.budgetMax
+            ? formatCurrency(parsed.budgetMin)
+            : `${formatCurrency(parsed.budgetMin)} - ${formatCurrency(parsed.budgetMax)}`;
+        }
+
+        if (Number.isFinite(budgetMin) && Number.isFinite(budgetMax)) {
+          return budgetMin === budgetMax
+            ? formatCurrency(budgetMin)
+            : `${formatCurrency(budgetMin)} - ${formatCurrency(budgetMax)}`;
+        }
+
+        if (Number.isFinite(budgetMin)) {
+          return formatCurrency(budgetMin);
+        }
+
+        return (budgetLabel || '').trim() || 'A convenir';
+      }
+
       function fileToDataUrl(file) {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
@@ -2454,8 +2476,7 @@
         const category = request.category || detectRequestCategory(`${request.title || ''} ${request.description || ''}`);
         const categoryLabel = formatRequestCategory(category);
         const priority = request.priority === 'urgente' ? 'urgente' : 'programable';
-        const budgetLabel = (request.budget_label || '').trim()
-          || (Number.isFinite(request.budget_min) ? formatCurrency(request.budget_min) : 'A convenir');
+        const budgetLabel = getFormattedBudgetLabel(request.budget_label, request.budget_min, request.budget_max);
         const paymentType = request.payment_type || 'A convenir';
         const location = request.location || 'CABA';
         const clientBadge = request.client_badge || 'Cliente verificado';
@@ -2485,6 +2506,9 @@
             data-location="${escapeHtml(location)}"
             data-published="${escapeHtml(published)}"
             data-requester-name="${escapeHtml(requesterName)}"
+            data-budget-label="${escapeHtml(budgetLabel)}"
+            data-budget-min="${escapeHtml(Number.isFinite(request.budget_min) ? String(request.budget_min) : '')}"
+            data-budget-max="${escapeHtml(Number.isFinite(request.budget_max) ? String(request.budget_max) : '')}"
             data-tags="${escapeHtml(tags.join('|'))}"
             data-gallery="${escapeHtml(gallery.join('|'))}"
           >
@@ -3327,7 +3351,11 @@
 
           const title = card.querySelector('h4')?.textContent?.trim() || 'Solicitud';
           const description = card.querySelector('p')?.textContent?.trim() || '';
-          const budget = card.querySelector('.request-top strong')?.textContent?.trim() || 'A convenir';
+          const budget = getFormattedBudgetLabel(
+            card.dataset.budgetLabel || card.querySelector('.request-top strong')?.textContent?.trim() || '',
+            Number(card.dataset.budgetMin),
+            Number(card.dataset.budgetMax)
+          );
           const priority = card.dataset.priority || 'programable';
           const clientBadge = card.dataset.clientBadge || 'Cliente verificado';
           const paymentType = card.dataset.paymentType || 'A convenir';
