@@ -1029,12 +1029,18 @@ html.dark-theme .requests-sync-status[data-tone='error'] {
 }
 
 .chat-sync-status {
+  display: inline-flex;
+  align-items: center;
   width: fit-content;
   max-width: min(100%, 320px);
+  min-height: 0;
   padding: 8px 12px;
   border-radius: 12px;
   font-size: 0.84rem;
   line-height: 1.35;
+  align-self: start;
+  justify-self: start;
+  flex: 0 0 auto;
 }
 
 .button[disabled] {

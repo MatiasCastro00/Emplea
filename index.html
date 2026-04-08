@@ -5522,9 +5522,7 @@
             currentRemoteThreads = [];
             selectedThreadId = '';
             renderThreadList([], { useFallback: true, targetThreadId });
-            if (!silent) {
-              setStatusMessage(syncStatus, 'Inicia sesión para ver tus mensajes recibidos.', 'neutral');
-            }
+            setStatusMessage(syncStatus, '', 'neutral');
             renderInbox();
             syncSelectedThread();
             return;
@@ -5540,7 +5538,7 @@
           }
 
           if (!silent) {
-            setStatusMessage(syncStatus, 'Cargando mensajes recibidos...', 'neutral');
+            setStatusMessage(syncStatus, '', 'neutral');
           }
 
           try {
@@ -5575,9 +5573,7 @@
             if (requestIds.length === 0) {
               currentRemoteThreads = [];
               renderThreadList([], { targetThreadId });
-              if (!silent) {
-                setStatusMessage(syncStatus, 'Todavía no recibiste mensajes para tus solicitudes.', 'neutral');
-              }
+              setStatusMessage(syncStatus, '', 'neutral');
               renderInbox();
               syncSelectedThread();
               return;
@@ -5669,13 +5665,7 @@
 
             currentRemoteThreads = sortThreadsByDate(Array.from(groupedThreads.values()));
             renderThreadList(currentRemoteThreads, { targetThreadId });
-            if (!silent) {
-              setStatusMessage(
-                syncStatus,
-                currentRemoteThreads.length > 0 ? 'Mostrando mensajes reales de tu cuenta.' : 'Todavía no recibiste mensajes para tus solicitudes.',
-                currentRemoteThreads.length > 0 ? 'success' : 'neutral'
-              );
-            }
+            setStatusMessage(syncStatus, '', 'neutral');
             renderInbox();
             syncSelectedThread();
           } catch (error) {
@@ -5873,7 +5863,7 @@
 
           mobileComposerSendButton.disabled = true;
           desktopComposerSendButton.disabled = true;
-          setStatusMessage(syncStatus, 'Enviando mensaje...', 'neutral');
+          setStatusMessage(syncStatus, '', 'neutral');
 
           try {
             if (button.dataset.chatSource === 'remote') {
@@ -5884,7 +5874,7 @@
 
             mobileComposerInput.value = '';
             desktopComposerInput.value = '';
-            setStatusMessage(syncStatus, 'Mensaje enviado.', 'success');
+            setStatusMessage(syncStatus, '', 'neutral');
             openDetail(selectedThreadId);
           } catch (error) {
             setStatusMessage(syncStatus, `No pudimos enviar el mensaje: ${error.message}`, 'error');
