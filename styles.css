@@ -1636,6 +1636,16 @@ html.dark-theme .home-rating-pill {
   -webkit-overflow-scrolling: touch;
 }
 
+.filter-modal__header,
+.request-detail-header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  padding-top: 4px;
+  padding-bottom: 8px;
+  background: linear-gradient(180deg, var(--panel-bg) 78%, color-mix(in srgb, var(--panel-bg) 0%, transparent));
+}
+
 .professional-modal__panel {
   gap: 22px;
 }
@@ -2718,6 +2728,62 @@ html:not(.dark-theme) .screen-profile .profile-summary {
   margin-top: 16px;
 }
 
+.profile-activity-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.profile-activity-grid--modal {
+  grid-template-columns: 1fr;
+}
+
+.profile-activity-card {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 22px;
+  background: var(--surface-low);
+  box-shadow: var(--shadow);
+}
+
+.profile-activity-rows {
+  display: grid;
+  gap: 10px;
+}
+
+.profile-activity-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(164, 201, 255, 0.08);
+}
+
+.profile-activity-row > div {
+  display: grid;
+  gap: 4px;
+}
+
+.profile-activity-row strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.96rem;
+}
+
+.profile-activity-row span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.profile-activity-row__count {
+  min-width: 42px;
+  text-align: right;
+  color: var(--primary);
+}
+
 .profile-work-header {
   display: flex;
   align-items: center;
@@ -2735,6 +2801,25 @@ html:not(.dark-theme) .screen-profile .profile-summary {
   color: var(--muted);
   font-size: 0.82rem;
   font-weight: 600;
+}
+
+.profile-edit-visibility-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(164, 201, 255, 0.08);
+}
+
+.profile-edit-visibility-toggle span {
+  font-weight: 600;
+}
+
+.profile-edit-visibility-toggle input {
+  inline-size: 18px;
+  block-size: 18px;
 }
 
 .profile-work-grid {
@@ -2842,6 +2927,12 @@ html:not(.dark-theme) .screen-profile .profile-summary {
 
 .screen-profile .stats-row span {
   text-align: center;
+}
+
+@media (max-width: 860px) {
+  .profile-activity-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .requests-hero {
