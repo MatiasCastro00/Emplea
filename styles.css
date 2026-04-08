@@ -619,10 +619,12 @@ html.dark-theme .button-primary {
   background: var(--surface);
   color: var(--primary);
   border: 1px solid rgba(195, 198, 214, 0.5);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
 html.dark-theme .button-secondary {
   border-color: rgba(65, 71, 81, 0.3);
+  box-shadow: none;
 }
 
 .metric-card,
@@ -2766,6 +2768,7 @@ html:not(.dark-theme) .screen-profile .profile-summary {
   border-radius: 18px;
   background: rgba(164, 201, 255, 0.06);
   border: 1px solid rgba(164, 201, 255, 0.1);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
 }
 
 .profile-activity-row > div {
