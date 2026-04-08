@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ConectaPro</title>
+    <title>Emplea</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,10 +21,12 @@
       <aside class="desktop-sidebar" aria-label="Navegación principal de escritorio">
         <div class="desktop-sidebar__brand">
           <div class="desktop-sidebar__brand-mark">
-            <span class="material-symbols-outlined">hub</span>
+            <img class="theme-brand-asset theme-brand-asset--light" src="./assets/branding/emplea-icon-dark.png" alt="Emplea" />
+            <img class="theme-brand-asset theme-brand-asset--dark" src="./assets/branding/emplea-icon-light.png" alt="Emplea" />
           </div>
           <div class="desktop-sidebar__brand-copy">
-            <h1>ConectaPro</h1>
+            <img class="desktop-sidebar__wordmark theme-brand-asset theme-brand-asset--light" src="./assets/branding/emplea-wordmark-dark.png" alt="Emplea" />
+            <img class="desktop-sidebar__wordmark theme-brand-asset theme-brand-asset--dark" src="./assets/branding/emplea-wordmark-light.png" alt="Emplea" />
             <p>Marketplace</p>
           </div>
           <button
@@ -114,13 +116,11 @@
 
       <header class="topbar mobile-topbar">
         <div class="brand-group">
-          <img
-            class="brand-mark"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpQGs28I5QA92-t-vHjCl9PSeBnXmxSAsNSJnxi4vglHWw62K-E4eU6EhRybLZApfYuiWI2sjdobIKsnQMG9EwE3mepYxJ8oFdLW8MD5z3_-BPGxBXqHsyB9Ehd8G_lSyc2Rm5sALpiXjhF6jykgJatZ0BsAxf8AFw6nmk9nxylGrInSqj_TqJnENq8gIV1-QNAxYm_t0T5Oh9ylx51RCEft9sbxJ9d1_HwD1ZKJM6KcgeGpF2buSR2U3CIXlqugTyYr6mKAN-Gco"
-            alt="Alejandro Herrera"
-          />
+          <img class="brand-mark theme-brand-asset theme-brand-asset--light" src="./assets/branding/emplea-icon-dark.png" alt="Emplea" />
+          <img class="brand-mark theme-brand-asset theme-brand-asset--dark" src="./assets/branding/emplea-icon-light.png" alt="Emplea" />
           <div class="brand-text">
-            <h1>ConectaPro</h1>
+            <img class="mobile-wordmark theme-brand-asset theme-brand-asset--light" src="./assets/branding/emplea-wordmark-dark.png" alt="Emplea" />
+            <img class="mobile-wordmark theme-brand-asset theme-brand-asset--dark" src="./assets/branding/emplea-wordmark-light.png" alt="Emplea" />
             <p class="topbar-subtitle">Marketplace de oficios</p>
           </div>
         </div>
@@ -597,6 +597,7 @@
                   <span id="profile-page-badge" class="pill pill-amber">Verificado</span>
                 </div>
                 <p id="profile-page-title" class="role">Dise&ntilde;o de interiores y carpinter&iacute;a fina</p>
+                <p id="profile-page-location" class="profile-location" hidden>Palermo, CABA</p>
                 <p id="profile-page-description" class="description">
                   Perfil pensado para mostrar autoridad: trabajos publicados,
                   velocidad de respuesta, certificaciones y rese&ntilde;as con tono premium.
@@ -1533,7 +1534,7 @@
             </div>
 
             <div class="auth-modal__intro">
-              <p class="section-kicker">Cuenta ConectaPro</p>
+              <p class="section-kicker">Cuenta Emplea</p>
               <h4 id="auth-modal-heading">Accede para publicar, chatear y gestionar tus trabajos.</h4>
               <p id="auth-modal-copy">
                 Puedes entrar con email o continuar con Google.
@@ -1649,6 +1650,13 @@
                     <button type="button" class="profile-custom-select__option" data-profile-category-option="general">Otro</button>
                   </div>
                 </div>
+                <input
+                  id="profile-edit-category-custom"
+                  class="profile-edit-category-custom"
+                  type="text"
+                  placeholder="Escribe tu categoría"
+                  hidden
+                />
               </label>
               <label>
                 Especialidades
@@ -1661,6 +1669,10 @@
                   </div>
                   <div id="profile-edit-specialties-list" class="profile-specialty-editor__list"></div>
                 </div>
+              </label>
+              <label>
+                Ubicación (opcional)
+                <input id="profile-edit-location" type="text" placeholder="Ej. Palermo, CABA" />
               </label>
               <div class="profile-edit-upload-block">
                 <span class="profile-edit-upload-label">Imagen principal</span>
@@ -1679,6 +1691,7 @@
               <div class="profile-edit-upload-block">
                 <span class="profile-edit-upload-label">Imágenes del portafolio</span>
                 <input id="profile-edit-images-files" type="file" accept="image/*" multiple hidden />
+                <div id="profile-edit-gallery-fields" class="profile-edit-gallery-fields"></div>
                 <div id="profile-edit-gallery-grid" class="photo-grid">
                   <button id="profile-edit-images-trigger" class="photo-card placeholder photo-card-button" type="button">
                     <span class="material-symbols-outlined">add_photo_alternate</span>
@@ -1689,7 +1702,6 @@
                     <span>0/5</span>
                   </div>
                 </div>
-                <div id="profile-edit-gallery-fields" class="profile-edit-gallery-fields"></div>
               </div>
               <input id="profile-edit-avatar" type="hidden" />
               <label>
@@ -1768,10 +1780,7 @@
       };
       const defaultUserAvatar = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDCLvKIfWDWrDiu5zCx40vXT8MhSvoJPG0XLzL19otSyHw05-t-6I-8S-zG_AAJMrVRFdXmZWaeucU9I2SYGU9V8-AuA9tDcQV0b9IskyYHxHz73PoVkWhIrmg3vU06Qovw6o4DgF19QxFXnaF2FYSyypVm9XWV-rkbkvYSkVo3SIA7JDN_zop5pOlEcO0HBmw_9oxa4yzE_nNefClMFH6_LOvtaZcX34RoLDc3L5O-Wnb-KiDO4AtXHnjUaFTTDfcs9DploQZNY4g';
         const requestCardFallbackImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuBA86igS3vaH05Ge8bVgcagc_dtitQXQ5muN1Rq8-tzJSJnK4Os5uTTrNkkUZfX_rq34YcK7QMNh-T28ooQdkmMNOXWNwh-Ny_LCnkmohL1_J90hMYFUIv2ZvM5nnLS15AQ6kZl0CiWb2ADcXX5qmsk4k8A_lr-LkAzi-wH54UIfA1Hbm9j9faghXiWhepT9ltL0cUvA5rCMuFlXGjEOC0mOByltZBDGvEfIa4AB2gJveZ_7Izo4XygNtxeZnDn7X7590sBOEs7pCo';
-      const defaultPortfolioImages = [
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuBOgnH7nP0E7o9tDgxdME75pDh5_XaSHuSWPdef9uRJI6FSe1j-ElmGf5kg1Ubb0iRon83NfLrtHgRRcWJpVDOLGhY6TDRGddCzZ3BdtQtYfKoN_HkBPfoqJQG1epnAz6tAxkWvm2wCMIT_xruEYWm0vv5s-tIc5hZmVgl2zq8qe3wEl3pm7RTX4zVNm5i9z4Eb68wuArgDHSMHJH69V9_As0CI_v6awu6mpPjni0PSbgkgzX1fziBxuDlZKglp8oGowG8Y-VqFlGQ',
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuDJu99KUslL47G5xuCyKli5wyOLeKiYIrktvkF7HkZdM2-wLWtLCVdYkiY43RX46F3u_gu6SQ6LghTvL-VaL4bs-TyJPjk69XGOFpVF9DktK6bp3WVioIHng7zzsdgJLg064fiuFVHzpQgIFHD9c7xOSktG8Wle51t7lXIJzXY9PnhMCJdPLdp6mrOyZAOdBfdCitiRr3fqmwTiPg_EoyEIezYCYMskqSoEhrvmTQ68YVjHgXWz1zS8_k-vN2DvC2bnF-UZAQwqp0w',
-      ];
+      const defaultPortfolioImages = [];
       const profileCategoryOptions = [
         { value: 'plomeria', label: 'Plomería' },
         { value: 'electricidad', label: 'Electricidad' },
@@ -1785,6 +1794,7 @@
       ];
       let refreshRequestCards = null;
       let refreshChatInbox = null;
+      let refreshExploreProfiles = null;
       let currentAuthSession = null;
       let currentAuthProfile = null;
       let currentDisplayName = 'Invitado';
@@ -1980,6 +1990,7 @@
           src,
           title: index === 0 ? 'Trabajo destacado' : `Trabajo ${index + 1}`,
           category: 'general',
+          categoryCustom: '',
         };
       }
 
@@ -2002,6 +2013,7 @@
               src: String(item.src).trim(),
               title: String(item.title || (index === 0 ? 'Trabajo destacado' : `Trabajo ${index + 1}`)).trim(),
               category: String(item.category || 'general').trim() || 'general',
+              categoryCustom: String(item.categoryCustom || '').trim(),
             };
           })
           .filter(Boolean);
@@ -2011,6 +2023,8 @@
         return {
           title: 'Profesional verificado',
           category: 'general',
+          categoryCustom: '',
+          location: '',
           specialties: ['Atención profesional', 'Seguimiento', 'Presupuesto claro'],
           description: 'Completa tu perfil para mostrar experiencia, estilo de trabajo y tipo de proyectos que mejor resuelves.',
           avatarUrl,
@@ -2070,7 +2084,11 @@
           badge: profile?.verified ? 'Verificado' : 'Activo',
           title: extras.title,
           category: extras.category || 'general',
-          categoryLabel: formatRequestCategory(extras.category || 'general'),
+          categoryCustom: extras.categoryCustom || '',
+          categoryLabel: (extras.category || 'general') === 'general' && (extras.categoryCustom || '').trim()
+            ? extras.categoryCustom.trim()
+            : formatRequestCategory(extras.category || 'general'),
+          location: extras.location || '',
           description: extras.description || profile?.bio || '',
           specialties: extras.specialties,
           portfolioImages: extras.portfolioImages,
@@ -2087,6 +2105,7 @@
         const profileName = document.getElementById('profile-page-name');
         const profileBadge = document.getElementById('profile-page-badge');
         const profileTitle = document.getElementById('profile-page-title');
+        const profileLocation = document.getElementById('profile-page-location');
         const profileDescription = document.getElementById('profile-page-description');
         const profileSpecialties = document.getElementById('profile-page-specialties');
         const profileYears = document.getElementById('profile-page-years');
@@ -2101,6 +2120,7 @@
           !profileName ||
           !profileBadge ||
           !profileTitle ||
+          !profileLocation ||
           !profileDescription ||
           !profileSpecialties ||
           !profileYears ||
@@ -2119,6 +2139,8 @@
         profileName.textContent = viewModel.displayName;
         profileBadge.textContent = viewModel.badge;
         profileTitle.textContent = `${viewModel.title} · ${viewModel.categoryLabel}`;
+        profileLocation.hidden = !viewModel.location;
+        profileLocation.textContent = viewModel.location || '';
         profileDescription.textContent = viewModel.description;
         profileYears.textContent = viewModel.years;
         profileProjects.textContent = viewModel.projects;
@@ -2304,6 +2326,9 @@
         if (typeof refreshChatInbox === 'function') {
           refreshChatInbox();
         }
+        if (typeof refreshExploreProfiles === 'function') {
+          refreshExploreProfiles();
+        }
       }
 
       async function ensureProfileForUser(user, fallbackName = '') {
@@ -2464,11 +2489,10 @@
         const searchInput = exploreSection.querySelector('.search-input input');
         const openFiltersButton = exploreSection.querySelector('.filter-button');
         const quickCategoryButtons = Array.from(exploreSection.querySelectorAll('.quick-filter-card'));
-        const cards = Array.from(exploreSection.querySelectorAll('.pro-card'));
+        const resultsGrid = exploreSection.querySelector('.pro-grid');
         const filtersModal = document.getElementById('explore-filters-modal');
         const professionalProfileModal = document.getElementById('professional-profile-modal');
         const modalCategoryButtons = Array.from(document.querySelectorAll('.filter-category-card'));
-        const profileOpenButtons = Array.from(exploreSection.querySelectorAll('[data-open-professional-profile="true"]'));
         const budgetMinInput = document.getElementById('budget-min');
         const budgetMaxInput = document.getElementById('budget-max');
         const budgetLabel = document.getElementById('budget-label');
@@ -2494,9 +2518,14 @@
         const professionalModalSummary = document.getElementById('professional-modal-summary');
         const professionalModalReviews = document.getElementById('professional-modal-reviews');
         const professionalModalReviewsCount = document.getElementById('professional-modal-reviews-count');
+        const ownedProfileCardId = 'explore-owned-profile-card';
 
-        if (!searchInput || quickCategoryButtons.length === 0 || cards.length === 0) {
+        if (!searchInput || quickCategoryButtons.length === 0 || !resultsGrid) {
           return;
+        }
+
+        function getCards() {
+          return Array.from(resultsGrid.querySelectorAll('.pro-card'));
         }
 
         const categoryLabels = {
@@ -2713,7 +2742,7 @@
         let filterState = { ...defaultFilterState };
         let draftFilterState = { ...filterState };
 
-        cards.forEach((card, index) => {
+        function hydrateExploreCard(card, index = 0) {
           const title = card.querySelector('h4')?.textContent || '';
           const role = card.querySelector('.role')?.textContent || '';
           const description = card.querySelector('.description')?.textContent || '';
@@ -2730,6 +2759,10 @@
           card.dataset.budget = card.dataset.budget || String(fallbackBudget);
           card.dataset.rating = card.dataset.rating || String(fallbackRating);
           card.dataset.distance = card.dataset.distance || String(fallbackDistance);
+        }
+
+        getCards().forEach((card, index) => {
+          hydrateExploreCard(card, index);
         });
 
         let emptyState = exploreSection.querySelector('.explore-empty-state');
@@ -2738,10 +2771,74 @@
           emptyState.className = 'explore-empty-state';
           emptyState.hidden = true;
           emptyState.textContent = 'No encontramos profesionales con esos filtros.';
-          const resultsGrid = exploreSection.querySelector('.pro-grid');
-          if (resultsGrid) {
-            resultsGrid.insertAdjacentElement('afterend', emptyState);
+          resultsGrid.insertAdjacentElement('afterend', emptyState);
+        }
+
+        function buildOwnedProfileCardMarkup(viewModel) {
+          const badgeLabel = viewModel.badge === 'Verificado' ? 'Mi perfil' : 'Activo';
+          const categoryValue = viewModel.category || 'general';
+          const categoryLabel = viewModel.categoryLabel || formatRequestCategory(categoryValue);
+          const projectCount = Number.parseInt(String(viewModel.projects || '0').replace(/[^\d]/g, ''), 10);
+          const jobsLabel = Number.isFinite(projectCount) && projectCount > 0 ? `${projectCount} trabajos` : 'Nuevo perfil';
+          const ratingLabel = viewModel.rating || '5.0';
+          const description = viewModel.description || 'Completá tu perfil para aparecer frente a clientes que buscan este servicio.';
+
+          return `
+            <article
+              id="${ownedProfileCardId}"
+              class="pro-card"
+              data-category="${escapeHtml(categoryValue)}"
+              data-budget="200"
+              data-rating="${escapeHtml(ratingLabel)}"
+              data-distance="1"
+              data-owned-profile="true"
+            >
+              <img src="${escapeHtml(viewModel.avatarUrl || defaultUserAvatar)}" alt="Tu perfil profesional" />
+              <div class="pro-body">
+                <div class="pro-meta">
+                  <span class="pill pill-amber">${escapeHtml(badgeLabel)}</span>
+                  <span class="rating">${escapeHtml(ratingLabel)}</span>
+                </div>
+                <h4>${escapeHtml(viewModel.displayName)}</h4>
+                <p class="role">${escapeHtml(viewModel.title)}</p>
+                <p class="description">${escapeHtml(description)}</p>
+                <div class="pro-footer">
+                  <span>${escapeHtml(jobsLabel)}</span>
+                  <button class="pro-profile-link" type="button" data-open-professional-profile="true">
+                    Ver perfil
+                  </button>
+                </div>
+              </div>
+            </article>
+          `;
+        }
+
+        function syncOwnedProfileCard() {
+          const existingCard = document.getElementById(ownedProfileCardId);
+
+          if (!isAuthenticatedUser()) {
+            existingCard?.remove();
+            renderExploreFilters();
+            return;
           }
+
+          const viewModel = getCurrentProfileViewModel();
+          if (existingCard) {
+            existingCard.outerHTML = buildOwnedProfileCardMarkup(viewModel);
+          } else {
+            resultsGrid.insertAdjacentHTML('afterbegin', buildOwnedProfileCardMarkup(viewModel));
+          }
+
+          const refreshedCard = document.getElementById(ownedProfileCardId);
+          if (refreshedCard) {
+            hydrateExploreCard(refreshedCard, 0);
+          }
+
+          getCards().forEach((card, index) => {
+            hydrateExploreCard(card, index);
+          });
+
+          renderExploreFilters();
         }
 
         function syncBudgetUI() {
@@ -2930,6 +3027,7 @@
         function renderExploreFilters() {
           const query = normalizeText(searchInput.value);
           let visibleCount = 0;
+          const cards = getCards();
 
           cards.forEach((card) => {
             const matchesCategory = filterState.category === 'all' || card.dataset.category === filterState.category;
@@ -2948,20 +3046,29 @@
 
         quickCategoryButtons.forEach((button) => {
           const activateQuickFilter = () => {
-            filterState.category = button.dataset.category || defaultFilterState.category;
+            const nextCategory = button.dataset.category || defaultFilterState.category;
+            filterState.category = filterState.category === nextCategory ? 'all' : nextCategory;
             renderExploreFilters();
           };
 
           button.addEventListener('click', activateQuickFilter);
         });
 
-        profileOpenButtons.forEach((button) => {
-          button.addEventListener('click', () => {
-            const card = button.closest('.pro-card');
-            if (card) {
-              openProfessionalProfile(card);
-            }
-          });
+        resultsGrid.addEventListener('click', (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLElement)) {
+            return;
+          }
+
+          const button = target.closest('[data-open-professional-profile="true"]');
+          if (!(button instanceof HTMLButtonElement)) {
+            return;
+          }
+
+          const card = button.closest('.pro-card');
+          if (card) {
+            openProfessionalProfile(card);
+          }
         });
 
         searchInput.addEventListener('input', renderExploreFilters);
@@ -3039,6 +3146,8 @@
           }
         });
 
+        refreshExploreProfiles = syncOwnedProfileCard;
+        syncOwnedProfileCard();
         renderExploreFilters();
       }
 
@@ -3704,11 +3813,13 @@
         const titleInput = document.getElementById('profile-edit-title');
         const categoryInput = document.getElementById('profile-edit-category');
         const categoryLabel = document.getElementById('profile-edit-category-label');
+        const categoryCustomInput = document.getElementById('profile-edit-category-custom');
         const categoryTrigger = document.getElementById('profile-edit-category-trigger');
         const categoryMenu = document.getElementById('profile-edit-category-menu');
         const specialtiesInput = document.getElementById('profile-edit-specialties');
         const specialtiesAddButton = document.getElementById('profile-edit-specialties-add');
         const specialtiesList = document.getElementById('profile-edit-specialties-list');
+        const locationInput = document.getElementById('profile-edit-location');
         const avatarInput = document.getElementById('profile-edit-avatar');
         const avatarFileInput = document.getElementById('profile-edit-avatar-file');
         const avatarTrigger = document.getElementById('profile-edit-avatar-trigger');
@@ -3730,11 +3841,13 @@
           !titleInput ||
           !categoryInput ||
           !categoryLabel ||
+          !categoryCustomInput ||
           !categoryTrigger ||
           !categoryMenu ||
           !specialtiesInput ||
           !specialtiesAddButton ||
           !specialtiesList ||
+          !locationInput ||
           !avatarInput ||
           !avatarFileInput ||
           !avatarTrigger ||
@@ -3759,10 +3872,26 @@
           return profileCategoryOptions.find((option) => option.value === value)?.label || 'Otro';
         }
 
+        function getResolvedCategoryLabel(category, categoryCustom = '') {
+          if (category === 'general' && categoryCustom.trim()) {
+            return categoryCustom.trim();
+          }
+
+          return getCategoryLabel(category);
+        }
+
         function syncMainCategoryOptions() {
           categoryMenu.querySelectorAll('[data-profile-category-option]').forEach((option) => {
             option.classList.toggle('is-selected', option.dataset.profileCategoryOption === categoryInput.value);
           });
+        }
+
+        function syncCustomCategoryVisibility() {
+          const shouldShow = categoryInput.value === 'general';
+          categoryCustomInput.hidden = !shouldShow;
+          if (!shouldShow) {
+            categoryCustomInput.value = '';
+          }
         }
 
         function renderSpecialties() {
@@ -3847,21 +3976,6 @@
         }
 
         function renderPortfolioPreviews() {
-          galleryGrid.querySelectorAll('.photo-card.filled[data-profile-upload-preview="true"]').forEach((element) => {
-            element.remove();
-          });
-
-          selectedPortfolioImages.forEach((imageItem, index) => {
-            imagesTrigger.insertAdjacentHTML(
-              'beforebegin',
-              `
-                <div class="photo-card filled" data-profile-upload-preview="true">
-                  <img src="${escapeHtml(imageItem.src)}" alt="Imagen de portafolio ${index + 1}" />
-                </div>
-              `
-            );
-          });
-
           syncPortfolioCounter();
         }
 
@@ -3870,9 +3984,12 @@
             .map((imageItem, index) => {
               return `
                 <div class="profile-edit-gallery-item">
+                  <div class="profile-edit-gallery-item__image">
+                    <img src="${escapeHtml(imageItem.src)}" alt="Imagen de portafolio ${index + 1}" />
+                  </div>
                   <strong>Imagen ${index + 1}</strong>
                   <label>
-                    Texto de la imagen
+                    Descripción
                     <input
                       type="text"
                       value="${escapeHtml(imageItem.title || '')}"
@@ -3891,7 +4008,7 @@
                         aria-haspopup="listbox"
                         aria-expanded="false"
                       >
-                        <span>${escapeHtml(getCategoryLabel(imageItem.category || 'general'))}</span>
+                        <span>${escapeHtml(getResolvedCategoryLabel(imageItem.category || 'general', imageItem.categoryCustom || ''))}</span>
                         <span class="material-symbols-outlined">expand_more</span>
                       </button>
                       <div
@@ -3915,6 +4032,14 @@
                       </div>
                     </div>
                   </label>
+                  <input
+                    type="text"
+                    class="profile-edit-category-custom"
+                    data-profile-gallery-category-custom="${index}"
+                    placeholder="Escribe esta categoría"
+                    value="${escapeHtml(imageItem.categoryCustom || '')}"
+                    ${imageItem.category === 'general' ? '' : 'hidden'}
+                  />
                 </div>
               `;
             })
@@ -3931,11 +4056,14 @@
           nameInput.value = viewModel.displayName;
           titleInput.value = viewModel.title;
           categoryInput.value = viewModel.category || 'general';
-          categoryLabel.textContent = getCategoryLabel(categoryInput.value);
+          categoryCustomInput.value = viewModel.categoryCustom || '';
+          categoryLabel.textContent = getResolvedCategoryLabel(categoryInput.value, categoryCustomInput.value);
           syncMainCategoryOptions();
+          syncCustomCategoryVisibility();
           specialtiesInput.value = '';
           selectedSpecialties = Array.isArray(viewModel.specialties) ? [...viewModel.specialties] : [];
           renderSpecialties();
+          locationInput.value = viewModel.location || '';
           selectedAvatarImage = viewModel.avatarUrl || '';
           avatarInput.value = selectedAvatarImage;
           selectedPortfolioImages = Array.isArray(viewModel.portfolioImages)
@@ -3976,6 +4104,12 @@
           toggleProfileSelectMenu(categoryTrigger, categoryMenu);
         });
 
+        categoryCustomInput.addEventListener('input', () => {
+          if (categoryInput.value === 'general') {
+            categoryLabel.textContent = getResolvedCategoryLabel(categoryInput.value, categoryCustomInput.value);
+          }
+        });
+
         imagesTrigger.addEventListener('click', () => {
           imagesFileInput.click();
         });
@@ -4008,6 +4142,7 @@
                 src: await fileToDataUrl(file),
                 title: file.name.replace(/\.[^.]+$/, '') || `Trabajo ${index + 1}`,
                 category: 'general',
+                categoryCustom: '',
               }))
             );
             selectedPortfolioImages = uploadedImages.slice(0, 5);
@@ -4031,13 +4166,24 @@
             return;
           }
 
-          const index = Number(target.dataset.profileGalleryTitle);
-          if (!Number.isFinite(index) || !selectedPortfolioImages[index]) {
+          if (target.dataset.profileGalleryTitle !== undefined) {
+            const index = Number(target.dataset.profileGalleryTitle);
+            if (!Number.isFinite(index) || !selectedPortfolioImages[index]) {
+              return;
+            }
+
+            selectedPortfolioImages[index].title = target.value.trim();
             return;
           }
 
-          selectedPortfolioImages[index].title = target.value.trim();
-          renderPortfolioPreviews();
+          if (target.dataset.profileGalleryCategoryCustom !== undefined) {
+            const index = Number(target.dataset.profileGalleryCategoryCustom);
+            if (!Number.isFinite(index) || !selectedPortfolioImages[index]) {
+              return;
+            }
+
+            selectedPortfolioImages[index].categoryCustom = target.value.trim();
+          }
         });
 
         specialtiesList.addEventListener('click', (event) => {
@@ -4101,6 +4247,9 @@
             const index = Number(galleryOption.dataset.profileGalleryCategoryOption);
             if (Number.isFinite(index) && selectedPortfolioImages[index]) {
               selectedPortfolioImages[index].category = galleryOption.dataset.categoryValue || 'general';
+              if (selectedPortfolioImages[index].category !== 'general') {
+                selectedPortfolioImages[index].categoryCustom = '';
+              }
               renderPortfolioFields();
             }
           }
@@ -4118,7 +4267,8 @@
           }
 
           categoryInput.value = option.dataset.profileCategoryOption || 'general';
-          categoryLabel.textContent = getCategoryLabel(categoryInput.value);
+          syncCustomCategoryVisibility();
+          categoryLabel.textContent = getResolvedCategoryLabel(categoryInput.value, categoryCustomInput.value);
           syncMainCategoryOptions();
           closeAllProfileSelectMenus();
         });
@@ -4167,6 +4317,8 @@
           const fullName = nameInput.value.trim() || currentDisplayName;
           const title = titleInput.value.trim() || 'Profesional verificado';
           const category = categoryInput.value || 'general';
+          const categoryCustom = category === 'general' ? categoryCustomInput.value.trim() : '';
+          const location = locationInput.value.trim();
           const avatarUrl = selectedAvatarImage || avatarInput.value.trim() || getUserAvatar(currentAuthSession?.user, currentAuthProfile);
           const description = descriptionInput.value.trim();
           const specialties = selectedSpecialties.filter(Boolean);
@@ -4176,6 +4328,7 @@
               src: item.src,
               title: item.title || (index === 0 ? 'Trabajo destacado' : `Trabajo ${index + 1}`),
               category: item.category || 'general',
+              categoryCustom: item.category === 'general' ? (item.categoryCustom || '') : '',
             }));
 
           submitButton.disabled = true;
@@ -4211,6 +4364,8 @@
               ...previous,
               title,
               category,
+              categoryCustom,
+              location,
               description,
               avatarUrl,
               specialties: specialties.length > 0 ? specialties : previous.specialties,

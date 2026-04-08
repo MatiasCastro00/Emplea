@@ -1,4 +1,4 @@
-# ConectaPro + Supabase
+# Emplea + Supabase
 
 ## 1. Configuracion del cliente
 

@@ -202,25 +202,14 @@ html.dark-theme .desktop-sidebar__reveal {
   width: 48px;
   height: 48px;
   border-radius: 16px;
-  background: linear-gradient(180deg, var(--primary-strong), var(--primary));
-  color: #fff;
-  box-shadow: 0 16px 36px rgba(0, 64, 161, 0.24);
-}
-
-.desktop-sidebar__brand-mark .material-symbols-outlined {
-  font-size: 1.5rem;
+  background: rgba(255, 255, 255, 0.66);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
 }
 
 .desktop-sidebar__brand-copy h1,
 .desktop-sidebar__brand-copy p {
   margin: 0;
-}
-
-.desktop-sidebar__brand-copy h1 {
-  font-family: 'Manrope', sans-serif;
-  font-size: 1.75rem;
-  color: var(--primary);
-  line-height: 1;
 }
 
 .desktop-sidebar__brand-copy p {
@@ -230,6 +219,33 @@ html.dark-theme .desktop-sidebar__reveal {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+.theme-brand-asset--dark {
+  display: none;
+}
+
+html.dark-theme .theme-brand-asset--light {
+  display: none;
+}
+
+html.dark-theme .theme-brand-asset--dark {
+  display: block;
+}
+
+.theme-brand-asset {
+  max-width: 100%;
+}
+
+.desktop-sidebar__brand-mark .theme-brand-asset {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.desktop-sidebar__wordmark {
+  width: min(188px, 100%);
+  height: auto;
 }
 
 .desktop-sidebar__nav {
@@ -380,10 +396,9 @@ html.dark-theme .topbar {
 .brand-mark {
   width: clamp(28px, 7.4vw, 36px);
   height: clamp(28px, 7.4vw, 36px);
-  border-radius: clamp(10px, 2.6vw, 12px);
-  object-fit: cover;
-  box-shadow: 0 8px 20px rgba(6, 14, 32, 0.22);
-  border: 1px solid rgba(164, 201, 255, 0.2);
+  object-fit: contain;
+  box-shadow: none;
+  border: 0;
 }
 
 .eyebrow,
@@ -412,6 +427,11 @@ html.dark-theme .topbar {
   font-size: clamp(1.15rem, 6.2vw, 2rem);
   line-height: 1;
   letter-spacing: -0.03em;
+}
+
+.mobile-wordmark {
+  width: clamp(106px, 28vw, 150px);
+  height: auto;
 }
 
 .brand-group h1,
@@ -1670,19 +1690,31 @@ html.dark-theme .home-rating-pill {
 }
 
 .create-request-modal__title-primary {
-  color: #f8fafc;
+  color: #23324d;
 }
 
 .create-request-modal__title-accent {
-  color: #7dd3fc;
+  color: #4faef5;
 }
 
 .create-request-modal__subtitle {
   margin: 0;
   max-width: 38rem;
-  color: rgba(226, 232, 240, 0.78);
+  color: rgba(58, 76, 108, 0.86);
   font-size: 1rem;
   line-height: 1.6;
+}
+
+html.dark-theme .create-request-modal__title-primary {
+  color: #f8fafc;
+}
+
+html.dark-theme .create-request-modal__title-accent {
+  color: #7dd3fc;
+}
+
+html.dark-theme .create-request-modal__subtitle {
+  color: rgba(226, 232, 240, 0.78);
 }
 
 .create-request-modal .section-heading {
@@ -1944,6 +1976,17 @@ html.dark-theme .auth-form textarea {
   color: var(--muted);
 }
 
+.profile-edit-category-custom {
+  margin-top: 10px;
+}
+
+.profile-location {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
 .profile-specialty-editor {
   display: grid;
   gap: 10px;
@@ -2092,6 +2135,20 @@ html.dark-theme .profile-custom-select__trigger {
   color: var(--text);
   font-family: 'Manrope', sans-serif;
   font-size: 0.98rem;
+}
+
+.profile-edit-gallery-item__image {
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--surface);
+  min-height: 184px;
+}
+
+.profile-edit-gallery-item__image img {
+  width: 100%;
+  height: 184px;
+  object-fit: cover;
+  display: block;
 }
 
 .profile-work-section > .form-feedback {
