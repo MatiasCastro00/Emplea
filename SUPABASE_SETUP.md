@@ -36,16 +36,67 @@ En `Storage` crea un bucket llamado `request-images`.
 Configuracion recomendada para el MVP:
 - Public bucket: `true`
 
-## 4. Probar el flujo
+## 4. Configurar autenticacion
+
+La UI ahora soporta:
+- registro con email y contraseña
+- login con email y contraseña
+- login social con Google
+- login social con Facebook
+- login social con LinkedIn
+
+### 4.1 URL Configuration
+
+En `Authentication > URL Configuration` configura:
+- `Site URL`: tu URL local o la URL publica de Netlify
+- `Redirect URLs`: agrega al menos:
+  - `http://127.0.0.1:5500`
+  - `http://localhost:5500`
+  - tu dominio de Netlify
+
+Si pruebas con otra URL local o preview, agregala tambien.
+
+### 4.2 Email
+
+En `Authentication > Providers > Email`:
+- habilita `Email`
+
+### 4.3 Google
+
+En `Authentication > Providers > Google`:
+- habilita `Google`
+- crea las credenciales OAuth en Google Cloud
+- copia en Google el callback que te muestra Supabase en esa misma pantalla
+- pega en Supabase el `Client ID` y `Client Secret`
+
+### 4.4 Facebook
+
+En `Authentication > Providers > Facebook`:
+- habilita `Facebook`
+- crea una app en Meta for Developers
+- copia en Meta el callback que te muestra Supabase
+- pega en Supabase el `App ID` y `App Secret`
+
+### 4.5 LinkedIn
+
+En `Authentication > Providers > LinkedIn (OIDC)`:
+- habilita `LinkedIn`
+- crea una app en LinkedIn Developer
+- usa el callback que te muestra Supabase
+- pega en Supabase el `Client ID` y `Client Secret`
+
+## 5. Probar el flujo
 
 1. Abre la pagina.
-2. Ve a `Crear solicitud`.
-3. Completa el formulario.
-4. Envia la solicitud.
-5. Verifica en `Table Editor > service_requests` que el registro exista.
-6. Vuelve a `Solicitudes` y confirma que aparezca en la grilla.
+2. Prueba `Ingresar` o `Registrarme`.
+3. Valida email/password o login social.
+4. Ve a `Crear solicitud`.
+5. Completa el formulario.
+6. Envia la solicitud.
+7. Verifica en `Table Editor > service_requests` que el registro exista.
+8. Vuelve a `Solicitudes` y confirma que aparezca en la grilla.
 
-## 5. Siguiente paso recomendado
+## 6. Siguiente paso recomendado
 
 Cuando este flujo quede validado, seguimos con:
 - autenticacion de clientes y profesionales

@@ -325,6 +325,13 @@ html.dark-theme .desktop-sidebar__reveal {
   border: 2px solid rgba(164, 201, 255, 0.32);
 }
 
+.auth-open-button,
+.auth-signout-button {
+  min-height: 42px;
+  padding-inline: 16px;
+  white-space: nowrap;
+}
+
 .topbar {
   position: sticky;
   top: 0;
@@ -1676,6 +1683,176 @@ html.dark-theme .home-rating-pill {
 
 .create-request-modal.screen-create .helper-card p {
   color: rgba(226, 232, 240, 0.78);
+}
+
+.auth-modal__panel {
+  gap: 22px;
+  background:
+    radial-gradient(circle at top right, rgba(164, 201, 255, 0.22), transparent 28%),
+    linear-gradient(180deg, rgba(245, 248, 255, 0.98), rgba(235, 241, 252, 0.98));
+}
+
+html.dark-theme .auth-modal__panel {
+  background:
+    radial-gradient(circle at top right, rgba(96, 165, 250, 0.16), transparent 26%),
+    linear-gradient(180deg, rgba(11, 19, 35, 0.98), rgba(15, 23, 48, 0.98));
+}
+
+.auth-modal__header {
+  align-items: flex-start;
+}
+
+.auth-modal__intro {
+  display: grid;
+  gap: 10px;
+}
+
+.auth-modal__intro h4 {
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.75rem, 5vw, 2.4rem);
+  line-height: 1.05;
+}
+
+.auth-modal__intro p:last-child {
+  margin: 0;
+  color: var(--panel-muted);
+  max-width: 48ch;
+}
+
+.auth-mode-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 6px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(164, 201, 255, 0.26);
+}
+
+html.dark-theme .auth-mode-switch {
+  background: rgba(19, 28, 48, 0.84);
+  border-color: rgba(96, 165, 250, 0.16);
+}
+
+.auth-mode-switch__button {
+  min-height: 46px;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--text);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.auth-mode-switch__button.is-active {
+  background: linear-gradient(180deg, rgba(0, 64, 161, 0.12), rgba(72, 114, 219, 0.18));
+  color: var(--primary);
+}
+
+html.dark-theme .auth-mode-switch__button.is-active {
+  background: linear-gradient(180deg, rgba(96, 165, 250, 0.18), rgba(96, 165, 250, 0.1));
+  color: #d7e7ff;
+}
+
+.auth-social-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.auth-social-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 18px;
+  border: 1px solid rgba(195, 198, 214, 0.5);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.auth-social-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(25, 28, 29, 0.08);
+  border-color: rgba(0, 64, 161, 0.18);
+}
+
+.auth-social-button--facebook {
+  background: linear-gradient(180deg, rgba(229, 239, 255, 0.96), rgba(240, 245, 255, 0.96));
+}
+
+.auth-social-button--linkedin {
+  background: linear-gradient(180deg, rgba(232, 245, 255, 0.96), rgba(240, 249, 255, 0.96));
+}
+
+html.dark-theme .auth-social-button {
+  background: rgba(16, 24, 40, 0.88);
+  border-color: rgba(96, 165, 250, 0.12);
+  color: #e5eefc;
+}
+
+html.dark-theme .auth-social-button:hover {
+  box-shadow: 0 14px 30px rgba(2, 8, 23, 0.36);
+  border-color: rgba(96, 165, 250, 0.26);
+}
+
+html.dark-theme .auth-social-button--facebook,
+html.dark-theme .auth-social-button--linkedin {
+  background: rgba(13, 27, 47, 0.92);
+}
+
+.auth-divider {
+  position: relative;
+  display: grid;
+  place-items: center;
+  color: var(--panel-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.auth-divider::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  border-top: 1px solid rgba(164, 201, 255, 0.2);
+}
+
+.auth-divider span {
+  position: relative;
+  padding-inline: 12px;
+  background: inherit;
+}
+
+.auth-form {
+  display: grid;
+  gap: 14px;
+}
+
+.auth-form label {
+  display: grid;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 15px 16px;
+  border: 0;
+  border-radius: 16px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text);
+}
+
+html.dark-theme .auth-form input {
+  background: rgba(20, 28, 46, 0.92);
 }
 
 .professional-profile-card {

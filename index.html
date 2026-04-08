@@ -91,12 +91,19 @@
           >
             <span class="material-symbols-outlined">dark_mode</span>
           </button>
-          <div class="desktop-user-chip">
+          <button id="auth-open-desktop" class="button button-secondary auth-open-button" type="button">
+            Ingresar
+          </button>
+          <button id="auth-signout-desktop" class="button button-secondary auth-signout-button" type="button" hidden>
+            Cerrar sesión
+          </button>
+          <div id="desktop-user-chip" class="desktop-user-chip" hidden>
             <div class="desktop-user-chip__copy">
-              <strong>Alex Rivera</strong>
-              <span>Cuenta verificada</span>
+              <strong id="desktop-user-name">Alex Rivera</strong>
+              <span id="desktop-user-status">Cuenta verificada</span>
             </div>
             <img
+              id="desktop-user-avatar"
               class="desktop-user-chip__avatar"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCLvKIfWDWrDiu5zCx40vXT8MhSvoJPG0XLzL19otSyHw05-t-6I-8S-zG_AAJMrVRFdXmZWaeucU9I2SYGU9V8-AuA9tDcQV0b9IskyYHxHz73PoVkWhIrmg3vU06Qovw6o4DgF19QxFXnaF2FYSyypVm9XWV-rkbkvYSkVo3SIA7JDN_zop5pOlEcO0HBmw_9oxa4yzE_nNefClMFH6_LOvtaZcX34RoLDc3L5O-Wnb-KiDO4AtXHnjUaFTTDfcs9DploQZNY4g"
               alt="Alex Rivera"
@@ -131,6 +138,12 @@
           >
             <span class="material-symbols-outlined">dark_mode</span>
           </button>
+          <button id="auth-open-mobile" class="topbar-icon-button" type="button" aria-label="Ingresar o registrarse">
+            <span class="material-symbols-outlined">login</span>
+          </button>
+          <button id="auth-signout-mobile" class="topbar-icon-button" type="button" aria-label="Cerrar sesión" hidden>
+            <span class="material-symbols-outlined">logout</span>
+          </button>
         </div>
       </header>
 
@@ -140,7 +153,7 @@
             <header class="home-welcome">
               <div class="home-copy">
                 <p class="home-greeting">Buenos días,</p>
-                <h2>Alex Rivera</h2>
+                <h2 id="home-user-name">Invitado</h2>
               </div>
               <div class="home-search">
                 <span class="material-symbols-outlined">search</span>
@@ -893,7 +906,7 @@
             <form class="card form-card" id="create-request-form">
               <label>
                 Tu nombre
-                <input id="requester-name" name="requesterName" type="text" placeholder="Ej. Alex Rivera" value="Alex Rivera" required />
+                <input id="requester-name" name="requesterName" type="text" placeholder="Ej. Alex Rivera" required />
               </label>
               <label>
                 Oficio
@@ -975,7 +988,7 @@
             <div id="chat-inbox-view" class="chat-view">
               <div class="chat-inbox-header">
                 <div class="chat-title-row">
-                  <div class="chat-avatar current-user">AR</div>
+                  <div id="chat-current-user-avatar" class="chat-avatar current-user">AR</div>
                   <div>
                     <p class="section-kicker">Mensajes</p>
                     <h3>Tu bandeja de entrada</h3>
@@ -1497,6 +1510,79 @@
             </div>
           </section>
         </div>
+
+        <div id="auth-modal" class="filter-modal auth-modal" hidden>
+          <div class="filter-modal__backdrop" data-close-auth="true"></div>
+          <section class="filter-modal__panel auth-modal__panel" aria-label="Acceso a la cuenta">
+            <div class="filter-modal__header auth-modal__header">
+              <button
+                class="filter-modal__icon-button"
+                type="button"
+                data-close-auth="true"
+                aria-label="Cerrar autenticación"
+              >
+                <span class="material-symbols-outlined">close</span>
+              </button>
+              <h3 id="auth-modal-title">Ingresar</h3>
+            </div>
+
+            <div class="auth-modal__intro">
+              <p class="section-kicker">Cuenta ConectaPro</p>
+              <h4 id="auth-modal-heading">Accede para publicar, chatear y gestionar tus trabajos.</h4>
+              <p id="auth-modal-copy">
+                Puedes entrar con email o continuar con Google, Facebook o LinkedIn.
+              </p>
+            </div>
+
+            <div class="auth-mode-switch" role="tablist" aria-label="Modo de autenticación">
+              <button id="auth-login-tab" class="auth-mode-switch__button is-active" type="button" data-auth-mode="login">
+                Ingresar
+              </button>
+              <button id="auth-register-tab" class="auth-mode-switch__button" type="button" data-auth-mode="register">
+                Registrarme
+              </button>
+            </div>
+
+            <div class="auth-social-grid">
+              <button class="auth-social-button" type="button" data-auth-provider="google">
+                <span class="auth-social-button__label">Continuar con Google</span>
+              </button>
+              <button class="auth-social-button auth-social-button--facebook" type="button" data-auth-provider="facebook">
+                <span class="auth-social-button__label">Continuar con Facebook</span>
+              </button>
+              <button class="auth-social-button auth-social-button--linkedin" type="button" data-auth-provider="linkedin_oidc">
+                <span class="auth-social-button__label">Continuar con LinkedIn</span>
+              </button>
+            </div>
+
+            <div class="auth-divider">
+              <span>o usa tu email</span>
+            </div>
+
+            <form id="auth-form" class="auth-form">
+              <label id="auth-full-name-group">
+                Nombre completo
+                <input id="auth-full-name" name="fullName" type="text" placeholder="Ej. Matías Castro" />
+              </label>
+              <label>
+                Email
+                <input id="auth-email" name="email" type="email" placeholder="tu@email.com" required />
+              </label>
+              <label>
+                Contraseña
+                <input id="auth-password" name="password" type="password" placeholder="Mínimo 6 caracteres" required />
+              </label>
+              <label id="auth-confirm-password-group">
+                Repetir contraseña
+                <input id="auth-confirm-password" name="confirmPassword" type="password" placeholder="Repite tu contraseña" />
+              </label>
+              <p id="auth-feedback" class="form-feedback" hidden role="status" aria-live="polite"></p>
+              <button id="auth-submit" type="submit" class="button button-primary">
+                Ingresar con email
+              </button>
+            </form>
+          </section>
+        </div>
       </main>
 
       <nav class="bottom-nav" aria-label="Navegación principal">
@@ -1543,12 +1629,7 @@
       const supabaseUrl = supabaseSettings.url || '';
       const supabasePublishableKey = supabaseSettings.publishableKey || '';
       const supabaseClient = window.supabase && supabaseUrl && supabasePublishableKey
-        ? window.supabase.createClient(supabaseUrl, supabasePublishableKey, {
-            auth: {
-              persistSession: false,
-              autoRefreshToken: false,
-            },
-          })
+        ? window.supabase.createClient(supabaseUrl, supabasePublishableKey)
         : null;
       const requestCategoryLabels = {
         all: 'Todos',
@@ -1562,8 +1643,18 @@
         pintura: 'Pintura',
         carpinteria: 'Carpintería',
       };
+      const authProviderLabels = {
+        email: 'Email',
+        google: 'Google',
+        facebook: 'Facebook',
+        linkedin_oidc: 'LinkedIn',
+      };
+      const defaultUserAvatar = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDCLvKIfWDWrDiu5zCx40vXT8MhSvoJPG0XLzL19otSyHw05-t-6I-8S-zG_AAJMrVRFdXmZWaeucU9I2SYGU9V8-AuA9tDcQV0b9IskyYHxHz73PoVkWhIrmg3vU06Qovw6o4DgF19QxFXnaF2FYSyypVm9XWV-rkbkvYSkVo3SIA7JDN_zop5pOlEcO0HBmw_9oxa4yzE_nNefClMFH6_LOvtaZcX34RoLDc3L5O-Wnb-KiDO4AtXHnjUaFTTDfcs9DploQZNY4g';
       const requestCardFallbackImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuBA86igS3vaH05Ge8bVgcagc_dtitQXQ5muN1Rq8-tzJSJnK4Os5uTTrNkkUZfX_rq34YcK7QMNh-T28ooQdkmMNOXWNwh-Ny_LCnkmohL1_J90hMYFUIv2ZvM5nnLS15AQ6kZl0CiWb2ADcXX5qmsk4k8A_lr-LkAzi-wH54UIfA1Hbm9j9faghXiWhepT9ltL0cUvA5rCMuFlXGjEOC0mOByltZBDGvEfIa4AB2gJveZ_7Izo4XygNtxeZnDn7X7590sBOEs7pCo';
       let refreshRequestCards = null;
+      let currentAuthSession = null;
+      let currentAuthProfile = null;
+      let currentDisplayName = 'Invitado';
       let lastNonCreateScreen = fallbackScreen;
 
       function normalizeText(value) {
@@ -1728,6 +1819,189 @@
 
       function setRequestsSyncStatus(message, tone = 'neutral') {
         setStatusMessage(document.getElementById('requests-sync-status'), message, tone);
+      }
+
+      function getCurrentAuthRedirectUrl() {
+        return `${window.location.origin}${window.location.pathname}`;
+      }
+
+      function getUserMetadataValue(user, keys) {
+        if (!user) {
+          return '';
+        }
+
+        return keys
+          .map((key) => user.user_metadata?.[key])
+          .find((value) => typeof value === 'string' && value.trim()) || '';
+      }
+
+      function getDisplayName(user, profile) {
+        if (profile?.full_name?.trim()) {
+          return profile.full_name.trim();
+        }
+
+        const metadataName = getUserMetadataValue(user, ['full_name', 'name', 'user_name', 'preferred_username']);
+        if (metadataName) {
+          return metadataName.trim();
+        }
+
+        if (user?.email) {
+          return user.email.split('@')[0];
+        }
+
+        return 'Invitado';
+      }
+
+      function getUserAvatar(user, profile) {
+        return profile?.avatar_url
+          || getUserMetadataValue(user, ['avatar_url', 'picture'])
+          || defaultUserAvatar;
+      }
+
+      function getUserInitials(name) {
+        const parts = String(name || '')
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean)
+          .slice(0, 2);
+
+        if (parts.length === 0) {
+          return 'AR';
+        }
+
+        return parts.map((part) => part[0]?.toUpperCase() || '').join('');
+      }
+
+      function getProviderLabel(user) {
+        const providerKey = user?.app_metadata?.provider || 'email';
+        return authProviderLabels[providerKey] || 'Email';
+      }
+
+      function updateAuthenticatedUI(user, profile) {
+        const desktopUserChip = document.getElementById('desktop-user-chip');
+        const desktopUserName = document.getElementById('desktop-user-name');
+        const desktopUserStatus = document.getElementById('desktop-user-status');
+        const desktopUserAvatar = document.getElementById('desktop-user-avatar');
+        const homeUserName = document.getElementById('home-user-name');
+        const chatCurrentUserAvatar = document.getElementById('chat-current-user-avatar');
+        const requesterNameInput = document.getElementById('requester-name');
+        const authOpenDesktop = document.getElementById('auth-open-desktop');
+        const authOpenMobile = document.getElementById('auth-open-mobile');
+        const authSignoutDesktop = document.getElementById('auth-signout-desktop');
+        const authSignoutMobile = document.getElementById('auth-signout-mobile');
+
+        const isAuthenticated = Boolean(user);
+        const displayName = isAuthenticated ? getDisplayName(user, profile) : 'Invitado';
+        const avatarUrl = isAuthenticated ? getUserAvatar(user, profile) : defaultUserAvatar;
+        const providerLabel = isAuthenticated ? getProviderLabel(user) : '';
+
+        currentDisplayName = displayName;
+
+        if (desktopUserChip) {
+          desktopUserChip.hidden = !isAuthenticated;
+        }
+
+        if (authOpenDesktop) {
+          authOpenDesktop.hidden = isAuthenticated;
+        }
+
+        if (authOpenMobile) {
+          authOpenMobile.hidden = isAuthenticated;
+        }
+
+        if (authSignoutDesktop) {
+          authSignoutDesktop.hidden = !isAuthenticated;
+        }
+
+        if (authSignoutMobile) {
+          authSignoutMobile.hidden = !isAuthenticated;
+        }
+
+        if (desktopUserName) {
+          desktopUserName.textContent = displayName;
+        }
+
+        if (desktopUserStatus) {
+          desktopUserStatus.textContent = isAuthenticated
+            ? `Conectado con ${providerLabel}`
+            : 'Invitado';
+        }
+
+        if (desktopUserAvatar) {
+          desktopUserAvatar.src = avatarUrl;
+          desktopUserAvatar.alt = displayName;
+        }
+
+        if (homeUserName) {
+          homeUserName.textContent = displayName;
+        }
+
+        if (chatCurrentUserAvatar) {
+          chatCurrentUserAvatar.textContent = getUserInitials(displayName);
+        }
+
+        if (requesterNameInput && (!requesterNameInput.value.trim() || requesterNameInput.dataset.autofilled === 'true')) {
+          requesterNameInput.value = isAuthenticated ? displayName : '';
+          requesterNameInput.dataset.autofilled = isAuthenticated ? 'true' : 'false';
+        }
+      }
+
+      async function ensureProfileForUser(user, fallbackName = '') {
+        if (!supabaseClient || !user) {
+          return null;
+        }
+
+        const fullName = getDisplayName(
+          {
+            ...user,
+            user_metadata: {
+              ...user.user_metadata,
+              full_name: user.user_metadata?.full_name || fallbackName,
+            },
+          },
+          null
+        );
+
+        const avatarUrl = getUserAvatar(user, null);
+        const { data, error } = await supabaseClient
+          .from('profiles')
+          .upsert(
+            {
+              id: user.id,
+              full_name: fullName,
+              avatar_url: avatarUrl,
+            },
+            {
+              onConflict: 'id',
+            }
+          )
+          .select('id, full_name, avatar_url, role, verified')
+          .single();
+
+        if (error) {
+          throw error;
+        }
+
+        return data;
+      }
+
+      async function refreshAuthenticatedUser(session, options = {}) {
+        const { fallbackName = '' } = options;
+        currentAuthSession = session || null;
+
+        if (!session?.user) {
+          currentAuthProfile = null;
+          updateAuthenticatedUI(null, null);
+          return;
+        }
+
+        try {
+          currentAuthProfile = await ensureProfileForUser(session.user, fallbackName);
+        } catch (error) {
+          currentAuthProfile = null;
+        }
+
+        updateAuthenticatedUI(session.user, currentAuthProfile);
       }
 
       function buildRequestCardMarkup(request, options = {}) {
@@ -2502,6 +2776,238 @@
         loadRemoteRequests();
       }
 
+      function setupAuthUI() {
+        const authModal = document.getElementById('auth-modal');
+        const authForm = document.getElementById('auth-form');
+        const authFeedback = document.getElementById('auth-feedback');
+        const authSubmit = document.getElementById('auth-submit');
+        const authTitle = document.getElementById('auth-modal-title');
+        const authHeading = document.getElementById('auth-modal-heading');
+        const authCopy = document.getElementById('auth-modal-copy');
+        const authFullNameGroup = document.getElementById('auth-full-name-group');
+        const authFullNameInput = document.getElementById('auth-full-name');
+        const authEmailInput = document.getElementById('auth-email');
+        const authPasswordInput = document.getElementById('auth-password');
+        const authConfirmPasswordGroup = document.getElementById('auth-confirm-password-group');
+        const authConfirmPasswordInput = document.getElementById('auth-confirm-password');
+        const authModeButtons = Array.from(document.querySelectorAll('[data-auth-mode]'));
+        const authProviderButtons = Array.from(document.querySelectorAll('[data-auth-provider]'));
+        const authOpenButtons = ['auth-open-desktop', 'auth-open-mobile']
+          .map((id) => document.getElementById(id))
+          .filter(Boolean);
+        const authSignoutButtons = ['auth-signout-desktop', 'auth-signout-mobile']
+          .map((id) => document.getElementById(id))
+          .filter(Boolean);
+
+        if (
+          !authModal ||
+          !authForm ||
+          !authFeedback ||
+          !authSubmit ||
+          !authTitle ||
+          !authHeading ||
+          !authCopy ||
+          !authFullNameGroup ||
+          !authFullNameInput ||
+          !authEmailInput ||
+          !authPasswordInput ||
+          !authConfirmPasswordGroup ||
+          !authConfirmPasswordInput
+        ) {
+          return;
+        }
+
+        let authMode = 'login';
+
+        function setAuthMode(nextMode) {
+          authMode = nextMode === 'register' ? 'register' : 'login';
+          const isRegister = authMode === 'register';
+
+          authModeButtons.forEach((button) => {
+            button.classList.toggle('is-active', button.dataset.authMode === authMode);
+            button.setAttribute('aria-selected', button.dataset.authMode === authMode ? 'true' : 'false');
+          });
+
+          authTitle.textContent = isRegister ? 'Crear cuenta' : 'Ingresar';
+          authHeading.textContent = isRegister
+            ? 'Crea tu cuenta para publicar trabajos y hablar con profesionales.'
+            : 'Accede para publicar, chatear y gestionar tus trabajos.';
+          authCopy.textContent = isRegister
+            ? 'Puedes registrarte con email o continuar con Google, Facebook o LinkedIn.'
+            : 'Ingresa con email o continúa con Google, Facebook o LinkedIn.';
+          authSubmit.textContent = isRegister ? 'Crear cuenta con email' : 'Ingresar con email';
+          authFullNameGroup.hidden = !isRegister;
+          authConfirmPasswordGroup.hidden = !isRegister;
+          authFullNameInput.required = isRegister;
+          authConfirmPasswordInput.required = isRegister;
+          setStatusMessage(authFeedback, '', 'neutral');
+        }
+
+        function openAuthModal(nextMode = authMode) {
+          setAuthMode(nextMode);
+          authModal.hidden = false;
+          syncBodyModalState();
+        }
+
+        function closeAuthModal() {
+          authModal.hidden = true;
+          syncBodyModalState();
+        }
+
+        authOpenButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            openAuthModal('login');
+          });
+        });
+
+        authModeButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            setAuthMode(button.dataset.authMode || 'login');
+          });
+        });
+
+        document.querySelectorAll('[data-close-auth="true"]').forEach((element) => {
+          element.addEventListener('click', closeAuthModal);
+        });
+
+        authProviderButtons.forEach((button) => {
+          button.addEventListener('click', async () => {
+            if (!supabaseClient) {
+              setStatusMessage(authFeedback, 'Falta configurar Supabase para habilitar el acceso social.', 'warning');
+              return;
+            }
+
+            const provider = button.dataset.authProvider || '';
+            setStatusMessage(authFeedback, `Redirigiendo a ${authProviderLabels[provider] || 'tu proveedor'}...`, 'neutral');
+
+            const { error } = await supabaseClient.auth.signInWithOAuth({
+              provider,
+              options: {
+                redirectTo: getCurrentAuthRedirectUrl(),
+              },
+            });
+
+            if (error) {
+              setStatusMessage(authFeedback, `No pudimos iniciar con ${authProviderLabels[provider] || 'ese proveedor'}: ${error.message}`, 'error');
+            }
+          });
+        });
+
+        authForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+
+          if (!supabaseClient) {
+            setStatusMessage(authFeedback, 'Falta configurar Supabase para habilitar autenticación.', 'warning');
+            return;
+          }
+
+          const isRegister = authMode === 'register';
+          const fullName = authFullNameInput.value.trim();
+          const email = authEmailInput.value.trim();
+          const password = authPasswordInput.value;
+          const confirmPassword = authConfirmPasswordInput.value;
+
+          if (!email || !password) {
+            setStatusMessage(authFeedback, 'Completa email y contraseña.', 'error');
+            return;
+          }
+
+          if (isRegister && !fullName) {
+            setStatusMessage(authFeedback, 'Completa tu nombre para crear la cuenta.', 'error');
+            return;
+          }
+
+          if (isRegister && password !== confirmPassword) {
+            setStatusMessage(authFeedback, 'Las contraseñas no coinciden.', 'error');
+            return;
+          }
+
+          authSubmit.disabled = true;
+          setStatusMessage(authFeedback, isRegister ? 'Creando tu cuenta...' : 'Ingresando...', 'neutral');
+
+          try {
+            if (isRegister) {
+              const { data, error } = await supabaseClient.auth.signUp({
+                email,
+                password,
+                options: {
+                  emailRedirectTo: getCurrentAuthRedirectUrl(),
+                  data: {
+                    full_name: fullName,
+                  },
+                },
+              });
+
+              if (error) {
+                throw error;
+              }
+
+              if (data.session) {
+                await refreshAuthenticatedUser(data.session, { fallbackName: fullName });
+                setStatusMessage(authFeedback, 'Cuenta creada y sesión iniciada.', 'success');
+                closeAuthModal();
+              } else {
+                setStatusMessage(authFeedback, 'Cuenta creada. Revisa tu email para confirmar el acceso.', 'success');
+              }
+            } else {
+              const { data, error } = await supabaseClient.auth.signInWithPassword({
+                email,
+                password,
+              });
+
+              if (error) {
+                throw error;
+              }
+
+              await refreshAuthenticatedUser(data.session);
+              setStatusMessage(authFeedback, 'Sesión iniciada.', 'success');
+              closeAuthModal();
+            }
+          } catch (error) {
+            setStatusMessage(authFeedback, `No pudimos completar el acceso: ${error.message}`, 'error');
+          } finally {
+            authSubmit.disabled = false;
+          }
+        });
+
+        authSignoutButtons.forEach((button) => {
+          button.addEventListener('click', async () => {
+            if (!supabaseClient) {
+              return;
+            }
+
+            const { error } = await supabaseClient.auth.signOut();
+            if (!error) {
+              currentAuthSession = null;
+              currentAuthProfile = null;
+              updateAuthenticatedUI(null, null);
+            }
+          });
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && !authModal.hidden) {
+            closeAuthModal();
+          }
+        });
+
+        if (supabaseClient) {
+          supabaseClient.auth.getSession().then(({ data }) => {
+            refreshAuthenticatedUser(data.session);
+          });
+
+          supabaseClient.auth.onAuthStateChange((_event, session) => {
+            window.setTimeout(() => {
+              refreshAuthenticatedUser(session);
+            }, 0);
+          });
+        } else {
+          updateAuthenticatedUI(null, null);
+        }
+
+        setAuthMode('login');
+      }
+
       function setupCreateRequestForm() {
         const form = document.getElementById('create-request-form');
         const feedback = document.getElementById('create-request-feedback');
@@ -2529,6 +3035,10 @@
           return;
         }
 
+        requesterNameInput.addEventListener('input', () => {
+          requesterNameInput.dataset.autofilled = 'false';
+        });
+
         form.addEventListener('submit', async (event) => {
           event.preventDefault();
 
@@ -2537,7 +3047,7 @@
             return;
           }
 
-          const requesterName = requesterNameInput.value.trim();
+          const requesterName = requesterNameInput.value.trim() || (currentAuthSession?.user ? currentDisplayName : '');
           const title = titleInput.value.trim();
           const description = descriptionInput.value.trim();
           const location = locationInput.value.trim();
@@ -2559,6 +3069,7 @@
             const { error } = await supabaseClient
               .from('service_requests')
               .insert({
+                created_by: currentAuthSession?.user?.id || null,
                 requester_name: requesterName,
                 title,
                 description,
@@ -2578,7 +3089,8 @@
             }
 
             form.reset();
-            requesterNameInput.value = 'Alex Rivera';
+            requesterNameInput.value = currentAuthSession?.user ? currentDisplayName : '';
+            requesterNameInput.dataset.autofilled = currentAuthSession?.user ? 'true' : 'false';
             categoryInput.value = 'plomeria';
             priorityInput.value = 'programable';
             setStatusMessage(feedback, 'Solicitud enviada. Ya la estamos refrescando en la grilla.', 'success');
@@ -3009,6 +3521,7 @@
       applyDesktopSidebarState(getPreferredDesktopSidebarState());
       setupExploreFilters();
       setupRequestFilters();
+      setupAuthUI();
       setupCreateRequestForm();
       setupChatUI();
       document.querySelectorAll('[data-close-create-request="true"]').forEach((element) => {
