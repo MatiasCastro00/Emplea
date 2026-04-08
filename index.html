@@ -1362,7 +1362,7 @@
               >
                 <span class="material-symbols-outlined">close</span>
               </button>
-              <h3>Perfil profesional</h3>
+              <h3 id="professional-modal-title">Perfil profesional</h3>
             </div>
 
             <div class="professional-profile-card">
@@ -1383,32 +1383,32 @@
               </div>
             </div>
 
-            <div class="professional-modal__section">
-              <h4>Especialidades</h4>
+            <div id="professional-modal-specialties-section" class="professional-modal__section">
+              <h4 id="professional-modal-specialties-heading">Especialidades</h4>
               <div id="professional-modal-specialties" class="professional-specialty-list"></div>
             </div>
 
-            <div class="professional-modal__section">
-              <h4>Fotos de trabajos</h4>
+            <div id="professional-modal-gallery-section" class="professional-modal__section">
+              <h4 id="professional-modal-gallery-heading">Fotos de trabajos</h4>
               <div id="professional-modal-gallery" class="professional-gallery-grid"></div>
             </div>
 
             <div class="professional-modal__section">
-              <h4>Sobre este profesional</h4>
+              <h4 id="professional-modal-summary-heading">Sobre este profesional</h4>
               <p id="professional-modal-summary"></p>
             </div>
 
-            <div class="professional-modal__section">
+            <div id="professional-modal-reviews-section" class="professional-modal__section">
               <div class="professional-modal__section-head">
-                <h4>Reseñas de clientes</h4>
+                <h4 id="professional-modal-reviews-heading">Reseñas de clientes</h4>
                 <span id="professional-modal-reviews-count" class="professional-modal__section-meta">0 reseñas</span>
               </div>
               <div id="professional-modal-reviews" class="professional-reviews-list"></div>
             </div>
 
-            <button class="filter-apply-button professional-modal__cta" type="button">
+            <button id="professional-modal-cta" class="filter-apply-button professional-modal__cta" type="button">
               <span class="material-symbols-outlined">chat</span>
-              Contactar profesional
+              <span id="professional-modal-cta-label">Contactar profesional</span>
             </button>
           </section>
         </div>
@@ -1801,7 +1801,9 @@
       let currentAuthProfile = null;
       let currentDisplayName = 'Invitado';
       let openAuthModalGlobal = null;
+      let openPublicProfileGlobal = null;
       let lastNonCreateScreen = fallbackScreen;
+      const requestProfilesById = new Map();
 
       function normalizeText(value) {
         return (value || '')
@@ -2170,7 +2172,7 @@
           categoryLabel: (extras.category || 'general') === 'general' && (extras.categoryCustom || '').trim()
             ? extras.categoryCustom.trim()
             : formatRequestCategory(extras.category || 'general'),
-          location: extras.location || '',
+          location: extras.location || profile?.city || '',
           description: extras.description || profile?.bio || '',
           specialties: extras.specialties,
           portfolioImages: extras.portfolioImages,
@@ -2179,6 +2181,39 @@
           responseTime: extras.responseTime,
           rating: extras.rating,
           portfolioCopy: extras.portfolioCopy,
+        };
+      }
+
+      function getRequesterProfileViewModel(request, profileRecord = null) {
+        const createdBy = request?.created_by || '';
+        const isCurrentUser = Boolean(createdBy) && createdBy === currentAuthSession?.user?.id;
+
+        if (isCurrentUser) {
+          const currentViewModel = getCurrentProfileViewModel(currentAuthSession?.user, currentAuthProfile);
+          return {
+            name: currentViewModel.displayName,
+            avatarUrl: currentViewModel.avatarUrl || defaultUserAvatar,
+            badge: currentAuthProfile?.verified ? 'Verificado' : 'Miembro',
+            role: currentViewModel.title || 'Solicitante',
+            description: currentViewModel.description || 'Este usuario todavía no completó una presentación pública.',
+            location: currentViewModel.location || request?.location || '',
+            specialties: Array.isArray(currentViewModel.specialties) ? currentViewModel.specialties.slice(0, 4) : [],
+            gallery: Array.isArray(request?.gallery_urls) ? request.gallery_urls.filter(Boolean).slice(0, 3) : [],
+            summary: `${currentViewModel.displayName} publicó esta solicitud y está buscando ayuda para resolverla.`,
+          };
+        }
+
+        const profile = profileRecord || null;
+        return {
+          name: String(profile?.full_name || request?.requester_name || 'Usuario de Conctando').trim(),
+          avatarUrl: profile?.avatar_url || defaultUserAvatar,
+          badge: profile?.verified ? 'Verificado' : 'Miembro',
+          role: 'Solicitante',
+          description: profile?.bio || 'Este usuario todavía no completó una presentación pública.',
+          location: profile?.city || request?.location || '',
+          specialties: [],
+          gallery: Array.isArray(request?.gallery_urls) ? request.gallery_urls.filter(Boolean).slice(0, 3) : [],
+          summary: `${String(profile?.full_name || request?.requester_name || 'Este usuario').trim()} publicó esta solicitud y está buscando ayuda para resolverla.`,
         };
       }
 
@@ -2442,7 +2477,7 @@
               onConflict: 'id',
             }
           )
-          .select('id, full_name, avatar_url, role, verified')
+          .select('id, full_name, avatar_url, role, verified, city, bio')
           .single();
 
         if (error) {
@@ -2479,12 +2514,14 @@
         const budgetLabel = getFormattedBudgetLabel(request.budget_label, request.budget_min, request.budget_max);
         const paymentType = request.payment_type || 'A convenir';
         const location = request.location || 'CABA';
-        const clientBadge = request.client_badge || 'Cliente verificado';
+        const requesterProfile = request.requesterProfile || null;
+        const requesterViewModel = getRequesterProfileViewModel(request, requesterProfile);
+        const clientBadge = request.client_badge || requesterViewModel.badge || 'Cliente verificado';
         const description = request.description || '';
         const gallery = Array.isArray(request.gallery_urls) ? request.gallery_urls.filter(Boolean) : [];
         const published = formatRelativeDate(request.created_at);
         const title = request.title || 'Solicitud';
-        const requesterName = String(request.requester_name || 'Usuario de Conctando').trim();
+        const requesterName = requesterViewModel.name;
         const coverImage = gallery[0] || requestCardFallbackImage;
         const tags = [
           categoryLabel,
@@ -2506,6 +2543,11 @@
             data-location="${escapeHtml(location)}"
             data-published="${escapeHtml(published)}"
             data-requester-name="${escapeHtml(requesterName)}"
+            data-requester-avatar="${escapeHtml(requesterViewModel.avatarUrl || defaultUserAvatar)}"
+            data-requester-description="${escapeHtml(requesterViewModel.description || '')}"
+            data-requester-location="${escapeHtml(requesterViewModel.location || location)}"
+            data-requester-role="${escapeHtml(requesterViewModel.role || 'Solicitante')}"
+            data-created-by="${escapeHtml(request.created_by || '')}"
             data-budget-label="${escapeHtml(budgetLabel)}"
             data-budget-min="${escapeHtml(Number.isFinite(request.budget_min) ? String(request.budget_min) : '')}"
             data-budget-max="${escapeHtml(Number.isFinite(request.budget_max) ? String(request.budget_max) : '')}"
@@ -2592,6 +2634,7 @@
         const locationInput = document.getElementById('filters-location');
         const currentLocationButton = document.getElementById('filters-current-location');
         const professionalModalPhoto = document.getElementById('professional-modal-photo');
+        const professionalModalTitle = document.getElementById('professional-modal-title');
         const professionalModalName = document.getElementById('professional-modal-name');
         const professionalModalBadge = document.getElementById('professional-modal-badge');
         const professionalModalRole = document.getElementById('professional-modal-role');
@@ -2600,11 +2643,20 @@
         const professionalModalJobs = document.getElementById('professional-modal-jobs');
         const professionalModalCategory = document.getElementById('professional-modal-category');
         const professionalModalResponse = document.getElementById('professional-modal-response');
+        const professionalModalSpecialtiesSection = document.getElementById('professional-modal-specialties-section');
+        const professionalModalSpecialtiesHeading = document.getElementById('professional-modal-specialties-heading');
         const professionalModalSpecialties = document.getElementById('professional-modal-specialties');
+        const professionalModalGallerySection = document.getElementById('professional-modal-gallery-section');
+        const professionalModalGalleryHeading = document.getElementById('professional-modal-gallery-heading');
         const professionalModalGallery = document.getElementById('professional-modal-gallery');
+        const professionalModalSummaryHeading = document.getElementById('professional-modal-summary-heading');
         const professionalModalSummary = document.getElementById('professional-modal-summary');
+        const professionalModalReviewsSection = document.getElementById('professional-modal-reviews-section');
+        const professionalModalReviewsHeading = document.getElementById('professional-modal-reviews-heading');
         const professionalModalReviews = document.getElementById('professional-modal-reviews');
         const professionalModalReviewsCount = document.getElementById('professional-modal-reviews-count');
+        const professionalModalCta = document.getElementById('professional-modal-cta');
+        const professionalModalCtaLabel = document.getElementById('professional-modal-cta-label');
         const ownedProfileCardId = 'explore-owned-profile-card';
 
         if (!searchInput || quickCategoryButtons.length === 0 || !resultsGrid) {
@@ -2693,6 +2745,36 @@
             specialties: ['Muebles a medida', 'Restauración', 'Instalación', 'Melamina'],
           },
         };
+
+        function canUsePublicProfileModal() {
+          return Boolean(
+            professionalProfileModal &&
+            professionalModalPhoto &&
+            professionalModalTitle &&
+            professionalModalName &&
+            professionalModalBadge &&
+            professionalModalRole &&
+            professionalModalDescription &&
+            professionalModalRating &&
+            professionalModalJobs &&
+            professionalModalCategory &&
+            professionalModalResponse &&
+            professionalModalSpecialtiesSection &&
+            professionalModalSpecialtiesHeading &&
+            professionalModalSpecialties &&
+            professionalModalGallerySection &&
+            professionalModalGalleryHeading &&
+            professionalModalGallery &&
+            professionalModalSummaryHeading &&
+            professionalModalSummary &&
+            professionalModalReviewsSection &&
+            professionalModalReviewsHeading &&
+            professionalModalReviews &&
+            professionalModalReviewsCount &&
+            professionalModalCta &&
+            professionalModalCtaLabel
+          );
+        }
 
         const defaultProfessionalReviewsByCategory = {
           plomeria: [
@@ -3019,25 +3101,20 @@
         }
 
         function openProfessionalProfile(card) {
-          if (
-            !professionalProfileModal ||
-            !professionalModalPhoto ||
-            !professionalModalName ||
-            !professionalModalBadge ||
-            !professionalModalRole ||
-            !professionalModalDescription ||
-            !professionalModalRating ||
-            !professionalModalJobs ||
-            !professionalModalCategory ||
-            !professionalModalResponse ||
-            !professionalModalSpecialties ||
-            !professionalModalGallery ||
-            !professionalModalSummary ||
-            !professionalModalReviews ||
-            !professionalModalReviewsCount
-          ) {
+          if (!canUsePublicProfileModal()) {
             return;
           }
+
+          professionalModalTitle.textContent = 'Perfil profesional';
+          professionalModalSpecialtiesSection.hidden = false;
+          professionalModalGallerySection.hidden = false;
+          professionalModalReviewsSection.hidden = false;
+          professionalModalSpecialtiesHeading.textContent = 'Especialidades';
+          professionalModalGalleryHeading.textContent = 'Fotos de trabajos';
+          professionalModalSummaryHeading.textContent = 'Sobre este profesional';
+          professionalModalReviewsHeading.textContent = 'Reseñas de clientes';
+          professionalModalCta.hidden = false;
+          professionalModalCtaLabel.textContent = 'Contactar profesional';
 
           const image = card.querySelector('img');
           const badge = card.querySelector('.pill');
@@ -3101,6 +3178,53 @@
           professionalProfileModal.hidden = false;
           syncBodyModalState();
         }
+
+        function openPublicProfile(viewModel) {
+          if (!canUsePublicProfileModal()) {
+            return;
+          }
+
+          const specialties = Array.isArray(viewModel?.specialties) ? viewModel.specialties.filter(Boolean) : [];
+          const gallery = Array.isArray(viewModel?.gallery) ? viewModel.gallery.filter(Boolean) : [];
+
+          professionalModalTitle.textContent = 'Perfil público';
+          professionalModalPhoto.src = viewModel?.avatarUrl || defaultUserAvatar;
+          professionalModalPhoto.alt = `Foto de ${viewModel?.name || 'Usuario'}`;
+          professionalModalName.textContent = viewModel?.name || 'Usuario de Conctando';
+          professionalModalBadge.textContent = viewModel?.badge || 'Miembro';
+          professionalModalRole.textContent = viewModel?.role || 'Solicitante';
+          professionalModalDescription.textContent = viewModel?.description || 'Este usuario todavía no completó una presentación pública.';
+          professionalModalRating.textContent = viewModel?.location || 'Sin ubicación';
+          professionalModalJobs.textContent = String(gallery.length);
+          professionalModalCategory.textContent = viewModel?.role || 'Perfil';
+          professionalModalResponse.textContent = viewModel?.badge || 'Miembro';
+
+          professionalModalSpecialtiesSection.hidden = specialties.length === 0;
+          professionalModalSpecialtiesHeading.textContent = 'Datos destacados';
+          professionalModalSpecialties.innerHTML = specialties
+            .map((specialty) => `<span class="professional-specialty-chip">${escapeHtml(specialty)}</span>`)
+            .join('');
+
+          professionalModalGallerySection.hidden = gallery.length === 0;
+          professionalModalGalleryHeading.textContent = 'Fotos compartidas';
+          professionalModalGallery.innerHTML = gallery
+            .map((src, index) => `<img src="${src}" alt="Imagen ${index + 1} de ${escapeHtml(viewModel?.name || 'Usuario')}" />`)
+            .join('');
+
+          professionalModalSummaryHeading.textContent = 'Sobre este perfil';
+          professionalModalSummary.textContent = viewModel?.summary || `${viewModel?.name || 'Este usuario'} publicó una solicitud en Conctando.`;
+
+          professionalModalReviewsSection.hidden = true;
+          professionalModalReviews.innerHTML = '';
+          professionalModalReviewsCount.textContent = '0 reseñas';
+          professionalModalCta.hidden = true;
+          professionalModalCtaLabel.textContent = 'Ver perfil';
+
+          professionalProfileModal.hidden = false;
+          syncBodyModalState();
+        }
+
+        openPublicProfileGlobal = openPublicProfile;
 
         function closeProfessionalProfile() {
           if (!professionalProfileModal) {
@@ -3264,6 +3388,8 @@
         const requestDetailClientAvatar = document.querySelector('.request-detail-client-avatar img');
         const requestDetailClientName = document.getElementById('request-detail-client-name');
         const requestDetailClientMeta = document.getElementById('request-detail-client-meta');
+        const requestDetailProfileButton = document.querySelector('.request-detail-profile-link');
+        let activeRequestProfileViewModel = null;
 
         if (!searchInput || quickCategoryButtons.length === 0 || !requestsGrid) {
           return;
@@ -3362,6 +3488,11 @@
           const location = card.dataset.location || card.querySelector('.request-meta span')?.textContent?.trim() || 'CABA';
           const published = card.dataset.published || card.querySelectorAll('.request-meta span')[1]?.textContent?.trim() || 'Hoy';
           const requesterName = card.dataset.requesterName || 'Usuario de Conctando';
+          const requesterAvatar = card.dataset.requesterAvatar || defaultUserAvatar;
+          const requesterDescription = card.dataset.requesterDescription || 'Este usuario todavía no completó una presentación pública.';
+          const requesterLocation = card.dataset.requesterLocation || location;
+          const requesterRole = card.dataset.requesterRole || 'Solicitante';
+          const createdBy = card.dataset.createdBy || '';
           const tags = (card.dataset.tags || '').split('|').filter(Boolean);
           const gallery = (card.dataset.gallery || '')
             .split('|')
@@ -3377,10 +3508,22 @@
           requestDetailLocation.textContent = location;
           requestDetailPublished.textContent = published;
           requestDetailDescription.textContent = description;
-          requestDetailClientAvatar.src = defaultUserAvatar;
+          requestDetailClientAvatar.src = requesterAvatar;
           requestDetailClientAvatar.alt = `Foto de ${requesterName}`;
           requestDetailClientName.textContent = requesterName;
-          requestDetailClientMeta.textContent = `${clientBadge} · ${location}`;
+          requestDetailClientMeta.textContent = `${clientBadge} · ${requesterLocation}`;
+          activeRequestProfileViewModel = {
+            name: requesterName,
+            avatarUrl: requesterAvatar,
+            badge: clientBadge,
+            role: requesterRole,
+            description: requesterDescription,
+            location: requesterLocation,
+            specialties: [],
+            gallery: gallery.slice(0, 3),
+            summary: `${requesterName} publicó esta solicitud y está buscando ayuda para resolverla.`,
+            createdBy,
+          };
           requestDetailTags.innerHTML = tags
             .map((tag, index) => `<span class="request-detail-tag ${index === tags.length - 1 && priority === 'urgente' ? 'is-alert' : ''}">${tag}</span>`)
             .join('');
@@ -3402,6 +3545,14 @@
 
           requestDetailModal.hidden = false;
           syncBodyModalState();
+        }
+
+        function openRequestOwnerProfile() {
+          if (!activeRequestProfileViewModel || typeof openPublicProfileGlobal !== 'function') {
+            return;
+          }
+
+          openPublicProfileGlobal(activeRequestProfileViewModel);
         }
 
         function closeRequestDetail() {
@@ -3431,7 +3582,7 @@
           try {
             const { data, error } = await supabaseClient
               .from('service_requests')
-              .select('id, requester_name, title, description, category, priority, location, budget_label, budget_min, budget_max, payment_type, client_badge, gallery_urls, created_at, status')
+              .select('id, created_by, requester_name, title, description, category, priority, location, budget_label, budget_min, budget_max, payment_type, client_badge, gallery_urls, created_at, status')
               .eq('status', 'open')
               .order('created_at', { ascending: false })
               .limit(8);
@@ -3440,13 +3591,33 @@
               throw error;
             }
 
+            requestProfilesById.clear();
+            const createdByIds = Array.from(new Set((data || []).map((request) => request.created_by).filter(Boolean)));
+            if (createdByIds.length > 0) {
+              const { data: profilesData, error: profilesError } = await supabaseClient
+                .from('profiles')
+                .select('id, full_name, avatar_url, bio, city, verified')
+                .in('id', createdByIds);
+
+              if (profilesError) {
+                throw profilesError;
+              }
+
+              (profilesData || []).forEach((profile) => {
+                requestProfilesById.set(profile.id, profile);
+              });
+            }
+
             requestsGrid.querySelectorAll('[data-request-origin="remote"]').forEach((card) => card.remove());
             showReferenceCards = !(Array.isArray(data) && data.length > 0);
 
             if (Array.isArray(data) && data.length > 0) {
               requestsGrid.insertAdjacentHTML(
                 'afterbegin',
-                data.map((request) => buildRequestCardMarkup(request)).join('')
+                data.map((request) => buildRequestCardMarkup({
+                  ...request,
+                  requesterProfile: request.created_by ? requestProfilesById.get(request.created_by) || null : null,
+                })).join('')
               );
               setRequestsSyncStatus('Solicitudes sincronizadas con Supabase.', 'success');
             } else {
@@ -3484,6 +3655,7 @@
         document.querySelectorAll('[data-close-request-detail="true"]').forEach((element) => {
           element.addEventListener('click', closeRequestDetail);
         });
+        requestDetailProfileButton?.addEventListener('click', openRequestOwnerProfile);
 
         searchInput.addEventListener('input', renderRequestFilters);
         if (desktopSearchInput) {
@@ -4449,13 +4621,14 @@
                     id: userId,
                     full_name: fullName,
                     avatar_url: avatarUrl,
+                    city: location,
                     bio: description,
                   },
                   {
                     onConflict: 'id',
                   }
                 )
-                .select('id, full_name, avatar_url, role, verified, bio')
+                .select('id, full_name, avatar_url, role, verified, city, bio')
                 .single();
 
               if (error) {
