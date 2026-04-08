@@ -2213,7 +2213,7 @@
             }
 
             return `
-              <article class="profile-activity-row">
+              <article class="profile-activity-row profile-activity-row--${escapeHtml(key)}">
                 <div>
                   <strong>${escapeHtml(item.title)}</strong>
                   <span>${escapeHtml(item.detail)}</span>
