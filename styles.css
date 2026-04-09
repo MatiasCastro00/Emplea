@@ -5149,6 +5149,14 @@ html.dark-theme .requests-hero p {
   text-transform: uppercase;
 }
 
+.chat-product-list-card__author {
+  display: block;
+  margin-top: 4px;
+  color: var(--panel-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
 .chat-product-list-card__count {
   color: var(--panel-muted);
   font-size: 0.82rem;

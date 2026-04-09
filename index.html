@@ -2001,7 +2001,8 @@
       </div>
     </div>
 
-      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
       <script src="./app-config.js"></script>
       <script>
       const themeToggleButtons = Array.from(document.querySelectorAll('[data-theme-toggle="true"]'));
@@ -5630,6 +5631,7 @@
                   <div>
                     <span class="chat-product-list-card__kicker">Lista compartida</span>
                     <strong>${escapeHtml(list.title || 'Lista de productos')}</strong>
+                    <small class="chat-product-list-card__author">Armado por ${escapeHtml(list.senderName || 'Profesional')}</small>
                   </div>
                   <span class="chat-product-list-card__count">${items.length} ítems</span>
                 </div>
@@ -6075,6 +6077,7 @@
             title,
             category: currentProductListState?.category || 'general',
             subtotal: calculateProductListSubtotal(),
+            senderName: currentDisplayName || 'Profesional',
             items,
           };
         }
@@ -6083,6 +6086,7 @@
           const items = Array.isArray(detail?.items) ? detail.items : [];
           const lines = [
             detail?.title || 'Lista de Materiales',
+            `Armado por: ${detail?.senderName || 'Profesional'}`,
             '',
             ...items.map((item) => {
               const quantity = item.quantity || '1';
@@ -6104,7 +6108,7 @@
         function renderMaterialListDetail(detail) {
           const items = Array.isArray(detail?.items) ? detail.items : [];
           chatMaterialListDetailTitle.textContent = detail?.title || 'Lista de Materiales';
-          chatMaterialListDetailSender.textContent = 'Enviado por el profesional';
+          chatMaterialListDetailSender.textContent = `Armado por: ${detail?.senderName || 'Profesional'}`;
           chatMaterialListDetailCount.textContent = `${items.length} ${items.length === 1 ? 'item' : 'items'}`;
           chatMaterialListDetailTotal.textContent = formatMaterialPrice(detail?.subtotal || 0);
           chatMaterialListDetailItems.innerHTML = items.map((item) => {
@@ -6167,20 +6171,133 @@
           }
         }
 
-        function downloadActiveMaterialListDetail() {
-          if (!activeMaterialListDetail) {
+        async function loadImageDataUrlForPdf(src) {
+          if (!src) {
+            return '';
+          }
+
+          return new Promise((resolve) => {
+            const image = new Image();
+            image.crossOrigin = 'anonymous';
+            image.onload = () => {
+              try {
+                const canvas = document.createElement('canvas');
+                canvas.width = image.naturalWidth || 200;
+                canvas.height = image.naturalHeight || 200;
+                const context = canvas.getContext('2d');
+                if (!context) {
+                  resolve('');
+                  return;
+                }
+                context.fillStyle = '#ffffff';
+                context.fillRect(0, 0, canvas.width, canvas.height);
+                context.drawImage(image, 0, 0);
+                resolve(canvas.toDataURL('image/jpeg', 0.9));
+              } catch (error) {
+                resolve('');
+              }
+            };
+            image.onerror = () => resolve('');
+            image.src = src;
+          });
+        }
+
+        async function downloadActiveMaterialListDetail() {
+          if (!activeMaterialListDetail || !window.jspdf?.jsPDF) {
+            setStatusMessage(syncStatus, 'No pudimos preparar el PDF en este momento.', 'error');
             return;
           }
-          const text = buildMaterialListDetailText(activeMaterialListDetail);
-          const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = `${slugifyMaterialName(activeMaterialListDetail.title || 'lista-materiales')}.txt`;
-          document.body.appendChild(link);
-          link.click();
-          link.remove();
-          URL.revokeObjectURL(url);
+
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF({
+            orientation: 'p',
+            unit: 'pt',
+            format: 'a4',
+          });
+          const pageWidth = doc.internal.pageSize.getWidth();
+          const pageHeight = doc.internal.pageSize.getHeight();
+          const margin = 40;
+          const contentWidth = pageWidth - (margin * 2);
+          let cursorY = margin;
+
+          const ensurePageSpace = (requiredHeight = 80) => {
+            if (cursorY + requiredHeight <= pageHeight - margin) {
+              return;
+            }
+            doc.addPage();
+            cursorY = margin;
+          };
+
+          doc.setFillColor(248, 249, 250);
+          doc.rect(0, 0, pageWidth, pageHeight, 'F');
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(20);
+          doc.setTextColor(25, 28, 29);
+          doc.text(activeMaterialListDetail.title || 'Lista de Materiales', margin, cursorY);
+          cursorY += 24;
+
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(11);
+          doc.setTextColor(76, 84, 102);
+          doc.text(`Armado por: ${activeMaterialListDetail.senderName || 'Profesional'}`, margin, cursorY);
+          cursorY += 18;
+          doc.text(`Subtotal estimado: ${formatMaterialPrice(activeMaterialListDetail.subtotal || 0)}`, margin, cursorY);
+          cursorY += 28;
+
+          doc.setDrawColor(220, 226, 240);
+          doc.line(margin, cursorY, pageWidth - margin, cursorY);
+          cursorY += 18;
+
+          const items = Array.isArray(activeMaterialListDetail.items) ? activeMaterialListDetail.items : [];
+          for (const item of items) {
+            ensurePageSpace(110);
+            doc.setFillColor(255, 255, 255);
+            doc.roundedRect(margin, cursorY, contentWidth, 96, 14, 14, 'F');
+
+            const imageX = margin + 12;
+            const imageY = cursorY + 12;
+            const imageSize = 56;
+            const imageDataUrl = await loadImageDataUrlForPdf(item.photo || '');
+            if (imageDataUrl) {
+              doc.addImage(imageDataUrl, 'JPEG', imageX, imageY, imageSize, imageSize);
+            } else {
+              doc.setFillColor(238, 241, 245);
+              doc.roundedRect(imageX, imageY, imageSize, imageSize, 10, 10, 'F');
+              doc.setFont('helvetica', 'bold');
+              doc.setFontSize(10);
+              doc.setTextColor(111, 122, 147);
+              doc.text(getCategoryLabel(item.category || activeMaterialListDetail.category || 'general'), imageX + 6, imageY + 30, { maxWidth: imageSize - 12 });
+            }
+
+            const textX = imageX + imageSize + 14;
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(13);
+            doc.setTextColor(32, 35, 43);
+            doc.text(item.name || 'Material', textX, cursorY + 28, { maxWidth: contentWidth - 160 });
+
+            const quantity = Number(item.quantity) || 1;
+            const unitPrice = Number(item.price) || 0;
+            const lineTotal = unitPrice * quantity;
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(12);
+            doc.setTextColor(0, 64, 161);
+            doc.text(formatMaterialPrice(lineTotal), pageWidth - margin - 12, cursorY + 28, { align: 'right' });
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.setTextColor(115, 121, 138);
+            doc.text(`Cantidad: x${quantity}`, textX, cursorY + 54);
+            doc.text(`Precio unitario: ${formatMaterialPrice(unitPrice)}`, textX, cursorY + 70);
+            if (item.note) {
+              doc.text(item.note, textX, cursorY + 86, { maxWidth: contentWidth - 160 });
+            }
+
+            cursorY += 108;
+          }
+
+          const fileName = `${slugifyMaterialName(activeMaterialListDetail.title || 'lista-materiales')}.pdf`;
+          doc.save(fileName);
         }
 
         async function sendRemoteImageMessage(threadButton, file) {
