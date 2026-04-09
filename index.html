@@ -1205,7 +1205,13 @@
               <div id="chat-desktop-message-list" class="chat-message-list"></div>
 
               <div class="chat-composer">
-                <button type="button" aria-label="Adjuntar archivo">
+                <button
+                  type="button"
+                  aria-label="Abrir acciones del chat"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  data-chat-plus-trigger="desktop"
+                >
                   <span class="material-symbols-outlined">add_circle</span>
                 </button>
                 <input type="text" placeholder="Escribe un mensaje..." />
@@ -1246,7 +1252,13 @@
             <div id="chat-message-list" class="chat-message-list"></div>
 
             <div class="chat-composer">
-              <button type="button" aria-label="Adjuntar archivo">
+              <button
+                type="button"
+                aria-label="Abrir acciones del chat"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                data-chat-plus-trigger="mobile"
+              >
                 <span class="material-symbols-outlined">add_circle</span>
               </button>
               <input type="text" placeholder="Escribe un mensaje..." />
@@ -1254,6 +1266,55 @@
                 <span class="material-symbols-outlined">send</span>
               </button>
             </div>
+          </section>
+        </div>
+
+        <div id="chat-actions-menu" class="chat-actions-menu" hidden>
+          <button type="button" class="chat-actions-menu__item" data-chat-action="create-list">
+            <span class="material-symbols-outlined">checklist</span>
+            <span>Crear lista</span>
+          </button>
+        </div>
+
+        <div id="chat-product-list-modal" class="filter-modal chat-product-list-modal" hidden>
+          <div class="filter-modal__backdrop" data-close-chat-product-list="true"></div>
+          <section class="filter-modal__panel chat-product-list-modal__panel" aria-label="Crear lista de productos">
+            <div class="filter-modal__header chat-product-list-modal__header">
+              <button
+                class="filter-modal__icon-button"
+                type="button"
+                data-close-chat-product-list="true"
+                aria-label="Cerrar lista"
+              >
+                <span class="material-symbols-outlined">close</span>
+              </button>
+              <div>
+                <h3>Lista para el trabajo</h3>
+                <p>Arma los productos o materiales que necesitas para este servicio.</p>
+              </div>
+            </div>
+
+            <form id="chat-product-list-form" class="chat-product-list-form">
+              <label class="input-group">
+                <span>Título de la lista</span>
+                <input id="chat-product-list-title" type="text" placeholder="Ej. Materiales para arreglo de cocina" maxlength="80" />
+              </label>
+
+              <div class="chat-product-list-form__section">
+                <div class="chat-product-list-form__section-head">
+                  <strong>Productos</strong>
+                  <button id="chat-product-list-add-item" type="button" class="filter-modal__text-button">Agregar ítem</button>
+                </div>
+                <div id="chat-product-list-items" class="chat-product-list-items"></div>
+              </div>
+
+              <p id="chat-product-list-feedback" class="form-feedback" hidden role="status" aria-live="polite"></p>
+
+              <div class="chat-product-list-form__footer">
+                <button type="button" class="button button-secondary" data-close-chat-product-list="true">Cancelar</button>
+                <button type="submit" class="button button-primary">Enviar lista</button>
+              </div>
+            </form>
           </section>
         </div>
 
@@ -5060,10 +5121,19 @@
         const mobileComposerSendButton = detailView?.querySelector('.chat-send-button');
         const desktopComposerInput = desktopDetailPanel?.querySelector('.chat-composer input');
         const desktopComposerSendButton = desktopDetailPanel?.querySelector('.chat-send-button');
+        const mobileComposerPlusButton = detailView?.querySelector('[data-chat-plus-trigger="mobile"]');
+        const desktopComposerPlusButton = desktopDetailPanel?.querySelector('[data-chat-plus-trigger="desktop"]');
         const filterButtons = Array.from(chatSection?.querySelectorAll('[data-chat-filter]') || []);
         const desktopMediaQuery = window.matchMedia('(min-width: 1100px)');
+        const chatActionsMenu = document.getElementById('chat-actions-menu');
+        const chatProductListModal = document.getElementById('chat-product-list-modal');
+        const chatProductListForm = document.getElementById('chat-product-list-form');
+        const chatProductListTitleInput = document.getElementById('chat-product-list-title');
+        const chatProductListItems = document.getElementById('chat-product-list-items');
+        const chatProductListAddItemButton = document.getElementById('chat-product-list-add-item');
+        const chatProductListFeedback = document.getElementById('chat-product-list-feedback');
 
-        if (!chatSection || !inboxView || !detailView || !searchInput || !emptyState || !syncStatus || !threadList || !detailBackButton || !detailAvatar || !detailName || !detailStatus || !messageList || !desktopDetailPanel || !desktopDetailAvatar || !desktopDetailName || !desktopDetailStatus || !desktopMessageList || !mobileComposerInput || !mobileComposerSendButton || !desktopComposerInput || !desktopComposerSendButton) {
+        if (!chatSection || !inboxView || !detailView || !searchInput || !emptyState || !syncStatus || !threadList || !detailBackButton || !detailAvatar || !detailName || !detailStatus || !messageList || !desktopDetailPanel || !desktopDetailAvatar || !desktopDetailName || !desktopDetailStatus || !desktopMessageList || !mobileComposerInput || !mobileComposerSendButton || !desktopComposerInput || !desktopComposerSendButton || !mobileComposerPlusButton || !desktopComposerPlusButton || !chatActionsMenu || !chatProductListModal || !chatProductListForm || !chatProductListTitleInput || !chatProductListItems || !chatProductListAddItemButton || !chatProductListFeedback) {
           return;
         }
 
@@ -5079,7 +5149,9 @@
         let selectedThreadId = '';
         let isDetailOpen = false;
         let currentRemoteThreads = [];
+        let activeChatActionTrigger = null;
         const initialMarkup = threadList.innerHTML;
+        const listMessagePrefix = '[[CONCTANDO_PRODUCT_LIST::';
 
         function isDesktopLayout() {
           return desktopMediaQuery.matches;
@@ -5087,6 +5159,35 @@
 
         function getCurrentChatStorageKey() {
           return `conctando-local-chat-threads:${currentAuthSession?.user?.id || 'guest'}`;
+        }
+
+        function encodeProductListMessage(list) {
+          return `${listMessagePrefix}${encodeURIComponent(JSON.stringify(list))}]]`;
+        }
+
+        function parseProductListMessage(body) {
+          const raw = String(body || '');
+          if (!raw.startsWith(listMessagePrefix) || !raw.endsWith(']]')) {
+            return null;
+          }
+
+          try {
+            return JSON.parse(decodeURIComponent(raw.slice(listMessagePrefix.length, -2)));
+          } catch (error) {
+            return null;
+          }
+        }
+
+        function createProductListMessage(list, time, seen = true) {
+          return {
+            type: 'shopping_list',
+            time,
+            seen,
+            list: {
+              title: String(list.title || 'Lista de productos').trim(),
+              items: Array.isArray(list.items) ? list.items : [],
+            },
+          };
         }
 
         function loadLocalThreads() {
@@ -5263,6 +5364,37 @@
           `;
         }
 
+        function renderShoppingListMessage(message) {
+          const isSelf = message.type !== 'incoming';
+          const list = message.list || {};
+          const items = Array.isArray(list.items) ? list.items.filter((item) => item?.name) : [];
+          return `
+            <div class="chat-message-row ${isSelf ? 'is-self' : ''}">
+              <article class="chat-product-list-card ${isSelf ? 'chat-product-list-card--self' : ''}">
+                <div class="chat-product-list-card__header">
+                  <div>
+                    <span class="chat-product-list-card__kicker">Lista compartida</span>
+                    <strong>${escapeHtml(list.title || 'Lista de productos')}</strong>
+                  </div>
+                  <span class="chat-product-list-card__count">${items.length} ítems</span>
+                </div>
+                <div class="chat-product-list-card__items">
+                  ${items.map((item) => `
+                    <div class="chat-product-list-card__item">
+                      <strong>${escapeHtml(item.quantity || '1')}</strong>
+                      <div>
+                        <span>${escapeHtml(item.name || 'Producto')}</span>
+                        ${item.note ? `<small>${escapeHtml(item.note)}</small>` : ''}
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </article>
+              ${buildMeta(message.time, isSelf && Boolean(message.seen))}
+            </div>
+          `;
+        }
+
         function renderMessages(button, targetList) {
           const messages = getThreadMessages(button);
           targetList.innerHTML = messages
@@ -5273,6 +5405,10 @@
 
               if (message.type === 'image') {
                 return renderImageMessage(message);
+              }
+
+              if (message.type === 'shopping_list') {
+                return renderShoppingListMessage(message);
               }
 
               return renderTextMessage(message);
@@ -5291,13 +5427,125 @@
 
         function syncComposerState() {
           const hasSelectedThread = Boolean(getThreadButtons().find((item) => item.dataset.chatThread === selectedThreadId));
-          [mobileComposerInput, desktopComposerInput, mobileComposerSendButton, desktopComposerSendButton].forEach((element) => {
+          [mobileComposerInput, desktopComposerInput, mobileComposerSendButton, desktopComposerSendButton, mobileComposerPlusButton, desktopComposerPlusButton].forEach((element) => {
             element.disabled = !hasSelectedThread;
           });
           if (!hasSelectedThread) {
             mobileComposerInput.value = '';
             desktopComposerInput.value = '';
           }
+          syncChatActionAvailability();
+        }
+
+        function getSelectedThreadButton() {
+          return getThreadButtons().find((item) => item.dataset.chatThread === selectedThreadId) || null;
+        }
+
+        function isProfessionalThread(button = getSelectedThreadButton()) {
+          if (!button) {
+            return false;
+          }
+
+          const role = String(button.dataset.chatCounterpartRole || button.dataset.chatRole || '').trim().toLowerCase();
+          return role === 'cliente';
+        }
+
+        function closeChatActionsMenu() {
+          chatActionsMenu.hidden = true;
+          [mobileComposerPlusButton, desktopComposerPlusButton].forEach((button) => {
+            button.setAttribute('aria-expanded', 'false');
+          });
+          activeChatActionTrigger = null;
+        }
+
+        function syncChatActionAvailability() {
+          const isAvailable = isProfessionalThread();
+          [mobileComposerPlusButton, desktopComposerPlusButton].forEach((button) => {
+            button.hidden = !isAvailable;
+          });
+          if (!isAvailable) {
+            closeChatActionsMenu();
+          }
+        }
+
+        function positionChatActionsMenu(trigger) {
+          const triggerRect = trigger.getBoundingClientRect();
+          const maxLeft = Math.max(12, window.innerWidth - chatActionsMenu.offsetWidth - 12);
+          const left = Math.min(triggerRect.left, maxLeft);
+          const top = Math.max(12, triggerRect.top - chatActionsMenu.offsetHeight - 10);
+          chatActionsMenu.style.left = `${left}px`;
+          chatActionsMenu.style.top = `${top}px`;
+        }
+
+        function openChatActionsMenu(trigger) {
+          if (!isProfessionalThread()) {
+            return;
+          }
+
+          const isSameTrigger = activeChatActionTrigger === trigger && !chatActionsMenu.hidden;
+          closeChatActionsMenu();
+          if (isSameTrigger) {
+            return;
+          }
+
+          activeChatActionTrigger = trigger;
+          chatActionsMenu.hidden = false;
+          trigger.setAttribute('aria-expanded', 'true');
+          positionChatActionsMenu(trigger);
+        }
+
+        function setChatProductListFeedback(message, tone = 'neutral') {
+          setStatusMessage(chatProductListFeedback, message, tone);
+        }
+
+        function createProductListItemRow(item = {}) {
+          const row = document.createElement('div');
+          row.className = 'chat-product-list-item-row';
+          row.innerHTML = `
+            <input type="text" data-list-item-name="true" placeholder="Producto o material" maxlength="60" value="${escapeHtml(item.name || '')}" />
+            <input type="text" data-list-item-quantity="true" placeholder="Cant." maxlength="20" value="${escapeHtml(item.quantity || '1')}" />
+            <input type="text" data-list-item-note="true" placeholder="Detalle opcional" maxlength="80" value="${escapeHtml(item.note || '')}" />
+            <button type="button" class="chat-product-list-item-row__remove" aria-label="Eliminar ítem">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          `;
+          return row;
+        }
+
+        function resetProductListForm() {
+          chatProductListTitleInput.value = '';
+          chatProductListItems.innerHTML = '';
+          chatProductListItems.appendChild(createProductListItemRow());
+          chatProductListItems.appendChild(createProductListItemRow());
+          setChatProductListFeedback('', 'neutral');
+        }
+
+        function openProductListModal() {
+          closeChatActionsMenu();
+          resetProductListForm();
+          chatProductListModal.hidden = false;
+          syncBodyModalState();
+          window.setTimeout(() => {
+            chatProductListTitleInput.focus();
+          }, 30);
+        }
+
+        function closeProductListModal() {
+          chatProductListModal.hidden = true;
+          syncBodyModalState();
+        }
+
+        function collectProductListFormData() {
+          const title = chatProductListTitleInput.value.trim() || 'Lista de productos';
+          const items = Array.from(chatProductListItems.querySelectorAll('.chat-product-list-item-row'))
+            .map((row) => ({
+              name: row.querySelector('[data-list-item-name="true"]')?.value.trim() || '',
+              quantity: row.querySelector('[data-list-item-quantity="true"]')?.value.trim() || '1',
+              note: row.querySelector('[data-list-item-note="true"]')?.value.trim() || '',
+            }))
+            .filter((item) => item.name);
+
+          return { title, items };
         }
 
         function syncSelectedThread() {
@@ -5508,6 +5756,11 @@
             };
           }
 
+          const parsedList = parseProductListMessage(message.body);
+          if (parsedList) {
+            return createProductListMessage(parsedList, formatChatTimestamp(message.created_at), isSelf);
+          }
+
           return {
             type: isSelf ? 'outgoing' : 'incoming',
             text: message.body || '',
@@ -5654,10 +5907,13 @@
               }
 
               const thread = groupedThreads.get(threadKey);
+              const parsedList = parseProductListMessage(message.body);
               thread.messages.push(mapRemoteMessage(message));
               thread.preview = message.message_type === 'quote'
                 ? 'Propuesta enviada'
-                : (message.body || thread.preview || 'Nuevo mensaje');
+                : (parsedList
+                  ? `Lista compartida: ${parsedList.title || 'Lista de productos'}`
+                  : (message.body || thread.preview || 'Nuevo mensaje'));
               thread.time = formatChatTimestamp(message.created_at);
               thread.statusLabel = formatRelativeDate(message.created_at);
               thread.lastCreatedAt = message.created_at;
@@ -5854,8 +6110,36 @@
           syncSelectedThread();
         }
 
+        function sendLocalProductList(threadButton, list) {
+          const threadId = threadButton.dataset.chatThread || '';
+          const timestamp = new Date().toISOString();
+          const nextThreads = loadLocalThreads().map((thread) => {
+            if (thread.id !== threadId) {
+              return thread;
+            }
+
+            const messages = [
+              ...(Array.isArray(thread.messages) ? thread.messages : []),
+              createProductListMessage(list, formatChatTimestamp(timestamp), true),
+            ];
+
+            return {
+              ...thread,
+              preview: `Lista compartida: ${list.title}`,
+              time: formatChatTimestamp(timestamp),
+              lastCreatedAt: timestamp,
+              messages,
+            };
+          });
+
+          saveLocalThreads(sortThreadsByDate(nextThreads));
+          renderThreadList(currentRemoteThreads, { targetThreadId: threadId });
+          renderInbox();
+          syncSelectedThread();
+        }
+
         async function handleComposerSubmit(sourceInput) {
-          const button = getThreadButtons().find((item) => item.dataset.chatThread === selectedThreadId);
+          const button = getSelectedThreadButton();
           const text = sourceInput.value.trim();
           if (!button || !text) {
             return;
@@ -5881,6 +6165,45 @@
           } finally {
             mobileComposerSendButton.disabled = false;
             desktopComposerSendButton.disabled = false;
+            syncComposerState();
+          }
+        }
+
+        async function handleProductListSubmit(event) {
+          event.preventDefault();
+          const button = getSelectedThreadButton();
+          const list = collectProductListFormData();
+          if (!button) {
+            setChatProductListFeedback('Selecciona una conversación antes de enviar la lista.', 'error');
+            return;
+          }
+          if (list.items.length === 0) {
+            setChatProductListFeedback('Agrega al menos un producto para compartir la lista.', 'error');
+            return;
+          }
+
+          const encodedPayload = encodeProductListMessage(list);
+          const originalMobileState = mobileComposerSendButton.disabled;
+          const originalDesktopState = desktopComposerSendButton.disabled;
+          mobileComposerSendButton.disabled = true;
+          desktopComposerSendButton.disabled = true;
+          setChatProductListFeedback('Enviando lista...', 'neutral');
+          setStatusMessage(syncStatus, '', 'neutral');
+
+          try {
+            if (button.dataset.chatSource === 'remote') {
+              await sendRemoteMessage(button, encodedPayload);
+            } else {
+              sendLocalProductList(button, list);
+            }
+
+            closeProductListModal();
+            openDetail(selectedThreadId);
+          } catch (error) {
+            setChatProductListFeedback(`No pudimos enviar la lista: ${error.message}`, 'error');
+          } finally {
+            mobileComposerSendButton.disabled = originalMobileState;
+            desktopComposerSendButton.disabled = originalDesktopState;
             syncComposerState();
           }
         }
@@ -5994,12 +6317,24 @@
           if (event.key === 'Escape' && isDetailOpen) {
             closeDetail();
           }
+          if (event.key === 'Escape') {
+            closeChatActionsMenu();
+            if (!chatProductListModal.hidden) {
+              closeProductListModal();
+            }
+          }
         });
         mobileComposerSendButton.addEventListener('click', () => {
           handleComposerSubmit(mobileComposerInput);
         });
         desktopComposerSendButton.addEventListener('click', () => {
           handleComposerSubmit(desktopComposerInput);
+        });
+        [mobileComposerPlusButton, desktopComposerPlusButton].forEach((button) => {
+          button.addEventListener('click', (event) => {
+            event.stopPropagation();
+            openChatActionsMenu(button);
+          });
         });
         [mobileComposerInput, desktopComposerInput].forEach((input) => {
           input.addEventListener('keydown', (event) => {
@@ -6008,6 +6343,53 @@
               handleComposerSubmit(input);
             }
           });
+        });
+        chatActionsMenu.addEventListener('click', (event) => {
+          const actionButton = event.target.closest('[data-chat-action]');
+          if (!actionButton) {
+            return;
+          }
+
+          if (actionButton.dataset.chatAction === 'create-list') {
+            openProductListModal();
+          }
+        });
+        document.addEventListener('click', (event) => {
+          if (chatActionsMenu.hidden) {
+            return;
+          }
+          if (event.target.closest('#chat-actions-menu') || event.target.closest('[data-chat-plus-trigger]')) {
+            return;
+          }
+          closeChatActionsMenu();
+        });
+        window.addEventListener('resize', () => {
+          if (!chatActionsMenu.hidden && activeChatActionTrigger) {
+            positionChatActionsMenu(activeChatActionTrigger);
+          }
+        });
+        chatProductListAddItemButton.addEventListener('click', () => {
+          chatProductListItems.appendChild(createProductListItemRow());
+        });
+        chatProductListItems.addEventListener('click', (event) => {
+          const removeButton = event.target.closest('.chat-product-list-item-row__remove');
+          if (!removeButton) {
+            return;
+          }
+
+          const rows = Array.from(chatProductListItems.querySelectorAll('.chat-product-list-item-row'));
+          if (rows.length <= 1) {
+            rows[0].querySelector('[data-list-item-name="true"]').value = '';
+            rows[0].querySelector('[data-list-item-quantity="true"]').value = '1';
+            rows[0].querySelector('[data-list-item-note="true"]').value = '';
+            return;
+          }
+
+          removeButton.closest('.chat-product-list-item-row')?.remove();
+        });
+        chatProductListForm.addEventListener('submit', handleProductListSubmit);
+        document.querySelectorAll('[data-close-chat-product-list="true"]').forEach((element) => {
+          element.addEventListener('click', closeProductListModal);
         });
 
         openChatThreadGlobal = openChatThread;
@@ -6022,6 +6404,7 @@
         };
 
         refreshChatInbox = loadRemoteThreads;
+        resetProductListForm();
         renderInbox();
         syncSelectedThread();
         loadRemoteThreads();
