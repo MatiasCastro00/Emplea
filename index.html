@@ -1307,31 +1307,36 @@
                 </button>
                 <div class="chat-product-list-modal__title-wrap">
                   <h3>Lista de Materiales</h3>
-                  <label class="chat-product-list-modal__title-edit">
-                    <span class="material-symbols-outlined">edit</span>
-                    <input id="chat-product-list-title" type="text" value="Lista de Materiales" maxlength="80" aria-label="Título de la lista" />
-                  </label>
+                  <div class="chat-product-list-modal__title-edit">
+                    <input id="chat-product-list-title" type="text" value="Lista de Materiales" maxlength="80" aria-label="Título de la lista" readonly />
+                    <button id="chat-product-list-title-edit-button" type="button" aria-label="Editar nombre de la lista">
+                      <span class="material-symbols-outlined">edit</span>
+                    </button>
+                  </div>
                 </div>
               </div>
 
               <div class="chat-product-list-form__body">
                 <div class="chat-product-list-form__section">
                   <span class="chat-product-list-form__label">Categoría de trabajo</span>
-                  <label class="chat-product-list-category-card">
+                  <div class="chat-product-list-category-select" data-chat-category-select-root="true">
                     <span class="chat-product-list-category-card__icon material-symbols-outlined" id="chat-product-list-category-icon">plumbing</span>
-                    <select id="chat-product-list-category">
-                      <option value="plomeria">Plomería</option>
-                      <option value="electricidad">Electricidad</option>
-                      <option value="limpieza">Limpieza</option>
-                      <option value="albanileria">Albañilería</option>
-                      <option value="aire">Aire acondicionado</option>
-                      <option value="jardineria">Jardinería</option>
-                      <option value="pintura">Pintura</option>
-                      <option value="carpinteria">Carpintería</option>
-                      <option value="general">General</option>
-                    </select>
-                    <span class="material-symbols-outlined chat-product-list-category-card__chevron">expand_more</span>
-                  </label>
+                    <button id="chat-product-list-category-trigger" type="button" class="chat-product-list-category-card" aria-haspopup="listbox" aria-expanded="false">
+                      <span id="chat-product-list-category-label">Plomería</span>
+                      <span class="material-symbols-outlined chat-product-list-category-card__chevron">expand_more</span>
+                    </button>
+                    <div id="chat-product-list-category-menu" class="chat-product-list-category-menu" hidden role="listbox" aria-label="Seleccionar categoría">
+                      <button type="button" class="chat-product-list-category-option" data-chat-product-list-category-option="plomeria">Plomería</button>
+                      <button type="button" class="chat-product-list-category-option" data-chat-product-list-category-option="electricidad">Electricidad</button>
+                      <button type="button" class="chat-product-list-category-option" data-chat-product-list-category-option="limpieza">Limpieza</button>
+                      <button type="button" class="chat-product-list-category-option" data-chat-product-list-category-option="albanileria">Albañilería</button>
+                      <button type="button" class="chat-product-list-category-option" data-chat-product-list-category-option="aire">Aire acondicionado</button>
+                      <button type="button" class="chat-product-list-category-option" data-chat-product-list-category-option="jardineria">Jardinería</button>
+                      <button type="button" class="chat-product-list-category-option" data-chat-product-list-category-option="pintura">Pintura</button>
+                      <button type="button" class="chat-product-list-category-option" data-chat-product-list-category-option="carpinteria">Carpintería</button>
+                      <button type="button" class="chat-product-list-category-option" data-chat-product-list-category-option="general">General</button>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="chat-product-list-form__section">
@@ -5243,7 +5248,10 @@
         const chatProductListModal = document.getElementById('chat-product-list-modal');
         const chatProductListForm = document.getElementById('chat-product-list-form');
         const chatProductListTitleInput = document.getElementById('chat-product-list-title');
-        const chatProductListCategorySelect = document.getElementById('chat-product-list-category');
+        const chatProductListTitleEditButton = document.getElementById('chat-product-list-title-edit-button');
+        const chatProductListCategoryTrigger = document.getElementById('chat-product-list-category-trigger');
+        const chatProductListCategoryMenu = document.getElementById('chat-product-list-category-menu');
+        const chatProductListCategoryLabel = document.getElementById('chat-product-list-category-label');
         const chatProductListCategoryIcon = document.getElementById('chat-product-list-category-icon');
         const chatProductListRecommended = document.getElementById('chat-product-list-recommended');
         const chatProductListItems = document.getElementById('chat-product-list-items');
@@ -5264,7 +5272,7 @@
         const chatMaterialListDownloadButton = document.getElementById('chat-material-list-download');
         const chatMaterialListDownloadSecondaryButton = document.getElementById('chat-material-list-download-secondary');
 
-        if (!chatSection || !inboxView || !detailView || !searchInput || !emptyState || !syncStatus || !threadList || !detailBackButton || !detailAvatar || !detailName || !detailStatus || !messageList || !desktopDetailPanel || !desktopDetailAvatar || !desktopDetailName || !desktopDetailStatus || !desktopMessageList || !mobileComposerInput || !mobileComposerSendButton || !desktopComposerInput || !desktopComposerSendButton || !mobileComposerPlusButton || !desktopComposerPlusButton || !chatActionsMenu || !chatProductListModal || !chatProductListForm || !chatProductListTitleInput || !chatProductListCategorySelect || !chatProductListCategoryIcon || !chatProductListRecommended || !chatProductListItems || !chatProductListAddItemButton || !chatProductListCount || !chatProductListSubtotal || !chatProductListFeedback || !chatPhotoInput || !chatDocumentInput || !chatProductListItemPhotoInput || !chatMaterialListDetailModal || !chatMaterialListDetailTitle || !chatMaterialListDetailSender || !chatMaterialListDetailCount || !chatMaterialListDetailItems || !chatMaterialListDetailTotal || !chatMaterialListCopyButton || !chatMaterialListDownloadButton || !chatMaterialListDownloadSecondaryButton) {
+        if (!chatSection || !inboxView || !detailView || !searchInput || !emptyState || !syncStatus || !threadList || !detailBackButton || !detailAvatar || !detailName || !detailStatus || !messageList || !desktopDetailPanel || !desktopDetailAvatar || !desktopDetailName || !desktopDetailStatus || !desktopMessageList || !mobileComposerInput || !mobileComposerSendButton || !desktopComposerInput || !desktopComposerSendButton || !mobileComposerPlusButton || !desktopComposerPlusButton || !chatActionsMenu || !chatProductListModal || !chatProductListForm || !chatProductListTitleInput || !chatProductListTitleEditButton || !chatProductListCategoryTrigger || !chatProductListCategoryMenu || !chatProductListCategoryLabel || !chatProductListCategoryIcon || !chatProductListRecommended || !chatProductListItems || !chatProductListAddItemButton || !chatProductListCount || !chatProductListSubtotal || !chatProductListFeedback || !chatPhotoInput || !chatDocumentInput || !chatProductListItemPhotoInput || !chatMaterialListDetailModal || !chatMaterialListDetailTitle || !chatMaterialListDetailSender || !chatMaterialListDetailCount || !chatMaterialListDetailItems || !chatMaterialListDetailTotal || !chatMaterialListCopyButton || !chatMaterialListDownloadButton || !chatMaterialListDownloadSecondaryButton) {
           return;
         }
 
@@ -5810,6 +5818,20 @@
           }[category] || 'inventory_2';
         }
 
+        function getCategoryLabel(category) {
+          return {
+            plomeria: 'Plomería',
+            electricidad: 'Electricidad',
+            limpieza: 'Limpieza',
+            albanileria: 'Albañilería',
+            aire: 'Aire acondicionado',
+            jardineria: 'Jardinería',
+            pintura: 'Pintura',
+            carpinteria: 'Carpintería',
+            general: 'General',
+          }[category] || 'General';
+        }
+
         function formatMaterialPrice(value) {
           const amount = Number(value) || 0;
           return `$${Math.round(amount * 100) / 100}`;
@@ -5909,10 +5931,34 @@
           if (!currentProductListState) {
             return;
           }
-          chatProductListCategorySelect.value = currentProductListState.category;
           chatProductListCategoryIcon.textContent = getCategoryIcon(currentProductListState.category);
+          chatProductListCategoryLabel.textContent = getCategoryLabel(currentProductListState.category);
           renderRecommendedItems();
           renderProductListItems();
+        }
+
+        function closeProductListCategoryMenu() {
+          chatProductListCategoryMenu.hidden = true;
+          chatProductListCategoryTrigger.setAttribute('aria-expanded', 'false');
+        }
+
+        function openProductListCategoryMenu() {
+          chatProductListCategoryMenu.hidden = false;
+          chatProductListCategoryTrigger.setAttribute('aria-expanded', 'true');
+        }
+
+        function applyProductListCategory(category) {
+          if (!currentProductListState) {
+            return;
+          }
+          currentProductListState.category = category || 'general';
+          const categoryLabel = formatRequestCategory(currentProductListState.category);
+          if (!chatProductListTitleInput.value.trim() || normalizeText(chatProductListTitleInput.value).startsWith('lista de')) {
+            chatProductListTitleInput.value = `Lista de ${categoryLabel}`;
+          }
+          currentProductListState.items = currentProductListState.items.map((item) => ({ ...item, category: currentProductListState.category }));
+          renderProductListModalState();
+          closeProductListCategoryMenu();
         }
 
         function addRecommendedProduct(name) {
@@ -5989,7 +6035,9 @@
             items: [],
           };
           chatProductListTitleInput.value = `Lista de ${categoryLabel}`;
+          chatProductListTitleInput.readOnly = true;
           setChatProductListFeedback('', 'neutral');
+          closeProductListCategoryMenu();
           renderProductListModalState();
         }
 
@@ -7268,17 +7316,33 @@
             positionChatActionsMenu(activeChatActionTrigger);
           }
         });
-        chatProductListCategorySelect.addEventListener('change', () => {
-          if (!currentProductListState) {
+        chatProductListTitleEditButton.addEventListener('click', () => {
+          chatProductListTitleInput.readOnly = false;
+          chatProductListTitleInput.focus();
+          chatProductListTitleInput.select();
+        });
+        chatProductListTitleInput.addEventListener('blur', () => {
+          chatProductListTitleInput.readOnly = true;
+        });
+        chatProductListTitleInput.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            chatProductListTitleInput.blur();
+          }
+        });
+        chatProductListCategoryTrigger.addEventListener('click', () => {
+          if (chatProductListCategoryMenu.hidden) {
+            openProductListCategoryMenu();
+          } else {
+            closeProductListCategoryMenu();
+          }
+        });
+        chatProductListCategoryMenu.addEventListener('click', (event) => {
+          const option = event.target.closest('[data-chat-product-list-category-option]');
+          if (!option) {
             return;
           }
-          currentProductListState.category = chatProductListCategorySelect.value || 'general';
-          const categoryLabel = formatRequestCategory(currentProductListState.category);
-          if (!chatProductListTitleInput.value.trim() || normalizeText(chatProductListTitleInput.value).startsWith('lista de')) {
-            chatProductListTitleInput.value = `Lista de ${categoryLabel}`;
-          }
-          currentProductListState.items = currentProductListState.items.map((item) => ({ ...item, category: currentProductListState.category }));
-          renderProductListModalState();
+          applyProductListCategory(option.dataset.chatProductListCategoryOption || 'general');
         });
         chatProductListRecommended.addEventListener('click', (event) => {
           const card = event.target.closest('[data-recommended-item]');
@@ -7356,6 +7420,15 @@
         });
         document.querySelectorAll('[data-close-chat-product-list="true"]').forEach((element) => {
           element.addEventListener('click', closeProductListModal);
+        });
+        document.addEventListener('click', (event) => {
+          if (chatProductListCategoryMenu.hidden) {
+            return;
+          }
+          if (event.target.closest('[data-chat-category-select-root="true"]')) {
+            return;
+          }
+          closeProductListCategoryMenu();
         });
 
         openChatThreadGlobal = openChatThread;
