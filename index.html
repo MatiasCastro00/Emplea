@@ -1316,6 +1316,7 @@
                 </div>
               </div>
 
+              <div class="chat-product-list-form__scroll">
               <div class="chat-product-list-form__body">
                 <div class="chat-product-list-form__section">
                   <span class="chat-product-list-form__label">Categoría de trabajo</span>
@@ -1359,6 +1360,7 @@
                 </div>
 
                 <p id="chat-product-list-feedback" class="form-feedback" hidden role="status" aria-live="polite"></p>
+              </div>
               </div>
 
               <div class="chat-product-list-form__footer">
@@ -7331,9 +7333,23 @@
           }
         });
         chatProductListCategoryTrigger.addEventListener('click', () => {
+          closeChatActionsMenu();
           if (chatProductListCategoryMenu.hidden) {
             openProductListCategoryMenu();
           } else {
+            closeProductListCategoryMenu();
+          }
+        });
+        chatProductListCategoryTrigger.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            if (chatProductListCategoryMenu.hidden) {
+              openProductListCategoryMenu();
+            } else {
+              closeProductListCategoryMenu();
+            }
+          }
+          if (event.key === 'Escape') {
             closeProductListCategoryMenu();
           }
         });
