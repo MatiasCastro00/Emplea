@@ -1274,47 +1274,158 @@
             <span class="material-symbols-outlined">checklist</span>
             <span>Crear lista</span>
           </button>
+          <button type="button" class="chat-actions-menu__item" data-chat-action="upload-photo">
+            <span class="material-symbols-outlined">image</span>
+            <span>Subir una foto</span>
+          </button>
+          <button type="button" class="chat-actions-menu__item" data-chat-action="upload-document">
+            <span class="material-symbols-outlined">description</span>
+            <span>Subir un documento</span>
+          </button>
+          <button type="button" class="chat-actions-menu__item" data-chat-action="share-location">
+            <span class="material-symbols-outlined">location_on</span>
+            <span>Compartir ubicación</span>
+          </button>
         </div>
+
+        <input id="chat-photo-input" type="file" accept="image/*" hidden />
+        <input id="chat-document-input" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.csv,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden />
+        <input id="chat-product-list-item-photo-input" type="file" accept="image/*" hidden />
 
         <div id="chat-product-list-modal" class="filter-modal chat-product-list-modal" hidden>
           <div class="filter-modal__backdrop" data-close-chat-product-list="true"></div>
           <section class="filter-modal__panel chat-product-list-modal__panel" aria-label="Crear lista de productos">
-            <div class="filter-modal__header chat-product-list-modal__header">
-              <button
-                class="filter-modal__icon-button"
-                type="button"
-                data-close-chat-product-list="true"
-                aria-label="Cerrar lista"
-              >
-                <span class="material-symbols-outlined">close</span>
-              </button>
-              <div>
-                <h3>Lista para el trabajo</h3>
-                <p>Arma los productos o materiales que necesitas para este servicio.</p>
-              </div>
-            </div>
-
             <form id="chat-product-list-form" class="chat-product-list-form">
-              <label class="input-group">
-                <span>Título de la lista</span>
-                <input id="chat-product-list-title" type="text" placeholder="Ej. Materiales para arreglo de cocina" maxlength="80" />
-              </label>
-
-              <div class="chat-product-list-form__section">
-                <div class="chat-product-list-form__section-head">
-                  <strong>Productos</strong>
-                  <button id="chat-product-list-add-item" type="button" class="filter-modal__text-button">Agregar ítem</button>
+              <div class="chat-product-list-modal__topbar">
+                <button
+                  class="chat-product-list-modal__back"
+                  type="button"
+                  data-close-chat-product-list="true"
+                  aria-label="Cerrar lista"
+                >
+                  <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+                <div class="chat-product-list-modal__title-wrap">
+                  <h3>Lista de Materiales</h3>
+                  <input id="chat-product-list-title" type="text" value="Lista de Materiales" maxlength="80" aria-label="Título de la lista" />
                 </div>
-                <div id="chat-product-list-items" class="chat-product-list-items"></div>
               </div>
 
-              <p id="chat-product-list-feedback" class="form-feedback" hidden role="status" aria-live="polite"></p>
+              <div class="chat-product-list-form__body">
+                <div class="chat-product-list-form__section">
+                  <span class="chat-product-list-form__label">Categoría de trabajo</span>
+                  <label class="chat-product-list-category-card">
+                    <span class="chat-product-list-category-card__icon material-symbols-outlined" id="chat-product-list-category-icon">plumbing</span>
+                    <select id="chat-product-list-category">
+                      <option value="plomeria">Plomería</option>
+                      <option value="electricidad">Electricidad</option>
+                      <option value="limpieza">Limpieza</option>
+                      <option value="albanileria">Albañilería</option>
+                      <option value="aire">Aire acondicionado</option>
+                      <option value="jardineria">Jardinería</option>
+                      <option value="pintura">Pintura</option>
+                      <option value="carpinteria">Carpintería</option>
+                      <option value="general">General</option>
+                    </select>
+                    <span class="material-symbols-outlined chat-product-list-category-card__chevron">expand_more</span>
+                  </label>
+                </div>
+
+                <div class="chat-product-list-form__section">
+                  <div class="chat-product-list-form__section-head">
+                    <strong>Items recomendados</strong>
+                  </div>
+                  <div id="chat-product-list-recommended" class="chat-product-list-recommended"></div>
+                </div>
+
+                <div class="chat-product-list-form__section">
+                  <div class="chat-product-list-form__section-head">
+                    <strong>Tu Lista</strong>
+                    <span id="chat-product-list-count" class="chat-product-list-count">0 items agregados</span>
+                  </div>
+                  <div id="chat-product-list-items" class="chat-product-list-items"></div>
+                  <button id="chat-product-list-add-item" type="button" class="chat-product-list-add-manual">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    <span>Añadir otro material manualmente</span>
+                  </button>
+                </div>
+
+                <p id="chat-product-list-feedback" class="form-feedback" hidden role="status" aria-live="polite"></p>
+              </div>
 
               <div class="chat-product-list-form__footer">
-                <button type="button" class="button button-secondary" data-close-chat-product-list="true">Cancelar</button>
-                <button type="submit" class="button button-primary">Enviar lista</button>
+                <div class="chat-product-list-total">
+                  <span>Subtotal estimado</span>
+                  <strong id="chat-product-list-subtotal">$0</strong>
+                </div>
+                <button type="submit" class="button button-primary chat-product-list-submit">
+                  <span class="material-symbols-outlined">send</span>
+                  <span>Enviar Lista de Materiales</span>
+                </button>
               </div>
             </form>
+          </section>
+        </div>
+
+        <div id="chat-material-list-detail-modal" class="filter-modal chat-material-list-detail-modal" hidden>
+          <div class="filter-modal__backdrop" data-close-chat-material-list-detail="true"></div>
+          <section class="filter-modal__panel chat-material-list-detail-modal__panel" aria-label="Detalle de lista de materiales">
+            <div class="chat-material-list-detail__topbar">
+              <button
+                class="chat-material-list-detail__back"
+                type="button"
+                data-close-chat-material-list-detail="true"
+                aria-label="Cerrar detalle de materiales"
+              >
+                <span class="material-symbols-outlined">arrow_back</span>
+              </button>
+              <h3>Detalle de Materiales</h3>
+              <button id="chat-material-list-download" class="chat-material-list-detail__icon-button" type="button" aria-label="Descargar resumen">
+                <span class="material-symbols-outlined">download</span>
+              </button>
+            </div>
+
+            <div class="chat-material-list-detail__body">
+              <section class="chat-material-list-detail__hero">
+                <span class="chat-material-list-detail__eyebrow">Detalle del Proyecto</span>
+                <h4 id="chat-material-list-detail-title">Proyecto</h4>
+                <p id="chat-material-list-detail-sender" class="chat-material-list-detail__sender">Enviado por el profesional</p>
+                <div class="chat-material-list-detail__status">
+                  <span>Estado</span>
+                  <strong>Presupuesto pendiente</strong>
+                </div>
+              </section>
+
+              <section class="chat-material-list-detail__list-section">
+                <div class="chat-material-list-detail__list-head">
+                  <h5>Lista de Artículos</h5>
+                  <span id="chat-material-list-detail-count">0 items</span>
+                </div>
+                <div id="chat-material-list-detail-items" class="chat-material-list-detail__items"></div>
+              </section>
+            </div>
+
+            <div class="chat-material-list-detail__footer">
+              <div class="chat-material-list-detail__summary">
+                <div>
+                  <span>Estimación Total</span>
+                  <strong id="chat-material-list-detail-total">$0</strong>
+                </div>
+                <div class="chat-material-list-detail__summary-icon">
+                  <span class="material-symbols-outlined">receipt_long</span>
+                </div>
+              </div>
+              <div class="chat-material-list-detail__actions">
+                <button id="chat-material-list-copy" type="button" class="button button-secondary chat-material-list-detail__action">
+                  <span class="material-symbols-outlined">content_copy</span>
+                  <span>Copiar texto</span>
+                </button>
+                <button id="chat-material-list-download-secondary" type="button" class="button button-primary chat-material-list-detail__action">
+                  <span class="material-symbols-outlined">description</span>
+                  <span>Descargar resumen</span>
+                </button>
+              </div>
+            </div>
           </section>
         </div>
 
@@ -5129,11 +5240,28 @@
         const chatProductListModal = document.getElementById('chat-product-list-modal');
         const chatProductListForm = document.getElementById('chat-product-list-form');
         const chatProductListTitleInput = document.getElementById('chat-product-list-title');
+        const chatProductListCategorySelect = document.getElementById('chat-product-list-category');
+        const chatProductListCategoryIcon = document.getElementById('chat-product-list-category-icon');
+        const chatProductListRecommended = document.getElementById('chat-product-list-recommended');
         const chatProductListItems = document.getElementById('chat-product-list-items');
         const chatProductListAddItemButton = document.getElementById('chat-product-list-add-item');
+        const chatProductListCount = document.getElementById('chat-product-list-count');
+        const chatProductListSubtotal = document.getElementById('chat-product-list-subtotal');
         const chatProductListFeedback = document.getElementById('chat-product-list-feedback');
+        const chatPhotoInput = document.getElementById('chat-photo-input');
+        const chatDocumentInput = document.getElementById('chat-document-input');
+        const chatProductListItemPhotoInput = document.getElementById('chat-product-list-item-photo-input');
+        const chatMaterialListDetailModal = document.getElementById('chat-material-list-detail-modal');
+        const chatMaterialListDetailTitle = document.getElementById('chat-material-list-detail-title');
+        const chatMaterialListDetailSender = document.getElementById('chat-material-list-detail-sender');
+        const chatMaterialListDetailCount = document.getElementById('chat-material-list-detail-count');
+        const chatMaterialListDetailItems = document.getElementById('chat-material-list-detail-items');
+        const chatMaterialListDetailTotal = document.getElementById('chat-material-list-detail-total');
+        const chatMaterialListCopyButton = document.getElementById('chat-material-list-copy');
+        const chatMaterialListDownloadButton = document.getElementById('chat-material-list-download');
+        const chatMaterialListDownloadSecondaryButton = document.getElementById('chat-material-list-download-secondary');
 
-        if (!chatSection || !inboxView || !detailView || !searchInput || !emptyState || !syncStatus || !threadList || !detailBackButton || !detailAvatar || !detailName || !detailStatus || !messageList || !desktopDetailPanel || !desktopDetailAvatar || !desktopDetailName || !desktopDetailStatus || !desktopMessageList || !mobileComposerInput || !mobileComposerSendButton || !desktopComposerInput || !desktopComposerSendButton || !mobileComposerPlusButton || !desktopComposerPlusButton || !chatActionsMenu || !chatProductListModal || !chatProductListForm || !chatProductListTitleInput || !chatProductListItems || !chatProductListAddItemButton || !chatProductListFeedback) {
+        if (!chatSection || !inboxView || !detailView || !searchInput || !emptyState || !syncStatus || !threadList || !detailBackButton || !detailAvatar || !detailName || !detailStatus || !messageList || !desktopDetailPanel || !desktopDetailAvatar || !desktopDetailName || !desktopDetailStatus || !desktopMessageList || !mobileComposerInput || !mobileComposerSendButton || !desktopComposerInput || !desktopComposerSendButton || !mobileComposerPlusButton || !desktopComposerPlusButton || !chatActionsMenu || !chatProductListModal || !chatProductListForm || !chatProductListTitleInput || !chatProductListCategorySelect || !chatProductListCategoryIcon || !chatProductListRecommended || !chatProductListItems || !chatProductListAddItemButton || !chatProductListCount || !chatProductListSubtotal || !chatProductListFeedback || !chatPhotoInput || !chatDocumentInput || !chatProductListItemPhotoInput || !chatMaterialListDetailModal || !chatMaterialListDetailTitle || !chatMaterialListDetailSender || !chatMaterialListDetailCount || !chatMaterialListDetailItems || !chatMaterialListDetailTotal || !chatMaterialListCopyButton || !chatMaterialListDownloadButton || !chatMaterialListDownloadSecondaryButton) {
           return;
         }
 
@@ -5150,8 +5278,60 @@
         let isDetailOpen = false;
         let currentRemoteThreads = [];
         let activeChatActionTrigger = null;
+        let currentProductListState = null;
+        let pendingProductListPhotoItemId = '';
+        let activeMaterialListDetail = null;
         const initialMarkup = threadList.innerHTML;
         const listMessagePrefix = '[[CONCTANDO_PRODUCT_LIST::';
+        const documentMessagePrefix = '[[CONCTANDO_DOCUMENT::';
+        const locationMessagePrefix = '[[CONCTANDO_LOCATION::';
+        const productListCatalogByCategory = {
+          plomeria: [
+            { name: 'Codo PVC 1/2', price: 2.5, icon: 'water', note: 'PVC hidráulico' },
+            { name: 'Cinta Teflón', price: 0.9, icon: 'hardware', note: 'Sellado de roscas' },
+            { name: 'Llave de paso mariposa', price: 12.8, icon: 'valve', note: 'Corte general' },
+          ],
+          electricidad: [
+            { name: 'Térmica bipolar', price: 18.2, icon: 'bolt', note: 'Protección tablero' },
+            { name: 'Cable 2.5 mm', price: 7.3, icon: 'cable', note: 'Instalación domiciliaria' },
+            { name: 'Caja octogonal', price: 4.1, icon: 'settings_input_component', note: 'Punto de luz' },
+          ],
+          limpieza: [
+            { name: 'Desengrasante industrial', price: 8.4, icon: 'cleaning_services', note: 'Uso profundo' },
+            { name: 'Paños microfibra', price: 3.2, icon: 'texture', note: 'Kit x3' },
+            { name: 'Bolsa residuos reforzada', price: 2.1, icon: 'delete', note: 'Residuo pesado' },
+          ],
+          albanileria: [
+            { name: 'Bolsa de cemento', price: 11.6, icon: 'construction', note: 'Revoque y base' },
+            { name: 'Arena fina', price: 6.2, icon: 'landscape', note: 'Terminación' },
+            { name: 'Llana metálica', price: 9.7, icon: 'handyman', note: 'Acabado' },
+          ],
+          aire: [
+            { name: 'Caño de cobre', price: 22.5, icon: 'device_thermostat', note: 'Refrigeración' },
+            { name: 'Aislante elastomérico', price: 5.9, icon: 'ac_unit', note: 'Línea frigorífica' },
+            { name: 'Ménsula soporte', price: 14.3, icon: 'build', note: 'Unidad exterior' },
+          ],
+          jardineria: [
+            { name: 'Tierra fértil', price: 4.5, icon: 'grass', note: 'Bolsa 25kg' },
+            { name: 'Sustrato premium', price: 6.8, icon: 'eco', note: 'Macetas y canteros' },
+            { name: 'Fertilizante granulado', price: 3.9, icon: 'compost', note: 'Crecimiento' },
+          ],
+          pintura: [
+            { name: 'Látex interior', price: 16.4, icon: 'format_paint', note: 'Blanco mate' },
+            { name: 'Cinta de enmascarar', price: 2.4, icon: 'architecture', note: 'Protección bordes' },
+            { name: 'Rodillo antigota', price: 7.1, icon: 'ink_pen', note: 'Terminación pareja' },
+          ],
+          carpinteria: [
+            { name: 'Tornillo tirafondo', price: 1.7, icon: 'hardware', note: 'Fijación' },
+            { name: 'Barniz satinado', price: 13.5, icon: 'chair', note: 'Protección madera' },
+            { name: 'Bisagra cazoleta', price: 4.4, icon: 'door_back', note: 'Mueble' },
+          ],
+          general: [
+            { name: 'Guantes de trabajo', price: 2.8, icon: 'front_hand', note: 'Protección' },
+            { name: 'Cinta métrica', price: 3.6, icon: 'straighten', note: 'Medición' },
+            { name: 'Kit de fijaciones', price: 6.9, icon: 'home_repair_service', note: 'Uso general' },
+          ],
+        };
 
         function isDesktopLayout() {
           return desktopMediaQuery.matches;
@@ -5163,6 +5343,14 @@
 
         function encodeProductListMessage(list) {
           return `${listMessagePrefix}${encodeURIComponent(JSON.stringify(list))}]]`;
+        }
+
+        function encodeDocumentMessage(documentPayload) {
+          return `${documentMessagePrefix}${encodeURIComponent(JSON.stringify(documentPayload))}]]`;
+        }
+
+        function encodeLocationMessage(locationPayload) {
+          return `${locationMessagePrefix}${encodeURIComponent(JSON.stringify(locationPayload))}]]`;
         }
 
         function parseProductListMessage(body) {
@@ -5178,6 +5366,19 @@
           }
         }
 
+        function parseEncodedMessage(body, prefix) {
+          const raw = String(body || '');
+          if (!raw.startsWith(prefix) || !raw.endsWith(']]')) {
+            return null;
+          }
+
+          try {
+            return JSON.parse(decodeURIComponent(raw.slice(prefix.length, -2)));
+          } catch (error) {
+            return null;
+          }
+        }
+
         function createProductListMessage(list, time, seen = true) {
           return {
             type: 'shopping_list',
@@ -5188,6 +5389,35 @@
               items: Array.isArray(list.items) ? list.items : [],
             },
           };
+        }
+
+        function createDocumentMessage(documentPayload, time, seen = true, type = 'outgoing') {
+          return {
+            type,
+            time,
+            seen,
+            document: documentPayload,
+          };
+        }
+
+        function createLocationCardMessage(locationPayload, time, seen = true, type = 'outgoing') {
+          return {
+            type,
+            time,
+            seen,
+            location: locationPayload,
+          };
+        }
+
+        function formatAttachmentSize(bytes) {
+          const value = Number(bytes) || 0;
+          if (value <= 0) {
+            return 'Sin tamaño';
+          }
+          if (value < 1024 * 1024) {
+            return `${Math.max(1, Math.round(value / 102.4) / 10)} KB`;
+          }
+          return `${Math.round((value / (1024 * 1024)) * 10) / 10} MB`;
         }
 
         function loadLocalThreads() {
@@ -5368,9 +5598,21 @@
           const isSelf = message.type !== 'incoming';
           const list = message.list || {};
           const items = Array.isArray(list.items) ? list.items.filter((item) => item?.name) : [];
+          const subtotal = Number(list.subtotal) || items.reduce((total, item) => {
+            return total + ((Number(item.price) || 0) * (Number(item.quantity) || 0));
+          }, 0);
+          const encodedList = encodeURIComponent(JSON.stringify({
+            ...list,
+            subtotal,
+          }));
           return `
             <div class="chat-message-row ${isSelf ? 'is-self' : ''}">
-              <article class="chat-product-list-card ${isSelf ? 'chat-product-list-card--self' : ''}">
+              <button
+                type="button"
+                class="chat-product-list-card ${isSelf ? 'chat-product-list-card--self' : ''}"
+                data-open-material-list="true"
+                data-material-list="${encodedList}"
+              >
                 <div class="chat-product-list-card__header">
                   <div>
                     <span class="chat-product-list-card__kicker">Lista compartida</span>
@@ -5389,6 +5631,51 @@
                     </div>
                   `).join('')}
                 </div>
+                <div class="chat-product-list-card__subtotal">
+                  <span>Subtotal estimado</span>
+                  <strong>${escapeHtml(formatMaterialPrice(subtotal))}</strong>
+                </div>
+              </button>
+              ${buildMeta(message.time, isSelf && Boolean(message.seen))}
+            </div>
+          `;
+        }
+
+        function renderDocumentMessage(message) {
+          const isSelf = message.type !== 'incoming';
+          const documentPayload = message.document || {};
+          return `
+            <div class="chat-message-row ${isSelf ? 'is-self' : ''}">
+              <article class="chat-attachment-card ${isSelf ? 'chat-attachment-card--self' : ''}">
+                <div class="chat-attachment-card__icon">
+                  <span class="material-symbols-outlined">description</span>
+                </div>
+                <div class="chat-attachment-card__copy">
+                  <strong>${escapeHtml(documentPayload.name || 'Documento')}</strong>
+                  <p>${escapeHtml(documentPayload.description || 'Archivo compartido en el chat')}</p>
+                  <span>${escapeHtml(documentPayload.sizeLabel || '')}</span>
+                </div>
+                ${documentPayload.url ? `<a class="chat-attachment-card__action" href="${escapeHtml(documentPayload.url)}" target="_blank" rel="noreferrer">Abrir</a>` : ''}
+              </article>
+              ${buildMeta(message.time, isSelf && Boolean(message.seen))}
+            </div>
+          `;
+        }
+
+        function renderLocationMessage(message) {
+          const isSelf = message.type !== 'incoming';
+          const locationPayload = message.location || {};
+          return `
+            <div class="chat-message-row ${isSelf ? 'is-self' : ''}">
+              <article class="chat-location-card ${isSelf ? 'chat-location-card--self' : ''}">
+                <div class="chat-location-card__icon">
+                  <span class="material-symbols-outlined">location_on</span>
+                </div>
+                <div class="chat-location-card__copy">
+                  <strong>${escapeHtml(locationPayload.label || 'Ubicación compartida')}</strong>
+                  <p>${escapeHtml(locationPayload.description || 'Compartí mi ubicación para coordinar mejor el trabajo.')}</p>
+                </div>
+                ${locationPayload.mapUrl ? `<a class="chat-location-card__action" href="${escapeHtml(locationPayload.mapUrl)}" target="_blank" rel="noreferrer">Ver mapa</a>` : ''}
               </article>
               ${buildMeta(message.time, isSelf && Boolean(message.seen))}
             </div>
@@ -5409,6 +5696,14 @@
 
               if (message.type === 'shopping_list') {
                 return renderShoppingListMessage(message);
+              }
+
+              if (message.type === 'document') {
+                return renderDocumentMessage(message);
+              }
+
+              if (message.type === 'location') {
+                return renderLocationMessage(message);
               }
 
               return renderTextMessage(message);
@@ -5498,26 +5793,201 @@
           setStatusMessage(chatProductListFeedback, message, tone);
         }
 
-        function createProductListItemRow(item = {}) {
-          const row = document.createElement('div');
-          row.className = 'chat-product-list-item-row';
-          row.innerHTML = `
-            <input type="text" data-list-item-name="true" placeholder="Producto o material" maxlength="60" value="${escapeHtml(item.name || '')}" />
-            <input type="text" data-list-item-quantity="true" placeholder="Cant." maxlength="20" value="${escapeHtml(item.quantity || '1')}" />
-            <input type="text" data-list-item-note="true" placeholder="Detalle opcional" maxlength="80" value="${escapeHtml(item.note || '')}" />
-            <button type="button" class="chat-product-list-item-row__remove" aria-label="Eliminar ítem">
-              <span class="material-symbols-outlined">delete</span>
+        function getCategoryIcon(category) {
+          return {
+            plomeria: 'plumbing',
+            electricidad: 'bolt',
+            limpieza: 'cleaning_services',
+            albanileria: 'construction',
+            aire: 'ac_unit',
+            jardineria: 'grass',
+            pintura: 'format_paint',
+            carpinteria: 'chair',
+            general: 'inventory_2',
+          }[category] || 'inventory_2';
+        }
+
+        function formatMaterialPrice(value) {
+          const amount = Number(value) || 0;
+          return `$${Math.round(amount * 100) / 100}`;
+        }
+
+        function slugifyMaterialName(value) {
+          return String(value || 'material')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '') || 'material';
+        }
+
+        function createProductListItem(item = {}) {
+          const category = currentProductListState?.category || 'general';
+          return {
+            id: item.id || `item-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`,
+            name: String(item.name || '').trim() || 'Nuevo material',
+            quantity: Math.max(1, Number(item.quantity) || 1),
+            note: String(item.note || '').trim(),
+            price: Number(item.price) || 0,
+            category,
+            photo: item.photo || '',
+          };
+        }
+
+        function getRecommendedItemsByCategory(category) {
+          return productListCatalogByCategory[category] || productListCatalogByCategory.general;
+        }
+
+        function calculateProductListSubtotal() {
+          if (!currentProductListState) {
+            return 0;
+          }
+          return currentProductListState.items.reduce((total, item) => total + ((Number(item.price) || 0) * (Number(item.quantity) || 0)), 0);
+        }
+
+        function renderRecommendedItems() {
+          const category = currentProductListState?.category || 'general';
+          const items = getRecommendedItemsByCategory(category);
+          chatProductListRecommended.innerHTML = items.map((item) => `
+            <button type="button" class="chat-product-list-recommend-card" data-recommended-item="${escapeHtml(item.name)}">
+              <div class="chat-product-list-recommend-card__preview">
+                <span class="material-symbols-outlined">${escapeHtml(item.icon || 'inventory_2')}</span>
+              </div>
+              <strong>${escapeHtml(item.name)}</strong>
+              <div class="chat-product-list-recommend-card__footer">
+                <span>${escapeHtml(formatMaterialPrice(item.price))}</span>
+                <span class="material-symbols-outlined">add</span>
+              </div>
             </button>
-          `;
-          return row;
+          `).join('');
+        }
+
+        function renderProductListItems() {
+          const items = currentProductListState?.items || [];
+          chatProductListItems.innerHTML = items.map((item) => `
+            <article class="chat-product-list-editor-card" data-product-list-item-id="${escapeHtml(item.id)}">
+              <div class="chat-product-list-editor-card__media">
+                ${item.photo
+                  ? `<img src="${escapeHtml(item.photo)}" alt="${escapeHtml(item.name)}" />`
+                  : '<span class="material-symbols-outlined">image</span>'}
+              </div>
+              <div class="chat-product-list-editor-card__body">
+                <div class="chat-product-list-editor-card__copy">
+                  <input type="text" value="${escapeHtml(item.name)}" data-product-list-name="true" maxlength="80" />
+                  <p>${escapeHtml(item.note || `Categoría: ${formatRequestCategory(item.category || currentProductListState?.category || 'general')}`)}</p>
+                </div>
+                <div class="chat-product-list-editor-card__actions">
+                  <div class="chat-product-list-stepper">
+                    <button type="button" data-product-list-decrement="true">
+                      <span class="material-symbols-outlined">remove</span>
+                    </button>
+                    <strong>${escapeHtml(String(item.quantity))}</strong>
+                    <button type="button" data-product-list-increment="true">
+                      <span class="material-symbols-outlined">add</span>
+                    </button>
+                  </div>
+                  <div class="chat-product-list-editor-card__buttons">
+                    <button type="button" class="chat-product-list-editor-card__photo" data-product-list-photo="true" aria-label="Agregar foto">
+                      <span class="material-symbols-outlined">${item.photo ? 'photo_camera' : 'add_a_photo'}</span>
+                    </button>
+                    <button type="button" class="chat-product-list-editor-card__delete" data-product-list-delete="true" aria-label="Eliminar item">
+                      <span class="material-symbols-outlined">delete</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </article>
+          `).join('');
+          chatProductListCount.textContent = `${items.length} ${items.length === 1 ? 'item agregado' : 'items agregados'}`;
+          chatProductListSubtotal.textContent = formatMaterialPrice(calculateProductListSubtotal());
+        }
+
+        function renderProductListModalState() {
+          if (!currentProductListState) {
+            return;
+          }
+          chatProductListCategorySelect.value = currentProductListState.category;
+          chatProductListCategoryIcon.textContent = getCategoryIcon(currentProductListState.category);
+          renderRecommendedItems();
+          renderProductListItems();
+        }
+
+        function addRecommendedProduct(name) {
+          if (!currentProductListState) {
+            return;
+          }
+          const recommendation = getRecommendedItemsByCategory(currentProductListState.category)
+            .find((item) => item.name === name);
+          if (!recommendation) {
+            return;
+          }
+          const existingItem = currentProductListState.items.find((item) => item.name === recommendation.name);
+          if (existingItem) {
+            existingItem.quantity += 1;
+          } else {
+            currentProductListState.items.push(createProductListItem({
+              name: recommendation.name,
+              quantity: 1,
+              note: recommendation.note,
+              price: recommendation.price,
+            }));
+          }
+          renderProductListModalState();
+        }
+
+        function addManualProduct() {
+          if (!currentProductListState) {
+            return;
+          }
+          currentProductListState.items.push(createProductListItem({
+            name: `Material ${currentProductListState.items.length + 1}`,
+            quantity: 1,
+            note: 'Sin foto adjunta',
+            price: 0,
+          }));
+          renderProductListModalState();
+        }
+
+        function getDefaultProductListCategory() {
+          const button = getSelectedThreadButton();
+          const job = normalizeText(button?.dataset.chatJob || '');
+          if (job.includes('plomer')) {
+            return 'plomeria';
+          }
+          if (job.includes('electr')) {
+            return 'electricidad';
+          }
+          if (job.includes('limp')) {
+            return 'limpieza';
+          }
+          if (job.includes('alba')) {
+            return 'albanileria';
+          }
+          if (job.includes('aire')) {
+            return 'aire';
+          }
+          if (job.includes('jardin')) {
+            return 'jardineria';
+          }
+          if (job.includes('pint')) {
+            return 'pintura';
+          }
+          if (job.includes('carp')) {
+            return 'carpinteria';
+          }
+          return 'general';
         }
 
         function resetProductListForm() {
-          chatProductListTitleInput.value = '';
-          chatProductListItems.innerHTML = '';
-          chatProductListItems.appendChild(createProductListItemRow());
-          chatProductListItems.appendChild(createProductListItemRow());
+          const category = getDefaultProductListCategory();
+          const categoryLabel = formatRequestCategory(category);
+          currentProductListState = {
+            category,
+            items: [],
+          };
+          chatProductListTitleInput.value = `Lista de ${categoryLabel}`;
           setChatProductListFeedback('', 'neutral');
+          renderProductListModalState();
         }
 
         function openProductListModal() {
@@ -5536,16 +6006,293 @@
         }
 
         function collectProductListFormData() {
-          const title = chatProductListTitleInput.value.trim() || 'Lista de productos';
-          const items = Array.from(chatProductListItems.querySelectorAll('.chat-product-list-item-row'))
-            .map((row) => ({
-              name: row.querySelector('[data-list-item-name="true"]')?.value.trim() || '',
-              quantity: row.querySelector('[data-list-item-quantity="true"]')?.value.trim() || '1',
-              note: row.querySelector('[data-list-item-note="true"]')?.value.trim() || '',
+          const title = chatProductListTitleInput.value.trim() || 'Lista de Materiales';
+          const items = (currentProductListState?.items || [])
+            .map((item) => ({
+              name: item.name,
+              quantity: String(item.quantity),
+              note: item.note,
+              price: item.price,
+              category: item.category,
+              photo: item.photo,
             }))
             .filter((item) => item.name);
 
-          return { title, items };
+          return {
+            title,
+            category: currentProductListState?.category || 'general',
+            subtotal: calculateProductListSubtotal(),
+            items,
+          };
+        }
+
+        function buildMaterialListDetailText(detail) {
+          const items = Array.isArray(detail?.items) ? detail.items : [];
+          const lines = [
+            detail?.title || 'Lista de Materiales',
+            '',
+            ...items.map((item) => {
+              const quantity = item.quantity || '1';
+              const unitPrice = Number(item.price) || 0;
+              const lineTotal = unitPrice * (Number(quantity) || 0);
+              return `- ${item.name}: x${quantity} · Unitario ${formatMaterialPrice(unitPrice)} · Total ${formatMaterialPrice(lineTotal)}`;
+            }),
+            '',
+            `Subtotal estimado: ${formatMaterialPrice(detail?.subtotal || 0)}`,
+          ];
+          return lines.join('\n');
+        }
+
+        function closeMaterialListDetailModal() {
+          chatMaterialListDetailModal.hidden = true;
+          syncBodyModalState();
+        }
+
+        function renderMaterialListDetail(detail) {
+          const items = Array.isArray(detail?.items) ? detail.items : [];
+          chatMaterialListDetailTitle.textContent = detail?.title || 'Lista de Materiales';
+          chatMaterialListDetailSender.textContent = 'Enviado por el profesional';
+          chatMaterialListDetailCount.textContent = `${items.length} ${items.length === 1 ? 'item' : 'items'}`;
+          chatMaterialListDetailTotal.textContent = formatMaterialPrice(detail?.subtotal || 0);
+          chatMaterialListDetailItems.innerHTML = items.map((item) => {
+            const quantity = Number(item.quantity) || 1;
+            const unitPrice = Number(item.price) || 0;
+            const lineTotal = unitPrice * quantity;
+            return `
+              <article class="chat-material-list-detail__item">
+                <div class="chat-material-list-detail__item-media">
+                  ${item.photo
+                    ? `<img src="${escapeHtml(item.photo)}" alt="${escapeHtml(item.name)}" />`
+                    : `<span class="material-symbols-outlined">${escapeHtml(getCategoryIcon(item.category || detail?.category || 'general'))}</span>`}
+                </div>
+                <div class="chat-material-list-detail__item-copy">
+                  <div class="chat-material-list-detail__item-top">
+                    <h6>${escapeHtml(item.name || 'Material')}</h6>
+                    <strong>${escapeHtml(formatMaterialPrice(lineTotal))}</strong>
+                  </div>
+                  <div class="chat-material-list-detail__item-bottom">
+                    <div>
+                      <span>Cantidad</span>
+                      <strong>x${escapeHtml(String(quantity))}</strong>
+                    </div>
+                    <div>
+                      <span>Precio unitario</span>
+                      <strong>${escapeHtml(formatMaterialPrice(unitPrice))}</strong>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            `;
+          }).join('');
+        }
+
+        function openMaterialListDetailFromPayload(encodedPayload) {
+          if (!encodedPayload) {
+            return;
+          }
+
+          try {
+            activeMaterialListDetail = JSON.parse(decodeURIComponent(encodedPayload));
+            renderMaterialListDetail(activeMaterialListDetail);
+            chatMaterialListDetailModal.hidden = false;
+            syncBodyModalState();
+          } catch (error) {
+            setStatusMessage(syncStatus, 'No pudimos abrir el detalle de la lista.', 'error');
+          }
+        }
+
+        async function copyActiveMaterialListDetail() {
+          if (!activeMaterialListDetail) {
+            return;
+          }
+          const text = buildMaterialListDetailText(activeMaterialListDetail);
+          try {
+            await navigator.clipboard.writeText(text);
+            setStatusMessage(syncStatus, 'Detalle de materiales copiado.', 'success');
+          } catch (error) {
+            setStatusMessage(syncStatus, 'No pudimos copiar el detalle.', 'error');
+          }
+        }
+
+        function downloadActiveMaterialListDetail() {
+          if (!activeMaterialListDetail) {
+            return;
+          }
+          const text = buildMaterialListDetailText(activeMaterialListDetail);
+          const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `${slugifyMaterialName(activeMaterialListDetail.title || 'lista-materiales')}.txt`;
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          URL.revokeObjectURL(url);
+        }
+
+        async function sendRemoteImageMessage(threadButton, file) {
+          const imageUrl = await fileToDataUrl(file);
+          if (!supabaseClient || !currentAuthSession?.user || !threadButton.dataset.chatRequestId) {
+            throw new Error('No hay una conversación real disponible para este envío.');
+          }
+
+          const counterpartRole = threadButton.dataset.chatCounterpartRole || 'Cliente';
+          const senderRole = counterpartRole === 'Cliente' ? 'Profesional' : 'Cliente';
+          const requestId = threadButton.dataset.chatRequestId;
+          const counterpartId = threadButton.dataset.chatCounterpartId || '';
+          const counterpartName = threadButton.dataset.chatCounterpartName || 'Usuario';
+          const threadId = threadButton.dataset.chatThread || '';
+
+          const { error } = await supabaseClient
+            .from('request_messages')
+            .insert({
+              request_id: requestId,
+              sender_id: currentAuthSession.user.id,
+              sender_name: currentDisplayName,
+              message_type: 'image',
+              body: `Foto compartida: ${file.name}`,
+              metadata: {
+                image_url: imageUrl,
+                recipient_id: counterpartId || null,
+                recipient_name: counterpartName,
+                recipient_role: counterpartRole,
+                sender_role: senderRole,
+              },
+            });
+
+          if (error) {
+            throw error;
+          }
+
+          await loadRemoteThreads({ silent: true, targetThreadId: threadId });
+        }
+
+        function sendLocalImageMessage(threadButton, file, imageUrl) {
+          const threadId = threadButton.dataset.chatThread || '';
+          const timestamp = new Date().toISOString();
+          const nextThreads = loadLocalThreads().map((thread) => {
+            if (thread.id !== threadId) {
+              return thread;
+            }
+
+            const messages = [
+              ...(Array.isArray(thread.messages) ? thread.messages : []),
+              {
+                type: 'image',
+                text: `Foto compartida: ${file.name}`,
+                time: formatChatTimestamp(timestamp),
+                seen: true,
+                image: imageUrl,
+              },
+            ];
+
+            return {
+              ...thread,
+              preview: 'Foto compartida',
+              time: formatChatTimestamp(timestamp),
+              lastCreatedAt: timestamp,
+              messages,
+            };
+          });
+
+          saveLocalThreads(sortThreadsByDate(nextThreads));
+          renderThreadList(currentRemoteThreads, { targetThreadId: threadId });
+          renderInbox();
+          syncSelectedThread();
+        }
+
+        function sendLocalDocument(threadButton, documentPayload) {
+          const threadId = threadButton.dataset.chatThread || '';
+          const timestamp = new Date().toISOString();
+          const nextThreads = loadLocalThreads().map((thread) => {
+            if (thread.id !== threadId) {
+              return thread;
+            }
+
+            const messages = [
+              ...(Array.isArray(thread.messages) ? thread.messages : []),
+              createDocumentMessage(documentPayload, formatChatTimestamp(timestamp), true),
+            ];
+
+            return {
+              ...thread,
+              preview: `Documento: ${documentPayload.name}`,
+              time: formatChatTimestamp(timestamp),
+              lastCreatedAt: timestamp,
+              messages,
+            };
+          });
+
+          saveLocalThreads(sortThreadsByDate(nextThreads));
+          renderThreadList(currentRemoteThreads, { targetThreadId: threadId });
+          renderInbox();
+          syncSelectedThread();
+        }
+
+        function sendLocalLocation(threadButton, locationPayload) {
+          const threadId = threadButton.dataset.chatThread || '';
+          const timestamp = new Date().toISOString();
+          const nextThreads = loadLocalThreads().map((thread) => {
+            if (thread.id !== threadId) {
+              return thread;
+            }
+
+            const messages = [
+              ...(Array.isArray(thread.messages) ? thread.messages : []),
+              createLocationCardMessage(locationPayload, formatChatTimestamp(timestamp), true),
+            ];
+
+            return {
+              ...thread,
+              preview: 'Ubicación compartida',
+              time: formatChatTimestamp(timestamp),
+              lastCreatedAt: timestamp,
+              messages,
+            };
+          });
+
+          saveLocalThreads(sortThreadsByDate(nextThreads));
+          renderThreadList(currentRemoteThreads, { targetThreadId: threadId });
+          renderInbox();
+          syncSelectedThread();
+        }
+
+        async function sendChatAttachment(action, payload) {
+          const button = getSelectedThreadButton();
+          if (!button) {
+            throw new Error('Selecciona una conversación antes de compartir algo.');
+          }
+
+          if (action === 'photo') {
+            if (button.dataset.chatSource === 'remote') {
+              await sendRemoteImageMessage(button, payload.file);
+            } else {
+              sendLocalImageMessage(button, payload.file, payload.imageUrl);
+            }
+            openDetail(selectedThreadId);
+            return;
+          }
+
+          if (action === 'document') {
+            const encodedPayload = encodeDocumentMessage(payload);
+            if (button.dataset.chatSource === 'remote') {
+              await sendRemoteMessage(button, encodedPayload);
+            } else {
+              sendLocalDocument(button, payload);
+            }
+            openDetail(selectedThreadId);
+            return;
+          }
+
+          if (action === 'location') {
+            const encodedPayload = encodeLocationMessage(payload);
+            if (button.dataset.chatSource === 'remote') {
+              await sendRemoteMessage(button, encodedPayload);
+            } else {
+              sendLocalLocation(button, payload);
+            }
+            openDetail(selectedThreadId);
+          }
         }
 
         function syncSelectedThread() {
@@ -5761,6 +6508,16 @@
             return createProductListMessage(parsedList, formatChatTimestamp(message.created_at), isSelf);
           }
 
+          const parsedDocument = parseEncodedMessage(message.body, documentMessagePrefix);
+          if (parsedDocument) {
+            return createDocumentMessage(parsedDocument, formatChatTimestamp(message.created_at), isSelf, isSelf ? 'outgoing' : 'incoming');
+          }
+
+          const parsedLocation = parseEncodedMessage(message.body, locationMessagePrefix);
+          if (parsedLocation) {
+            return createLocationCardMessage(parsedLocation, formatChatTimestamp(message.created_at), isSelf, isSelf ? 'outgoing' : 'incoming');
+          }
+
           return {
             type: isSelf ? 'outgoing' : 'incoming',
             text: message.body || '',
@@ -5908,9 +6665,17 @@
 
               const thread = groupedThreads.get(threadKey);
               const parsedList = parseProductListMessage(message.body);
+              const parsedDocument = parseEncodedMessage(message.body, documentMessagePrefix);
+              const parsedLocation = parseEncodedMessage(message.body, locationMessagePrefix);
               thread.messages.push(mapRemoteMessage(message));
               thread.preview = message.message_type === 'quote'
                 ? 'Propuesta enviada'
+                : message.message_type === 'image'
+                  ? 'Foto compartida'
+                  : parsedDocument
+                    ? `Documento: ${parsedDocument.name || 'Archivo'}`
+                    : parsedLocation
+                      ? 'Ubicación compartida'
                 : (parsedList
                   ? `Lista compartida: ${parsedList.title || 'Lista de productos'}`
                   : (message.body || thread.preview || 'Nuevo mensaje'));
@@ -6208,6 +6973,118 @@
           }
         }
 
+        async function handleProductListItemPhotoSelection(event) {
+          const file = event.target.files?.[0];
+          event.target.value = '';
+          if (!file || !pendingProductListPhotoItemId || !currentProductListState) {
+            pendingProductListPhotoItemId = '';
+            return;
+          }
+
+          try {
+            const photoUrl = await fileToDataUrl(file);
+            currentProductListState.items = currentProductListState.items.map((item) => (
+              item.id === pendingProductListPhotoItemId
+                ? { ...item, photo: photoUrl, note: item.note === 'Sin foto adjunta' ? 'Foto adjunta' : item.note }
+                : item
+            ));
+            renderProductListModalState();
+          } catch (error) {
+            setChatProductListFeedback(`No pudimos cargar la foto del material: ${error.message}`, 'error');
+          } finally {
+            pendingProductListPhotoItemId = '';
+          }
+        }
+
+        async function handlePhotoSelection(event) {
+          const file = event.target.files?.[0];
+          event.target.value = '';
+          if (!file) {
+            return;
+          }
+
+          mobileComposerSendButton.disabled = true;
+          desktopComposerSendButton.disabled = true;
+          setStatusMessage(syncStatus, 'Compartiendo foto...', 'neutral');
+
+          try {
+            const imageUrl = await fileToDataUrl(file);
+            await sendChatAttachment('photo', { file, imageUrl });
+            setStatusMessage(syncStatus, '', 'neutral');
+          } catch (error) {
+            setStatusMessage(syncStatus, `No pudimos compartir la foto: ${error.message}`, 'error');
+          } finally {
+            mobileComposerSendButton.disabled = false;
+            desktopComposerSendButton.disabled = false;
+            syncComposerState();
+          }
+        }
+
+        async function handleDocumentSelection(event) {
+          const file = event.target.files?.[0];
+          event.target.value = '';
+          if (!file) {
+            return;
+          }
+
+          mobileComposerSendButton.disabled = true;
+          desktopComposerSendButton.disabled = true;
+          setStatusMessage(syncStatus, 'Compartiendo documento...', 'neutral');
+
+          try {
+            const documentUrl = await fileToDataUrl(file);
+            await sendChatAttachment('document', {
+              name: file.name,
+              sizeLabel: formatAttachmentSize(file.size),
+              description: 'Documento adjunto para este trabajo.',
+              url: documentUrl,
+            });
+            setStatusMessage(syncStatus, '', 'neutral');
+          } catch (error) {
+            setStatusMessage(syncStatus, `No pudimos compartir el documento: ${error.message}`, 'error');
+          } finally {
+            mobileComposerSendButton.disabled = false;
+            desktopComposerSendButton.disabled = false;
+            syncComposerState();
+          }
+        }
+
+        async function handleShareLocation() {
+          closeChatActionsMenu();
+          if (!navigator.geolocation) {
+            setStatusMessage(syncStatus, 'Tu navegador no permite compartir ubicación.', 'error');
+            return;
+          }
+
+          mobileComposerSendButton.disabled = true;
+          desktopComposerSendButton.disabled = true;
+          setStatusMessage(syncStatus, 'Obteniendo ubicación actual...', 'neutral');
+
+          try {
+            const position = await new Promise((resolve, reject) => {
+              navigator.geolocation.getCurrentPosition(resolve, reject, {
+                enableHighAccuracy: true,
+                timeout: 12000,
+                maximumAge: 0,
+              });
+            });
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            await sendChatAttachment('location', {
+              label: 'Ubicación actual',
+              description: `Lat ${latitude.toFixed(5)}, Lon ${longitude.toFixed(5)}`,
+              mapUrl: `https://www.google.com/maps?q=${latitude},${longitude}`,
+            });
+            setStatusMessage(syncStatus, '', 'neutral');
+          } catch (error) {
+            setStatusMessage(syncStatus, `No pudimos compartir la ubicación: ${error.message || 'permiso denegado'}`, 'error');
+          } finally {
+            mobileComposerSendButton.disabled = false;
+            desktopComposerSendButton.disabled = false;
+            syncComposerState();
+          }
+        }
+
         async function createOrOpenRemoteRequestThread(requestContext, options = {}) {
           const { includeProposal = false } = options;
           if (!supabaseClient || !currentAuthSession?.user || !requestContext.requestId) {
@@ -6322,6 +7199,9 @@
             if (!chatProductListModal.hidden) {
               closeProductListModal();
             }
+            if (!chatMaterialListDetailModal.hidden) {
+              closeMaterialListDetailModal();
+            }
           }
         });
         mobileComposerSendButton.addEventListener('click', () => {
@@ -6352,6 +7232,23 @@
 
           if (actionButton.dataset.chatAction === 'create-list') {
             openProductListModal();
+            return;
+          }
+
+          if (actionButton.dataset.chatAction === 'upload-photo') {
+            closeChatActionsMenu();
+            chatPhotoInput.click();
+            return;
+          }
+
+          if (actionButton.dataset.chatAction === 'upload-document') {
+            closeChatActionsMenu();
+            chatDocumentInput.click();
+            return;
+          }
+
+          if (actionButton.dataset.chatAction === 'share-location') {
+            handleShareLocation();
           }
         });
         document.addEventListener('click', (event) => {
@@ -6368,26 +7265,92 @@
             positionChatActionsMenu(activeChatActionTrigger);
           }
         });
-        chatProductListAddItemButton.addEventListener('click', () => {
-          chatProductListItems.appendChild(createProductListItemRow());
+        chatProductListCategorySelect.addEventListener('change', () => {
+          if (!currentProductListState) {
+            return;
+          }
+          currentProductListState.category = chatProductListCategorySelect.value || 'general';
+          const categoryLabel = formatRequestCategory(currentProductListState.category);
+          if (!chatProductListTitleInput.value.trim() || normalizeText(chatProductListTitleInput.value).startsWith('lista de')) {
+            chatProductListTitleInput.value = `Lista de ${categoryLabel}`;
+          }
+          currentProductListState.items = currentProductListState.items.map((item) => ({ ...item, category: currentProductListState.category }));
+          renderProductListModalState();
         });
+        chatProductListRecommended.addEventListener('click', (event) => {
+          const card = event.target.closest('[data-recommended-item]');
+          if (!card) {
+            return;
+          }
+          addRecommendedProduct(card.dataset.recommendedItem || '');
+        });
+        chatProductListAddItemButton.addEventListener('click', addManualProduct);
         chatProductListItems.addEventListener('click', (event) => {
-          const removeButton = event.target.closest('.chat-product-list-item-row__remove');
-          if (!removeButton) {
+          const card = event.target.closest('[data-product-list-item-id]');
+          if (!card || !currentProductListState) {
+            return;
+          }
+          const itemId = card.dataset.productListItemId || '';
+          const targetItem = currentProductListState.items.find((item) => item.id === itemId);
+          if (!targetItem) {
             return;
           }
 
-          const rows = Array.from(chatProductListItems.querySelectorAll('.chat-product-list-item-row'));
-          if (rows.length <= 1) {
-            rows[0].querySelector('[data-list-item-name="true"]').value = '';
-            rows[0].querySelector('[data-list-item-quantity="true"]').value = '1';
-            rows[0].querySelector('[data-list-item-note="true"]').value = '';
+          if (event.target.closest('[data-product-list-increment="true"]')) {
+            targetItem.quantity += 1;
+            renderProductListModalState();
             return;
           }
 
-          removeButton.closest('.chat-product-list-item-row')?.remove();
+          if (event.target.closest('[data-product-list-decrement="true"]')) {
+            targetItem.quantity = Math.max(1, targetItem.quantity - 1);
+            renderProductListModalState();
+            return;
+          }
+
+          if (event.target.closest('[data-product-list-delete="true"]')) {
+            currentProductListState.items = currentProductListState.items.filter((item) => item.id !== itemId);
+            renderProductListModalState();
+            return;
+          }
+
+          if (event.target.closest('[data-product-list-photo="true"]')) {
+            pendingProductListPhotoItemId = itemId;
+            chatProductListItemPhotoInput.click();
+          }
+        });
+        chatProductListItems.addEventListener('input', (event) => {
+          const input = event.target.closest('[data-product-list-name="true"]');
+          const card = event.target.closest('[data-product-list-item-id]');
+          if (!input || !card || !currentProductListState) {
+            return;
+          }
+          const item = currentProductListState.items.find((entry) => entry.id === card.dataset.productListItemId);
+          if (!item) {
+            return;
+          }
+          item.name = input.value.trim() || 'Nuevo material';
         });
         chatProductListForm.addEventListener('submit', handleProductListSubmit);
+        chatPhotoInput.addEventListener('change', handlePhotoSelection);
+        chatDocumentInput.addEventListener('change', handleDocumentSelection);
+        chatProductListItemPhotoInput.addEventListener('change', handleProductListItemPhotoSelection);
+        [messageList, desktopMessageList].forEach((listElement) => {
+          listElement.addEventListener('click', (event) => {
+            const button = event.target.closest('[data-open-material-list="true"]');
+            if (!button) {
+              return;
+            }
+            openMaterialListDetailFromPayload(button.dataset.materialList || '');
+          });
+        });
+        document.querySelectorAll('[data-close-chat-material-list-detail="true"]').forEach((element) => {
+          element.addEventListener('click', closeMaterialListDetailModal);
+        });
+        chatMaterialListCopyButton.addEventListener('click', copyActiveMaterialListDetail);
+        [chatMaterialListDownloadButton, chatMaterialListDownloadSecondaryButton].forEach((button) => {
+          button.addEventListener('click', downloadActiveMaterialListDetail);
+        });
         document.querySelectorAll('[data-close-chat-product-list="true"]').forEach((element) => {
           element.addEventListener('click', closeProductListModal);
         });
