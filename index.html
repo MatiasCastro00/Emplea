@@ -5400,6 +5400,9 @@
             seen,
             list: {
               title: String(list.title || 'Lista de productos').trim(),
+              senderName: String(list.senderName || '').trim(),
+              category: String(list.category || 'general').trim() || 'general',
+              subtotal: Number(list.subtotal) || 0,
               items: Array.isArray(list.items) ? list.items : [],
             },
           };
