@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Emplea</string>
+    <string name="title_activity_main">Emplea</string>
+    <string name="package_name">com.emplea.app</string>
+    <string name="custom_url_scheme">com.emplea.app</string>
+</resources>

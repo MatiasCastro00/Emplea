@@ -5,3 +5,9 @@ Desktop.ini
 node_modules/
 
 *.log
+
+.android-sdk/
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties

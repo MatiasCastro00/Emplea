@@ -1,0 +1,8 @@
+{
+  "appId": "com.emplea.app",
+  "appName": "Emplea",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}
